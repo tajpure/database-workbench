@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<package name="struts2" extends="struts-default" namespace="">
+
+		<interceptors>
+			<interceptor name="sessionNull"
+				class="com.hoolai.share.interceptor.SessionNullInterceptor"></interceptor>
+		</interceptors>
+
+		<global-results>
+			<result name="login" type="redirect">login</result>
+		</global-results>
+
+		<action name="login">
+			<result name="success">/WEB-INF/jsp/login.jsp</result>
+		</action>
+
+		<action name="checklogin" class="com.hoolai.share.action.LoginAction">
+			<result name="success" type="redirect">activitypage</result>
+			<result name="failed" type="redirectAction" > 
+				<param name="actionName">error</param>
+				<param name="errorInfo">${loginError}</param>
+				<param name="returnUrl">${returnUrl}</param>
+			</result>
+		</action>
+
+		<action name="register">
+			<result name="success">/WEB-INF/jsp/register.jsp</result>
+		</action>
+
+		<action name="registerI" class="com.hoolai.share.action.RegisterAction">
+			<result name="success" type="redirect">login</result>
+			<result name="failed" type="redirectAction" > 
+				<param name="actionName">error</param>
+				<param name="errorInfo">${registerError}</param>
+				<param name="returnUrl">${returnUrl}</param>
+			</result>
+		</action>
+
+		<action name="logout" class="com.hoolai.share.action.LogoutAction">
+			<result name="success">/WEB-INF/jsp/login.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="techinfo" class="com.hoolai.share.action.TechPageAction">
+			<result name="success">/WEB-INF/jsp/tech_info.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="techlist" class="com.hoolai.share.action.TechTypeListAction">
+			<result name="success">/WEB-INF/jsp/techtype_list.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="altertech" class="com.hoolai.share.action.AlterTechAction">
+			<result name="success">/WEB-INF/jsp/tech_alter.jsp</result>
+			<result name="alter" type="redirect">techinfo?tid=${tid}</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="addtech" class="com.hoolai.share.action.AddTechAction">
+			<result name="add">/WEB-INF/jsp/tech_add.jsp</result>
+			<result name="success" type="redirect">techinfo?tid=${tid}</result>
+			<result name="failed" type="redirectAction" > 
+				<param name="actionName">error</param>
+				<param name="errorInfo">${addTechError}</param>
+				<param name="returnUrl">${returnUrl}</param>
+			</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="activitypage" class="com.hoolai.share.action.ActivityPageAction">
+			<result name="success">/WEB-INF/jsp/activity_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="activityinfo" class="com.hoolai.share.action.ActivityInfoAction">
+			<result name="success">/WEB-INF/jsp/activity_info.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+
+		<action name="release" class="com.hoolai.share.action.ReleaseActivityAction">
+			<result name="success">/WEB-INF/jsp/activity_release.jsp</result>
+			<result name="inserted" type="redirect">activitypage</result>
+			<result name="failed" type="redirectAction" > 
+				<param name="actionName">error</param>
+				<param name="errorInfo">${releaseActivityError}</param>
+				<param name="returnUrl">${returnUrl}</param>
+			</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="tips" class="com.hoolai.share.action.TipsAction">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="techtips" class="com.hoolai.share.action.TipsAction" method="tech_execute">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="function">
+			<result name="success">/WEB-INF/jsp/function_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="managetech" class="com.hoolai.share.action.ManageTechAction">
+			<result name="success">/WEB-INF/jsp/tech_manage.jsp</result>
+			<result name="failed">/WEB-INF/jsp/function_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="deletetech" class="com.hoolai.share.action.ManageTechAction" method="delete">
+			<result name="success" type="redirect">managetech?typeId=${typeId}</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="manageactivity" class="com.hoolai.share.action.ManageActivityAction">
+			<result name="success">/WEB-INF/jsp/activity_manage.jsp</result>
+			<result name="failed">/WEB-INF/jsp/function_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="deleteactivity" class="com.hoolai.share.action.ManageActivityAction" method="delete">
+			<result name="success" type="redirect">manageactivity</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="managetag" class="com.hoolai.share.action.ManageTagAction">
+			<result name="success">/WEB-INF/jsp/tag_manage.jsp</result>
+			<result name="failed">/WEB-INF/jsp/function_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="deletetag" class="com.hoolai.share.action.ManageTagAction" method="delete">
+			<result name="success" type="redirect">managetag</result>
+			<result name="failed">/WEB-INF/jsp/function_page.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="error" class="com.hoolai.share.action.ErrorPageAction">
+			<result name="success">/WEB-INF/jsp/error_page.jsp</result>
+		</action>
+		
+		<action name="addfeedback" class="com.hoolai.share.action.AddFeedbackAction">
+			<result name="success" type="redirect">activityinfo?aid=${aid}</result>
+			<result name="failed" type="redirect">activityinfo?aid=${aid}</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="search" class="com.hoolai.share.action.SearchAction">
+			<result name="success">/WEB-INF/jsp/search.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="participate" class="com.hoolai.share.action.CampaignAction">
+			<result name="success"></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="cancellations" class="com.hoolai.share.action.CampaignAction" method="cancle">
+			<result name="success"></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="checkparticipant" class="com.hoolai.share.action.CheckParticipantAction">
+			<result name="success">/WEB-INF/jsp/participant_check.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="homepage" class="com.hoolai.share.action.HomepageAction">
+			<result name="success">/WEB-INF/jsp/homePage.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="accounts" class="com.hoolai.share.action.AccountSettingsAction">
+			<result name="success">/WEB-INF/jsp/account_settings.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="nickname" class="com.hoolai.share.action.NicknameAction">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="update" class="com.hoolai.share.action.AccountSettingsAction" method="updateAccounts">
+			<result name="success" type="redirect">homepage</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		
+		<action name="techradar" class="com.hoolai.share.action.TechRadarAction">
+			<result name="success">/WEB-INF/jsp/tech_radar.jsp</result>
+			<result name="failed" type="redirect">homepage</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+	</package>
+</struts>
