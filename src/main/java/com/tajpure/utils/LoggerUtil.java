@@ -1,4 +1,4 @@
-package com.hoolai.utils;
+package com.tajpure.utils;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;

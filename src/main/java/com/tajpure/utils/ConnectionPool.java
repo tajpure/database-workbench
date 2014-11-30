@@ -1,4 +1,4 @@
-package com.hoolai.utils;
+package com.tajpure.utils;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,7 +35,7 @@ public class ConnectionPool {
 		Properties props = new Properties();
 		try {
 			props.load(ConnectionPool.class.getClassLoader()
-					.getResourceAsStream("database.properties"));
+					.getResourceAsStream("mysql.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<style type="text/css">
+	<!--<%@ include file="/WEB-INF/mycss/flat-ui.css"%>-->
+	<!--<%@ include file="/WEB-INF/mycss/functionPage.css"%>-->
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Sharenjoy</title>
+</head>
+<body>
+	<div id="Header" class="floor">
+		<a href="activitypage" id="homepage">Sharenjoy</a>
+	</div>
+	<div id="content">
+		<div id="left">
+		</div>
+		<div id="main">
+			<div id="title">错误</div>
+			${errorInfo}
+			<a href="${returnUrl}">点击此处返回</a>
+		</div>
+		<div id="footer"></div>
+	</div>
+</body>
+</html>
