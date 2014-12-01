@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServlet;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.tajpure.utils.LoggerUtil;
+import com.tajpure.dbms.utils.LoggerUtil;
 
 public class LoginAction extends HttpServlet{
 	

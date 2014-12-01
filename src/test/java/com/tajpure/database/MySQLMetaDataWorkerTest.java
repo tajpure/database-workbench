@@ -6,6 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.tajpure.dbms.database.Database;
+import com.tajpure.dbms.database.DatabaseMetaDataFactory;
+import com.tajpure.dbms.database.DatabaseMetaDataWorker;
+
 public class MySQLMetaDataWorkerTest {
 	
 	DatabaseMetaDataWorker worker = null;
