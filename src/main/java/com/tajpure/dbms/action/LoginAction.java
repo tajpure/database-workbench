@@ -8,9 +8,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.utils.LoggerUtil;
 
 public class LoginAction extends HttpServlet{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public String execute() {
