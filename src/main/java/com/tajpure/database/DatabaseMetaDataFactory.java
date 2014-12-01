@@ -1,5 +1,6 @@
 package com.tajpure.database;
 
+
 public class DatabaseMetaDataFactory {
 	
 	private static DatabaseMetaDataFactory factory = null;
@@ -7,8 +8,8 @@ public class DatabaseMetaDataFactory {
 	public DatabaseMetaDataWorker getDatabaseMetaDataWorker(Database database) {
 		DatabaseMetaDataWorker worker = null;
 		switch (database) {
-//		case Database.MySQL : worker = new MySQLMetaDataWorker(); break;
-//		case Database.SQLServer : worker = new SQLServerMetaDataWorker(); break;
+		case MySQL : worker = new MySQLMetaDataWorker(); break;
+		case SQLServer : worker = new SQLServerMetaDataWorker(); break;
 		default : worker = null;
 		}
 		return worker;
