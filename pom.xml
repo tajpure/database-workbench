@@ -11,11 +11,6 @@
 			<version>5.1.29</version>
 		</dependency>
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc4</artifactId>
-			<version>4.0</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
