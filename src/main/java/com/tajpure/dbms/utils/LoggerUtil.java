@@ -8,7 +8,7 @@ public class LoggerUtil {
 	private static Logger logger = Logger.getLogger (LoggerUtil.class.getName ());
 	
 	static {
-		PropertyConfigurator.configure ("src/main/resources/log4j.properties");
+		PropertyConfigurator.configure ("src/main/resource/log4j.properties");
 		/*logger.shutdown();*/
 	}
 	

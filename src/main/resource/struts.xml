@@ -28,7 +28,7 @@
 			</result>
 		</action>
 		
-		<action name="homePage" class="com.tajpure.dbms.action.LoginAction">
+		<action name="homePage" class="com.tajpure.dbms.action.HomePageAction">
 			<result name="success">/WEB-INF/jsp/homePage.jsp</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />

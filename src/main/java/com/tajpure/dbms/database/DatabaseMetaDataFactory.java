@@ -2,6 +2,7 @@ package com.tajpure.dbms.database;
 
 import java.sql.Connection;
 
+import com.tajpure.dbms.entity.User;
 import com.tajpure.dbms.utils.Assert;
 import com.tajpure.dbms.utils.ConnectionPool;
 
@@ -10,10 +11,10 @@ public class DatabaseMetaDataFactory {
 	
 	private static DatabaseMetaDataFactory factory = null;
 	
-	public DatabaseMetaDataWorker getWorker(Database database) {
-		Connection con = ConnectionPool.getConnection();
+	public DatabaseMetaDataWorker getWorker(User boss) {
+		Connection con = ConnectionPool.getConnection(boss);
 		DatabaseMetaDataWorker worker = null;
-		switch (database) {
+		switch (boss.getDatabase()) {
 			case MySQL : worker = new MySQLMetaDataWorker(con); break;
 			case SQLServer : worker = new SQLServerMetaDataWorker(con); break;
 			case Oracle : worker = new SQLServerMetaDataWorker(con); break;

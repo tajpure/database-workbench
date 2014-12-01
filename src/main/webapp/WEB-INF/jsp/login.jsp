@@ -22,7 +22,7 @@
 			<form action="checklogin" method="post">
 				<br>
 				<div id="row">
-					<div id="text" class="">
+					<div id="text">
 						账号
 					</div>
 					<div id="text">
@@ -37,6 +37,19 @@
 					<div id="text">
 						<input id="psw" type="password" class="form-control input-sm"
 							name="password" />
+					</div>
+				</div>
+				<br>
+				<div id="row">
+					<div id="text">
+						DB类型
+					</div>
+					<div id="selector">
+						<select name="typeOfDB">
+							<option value=0>MySQL</option>
+							<option value=1>SQLServer</option>
+							<option value=2>Oracle</option>
+						</select>
 					</div>
 				</div>
 				<br>

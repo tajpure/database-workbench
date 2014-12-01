@@ -1,10 +1,20 @@
 package com.tajpure.dbms.entity;
 
+import com.tajpure.dbms.database.Database;
+
 public class User {
 
-	public String username;
+	private String username;
 	
-	public String password;
+	private String password;
+	
+	private Database database;
+	
+	public User(String username, String password, Database database) {
+		this.username = username;
+		this.password = password;
+		this.database = database;
+	}
 
 	public String getUsername() {
 		return username;
@@ -20,5 +30,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Database getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(Database database) {
+		this.database = database;
 	}
 }

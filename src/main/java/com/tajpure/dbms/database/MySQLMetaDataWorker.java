@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.Table;
 
 
 public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
@@ -32,6 +33,24 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		}
 		System.out.println(schemas);
 		return schemas;
+	}
+
+	@Override
+	public List<Table> getTables(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Schema getSchema(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Table getTable(String tableName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

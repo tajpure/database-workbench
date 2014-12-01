@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
 
+import com.tajpure.dbms.entity.User;
+
 public class ConnectionPool {
 
 	private static LinkedList<Connection> IdleConnection = new LinkedList<Connection>();
@@ -19,17 +21,13 @@ public class ConnectionPool {
 
 	private static String driver;
 
-	private static String username;
-
-	private static String password;
-
 	private static int maxConnect = 2;
 
 	static final boolean DEBUG = false;
 
 	static private long lastClearClosedConnection = System.currentTimeMillis();
 
-	public static long CHECK_CLOSED_CONNECTION_TIME = 5000;
+	private static long CHECK_CLOSED_CONNECTION_TIME = 5000;
 
 	static {
 		Properties props = new Properties();
@@ -42,9 +40,8 @@ public class ConnectionPool {
 		if (props != null) {
 			url = props.getProperty("url");
 			driver = props.getProperty("driver");
-			username = props.getProperty("username");
-			password = props.getProperty("password");
-
+//			username = props.getProperty("username");
+//			password = props.getProperty("password");
 			try {
 				Class.forName(driver);
 			} catch (ClassNotFoundException e) {
@@ -53,7 +50,7 @@ public class ConnectionPool {
 		}
 	}
 
-	public static synchronized Connection getConnection() {
+	public static synchronized Connection getConnection(User user) {
 		clearClosedConnection();
 
 		// Print the total numbers of current connections
@@ -86,7 +83,7 @@ public class ConnectionPool {
 		Connection con = null;
 
 		for (int i = 0; i < newCount; i++) {
-			con = getNewConnection();
+			con = getNewConnection(user);
 			if (con != null) {
 				list.add(con);
 			}
@@ -103,10 +100,10 @@ public class ConnectionPool {
 		return con;
 	}
 
-	public static Connection getNewConnection() {
+	public static Connection getNewConnection(User user) {
 		try {
-			Connection con = DriverManager.getConnection(url, username,
-					password);
+			Connection con = DriverManager.getConnection(url, user.getUsername(),
+					user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -231,7 +228,8 @@ public class ConnectionPool {
 	}
 
 	public static void main(String[] args) {
-		Connection conn = getConnection();
+		User user = new User("root", "930710");
+		Connection conn = getConnection(user);
 		System.out.println(conn);
 	}
 }

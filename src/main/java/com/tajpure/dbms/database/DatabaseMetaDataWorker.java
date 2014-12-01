@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.utils.Assert;
 import com.tajpure.dbms.utils.ConnectionPool;
 
@@ -49,6 +50,12 @@ public abstract class DatabaseMetaDataWorker {
 	}
 	
 	public abstract List<Schema> getSchemas();
+	
+	public abstract List<Table> getTables(String schemaName);
+	
+	public abstract Schema getSchema(String schemaName);
+	
+	public abstract Table getTable(String tableName);
 	
 	public void drop() {
 		ConnectionPool.pushConnectionBackToPool(con);

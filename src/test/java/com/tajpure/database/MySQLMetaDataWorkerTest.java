@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.tajpure.dbms.database.Database;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
+import com.tajpure.dbms.entity.User;
 
 public class MySQLMetaDataWorkerTest {
 	
@@ -17,7 +18,8 @@ public class MySQLMetaDataWorkerTest {
 	@Before
 	public void init() {
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-		worker = factory.getWorker(Database.MySQL);
+		User user = new User("", "");
+		worker = factory.getWorker(user);
 	}
 	
 	@Test
