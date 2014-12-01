@@ -1,5 +1,7 @@
 package com.tajpure.database;
 
+import com.tajpure.utils.Assert;
+
 
 public class DatabaseMetaDataFactory {
 	
@@ -10,7 +12,8 @@ public class DatabaseMetaDataFactory {
 		switch (database) {
 		case MySQL : worker = new MySQLMetaDataWorker(); break;
 		case SQLServer : worker = new SQLServerMetaDataWorker(); break;
-		default : worker = null;
+		case Oracle : worker = new SQLServerMetaDataWorker(); break;
+		default : Assert.error("This kind of database isn't supported.");
 		}
 		return worker;
 	}

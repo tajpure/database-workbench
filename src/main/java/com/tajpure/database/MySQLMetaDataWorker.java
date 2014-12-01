@@ -9,14 +9,14 @@ import com.mysql.jdbc.DatabaseMetaData;
  */
 public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	
-	private DatabaseMetaData dbMetaData = null;
+	private DatabaseMetaData metaData = null;
 
-	public DatabaseMetaData getDbMetaData() {
-		return dbMetaData;
+	public DatabaseMetaData getMetaData() {
+		return metaData;
 	}
 
-	public void setDbMetaData(DatabaseMetaData dbMetaData) {
-		this.dbMetaData = dbMetaData;
+	public void setMetaData(DatabaseMetaData MetaData) {
+		this.metaData = MetaData;
 	}
 
 }

@@ -8,6 +8,4 @@ package com.tajpure.database;
  */
 public abstract class DatabaseMetaDataWorker {
 	
-	protected static DatabaseMetaDataWorker worker = null;
-	
 }
