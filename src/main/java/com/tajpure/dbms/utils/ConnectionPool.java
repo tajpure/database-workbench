@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Properties;
 
+import com.tajpure.dbms.database.Database;
 import com.tajpure.dbms.entity.User;
 
 public class ConnectionPool {
@@ -102,14 +103,19 @@ public class ConnectionPool {
 
 	public static Connection getNewConnection(User user) {
 		try {
-			Connection con = DriverManager.getConnection(url, user.getUsername(),
-					user.getPassword());
+			Connection con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 		return null;
+	}
+	
+	public static Connection checkUser(User user) throws SQLException {
+		Connection con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
+		UsedConnection.add(con);
+		return con;
 	}
 
 	public static synchronized void pushConnectionBackToPool(Connection con) {
@@ -228,7 +234,7 @@ public class ConnectionPool {
 	}
 
 	public static void main(String[] args) {
-		User user = new User("root", "930710");
+		User user = new User("google", "google", Database.MySQL);
 		Connection conn = getConnection(user);
 		System.out.println(conn);
 	}
