@@ -112,10 +112,15 @@ public class ConnectionPool {
 		return null;
 	}
 	
-	public static Connection checkUser(User user) throws SQLException {
-		Connection con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
-		UsedConnection.add(con);
-		return con;
+	public static boolean isUserLegal(User user) {
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
+		} catch (SQLException e) {
+			return false;
+		}
+		IdleConnection.add(con);
+		return true;
 	}
 
 	public static synchronized void pushConnectionBackToPool(Connection con) {

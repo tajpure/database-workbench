@@ -1,7 +1,5 @@
 package com.tajpure.dbms.action;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
@@ -30,11 +28,7 @@ public class LoginAction extends HttpServlet{
 		}
 		User user = new User(username, password, db);
 		
-		try {
-			Connection con = ConnectionPool.checkUser(user);
-			ConnectionPool.pushConnectionBackToPool(con);
-		} catch (SQLException e) {
-			LoggerUtil.error("User doesn't exist or the password is error.");
+		if (!ConnectionPool.isUserLegal(user)) {
 			return "failure";
 		}
 		
