@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+body {margin: 0;}
+#Header {position: fixed;top:0px;background-color: #808080;padding: 1px;heigth: 10px;width:100%;z-index:99999;}
+#secondHeader{position: relative;top:30px;background-color: #EEEEEE;heigth: 10px;padding: 1px;width:100%;}
+#homepage {font-size: 15px;color: white;text-decoration: none;heigth: 10px;}
+#myhomepage {position: relative;left: 80px;font-size: 15px;color: white;text-decoration: none}
+#account{position: relative;top:0px;right:60px;width:60px;height :1px;float:right;color: white;font-size:15px;}
+#info{position: relative;top:-10px;left: 360px;height:10px;}
+.img-avatar{position:absolute;top:-2px;left:0px;top:3px;border:0;width:24px;height:24px;text-indent:-9999em}
+#nickname{position:absolute;top:0px;left:30px;}
+#tech {position: relative;left: 100px;font-size: 15px;color: white;text-decoration: none}
+#title{font-size: 30px;}
+#function {position: relative;left: 120px;font-size: 15px;color: white;text-decoration: none}
+#logout {font-size: 15px;color: white;position: relative;left: 140px;}
+#title{position: relative;color: #808000;}
+.horizontallist li{DISPLAY: inline}
+#content{position: relative;left: 100px;top:30px;width: 1200px;}
+#left{position: relative;float: left;width: 250px;}
+#main{float: left;position: relative;left: 260px;width: 600px;}
+.function-item{margin:20px;}
+#right{position: relative;display:inline;left: 600px;width: 400px;}
+#Footer {height: 50px;}
+ul,li{padding: 0;margin: 0;}
+li{list-style: none;}
+#top{width: 100%;background: #2D2D2D;height: 30px;}
+.topli{float: left;height: 30px;line-height: 30px;}
+.topli a{display:block;padding: 0 14px;height: 30px;}
+.topli a:hover{background:#444;}
+.more{position: fixed;top: 30px;float:right;right:60px;background: #fff;display: none;border: 1px solid #c2c2c2;z-index: 999;border-top: none;width:60px;font-size:15px;}
+.more a{color: #3366CC;}
+.more a:hover{background: #f0f0f0;}

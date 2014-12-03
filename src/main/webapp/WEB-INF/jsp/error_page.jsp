@@ -8,14 +8,12 @@
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/mycss/flat-ui.css"%>-->
 	<!--<%@ include file="/WEB-INF/mycss/functionPage.css"%>-->
+	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Sharenjoy</title>
 </head>
 <body>
-	<div id="Header" class="floor">
-		<a href="activitypage" id="homepage">Sharenjoy</a>
-	</div>
 	<div id="content">
 		<div id="left">
 		</div>

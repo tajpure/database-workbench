@@ -1,9 +1,9 @@
 @CHARSET "UTF-8";
-body {margin: 0; overflow-x: hidden;}
+body {margin: 0; overflow-x: hidden; background-color: #00353D;}
 #Header {position: fixed;top:0px;background-color: #808080;padding: 1px;heigth: 10px;width:100%;z-index:99999;}
 #secondHeader{position: relative;top:30px;background-color: #EEEEEE;padding: 1px;width:100%;height:60px;}
 #homepage {font-size: 15px;color: white;text-decoration: none;heigth: 10px;}
-#left {position: fixed;float: left;margin: 5px;top: 60px;left: 120px;height: 700px;width: 250px;}
+#left {position: relative;float: left;margin: 5px;top: 20px;left: 0px;}
 #main {float: left;position: relative;top:40px;left:320px;width: 720px;padding-bottom: 60px;}
 #right{position: relative;top: 60px;left: 600px;width: 400px;}
 #Footer {height: 50px;}
