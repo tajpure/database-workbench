@@ -1,6 +1,6 @@
 package com.tajpure.dbms.entity;
 
-public class View {
+public class Column {
 	
 	private String name;
 
