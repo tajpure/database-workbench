@@ -24,7 +24,7 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 			ResultSet rs = metaData.getSchemas();
 			while (rs.next()) {
 				Schema schema = new Schema();
-				schema.setSchemaName(rs.getString(1));
+				schema.setName(rs.getString(1));
 				schemas.add(schema);
 			}
 		} catch (SQLException e) {

@@ -39,6 +39,10 @@ public abstract class DatabaseMetaDataWorker {
 		}
 	}
 	
+	public void drop() {
+		ConnectionPool.pushConnectionBackToPool(con);
+	}
+	
 	public String getDriverName() {
 		String driverName = null;
 		try {
@@ -56,9 +60,11 @@ public abstract class DatabaseMetaDataWorker {
 	public abstract Schema getSchema(String schemaName);
 	
 	public abstract Table getTable(String tableName);
-	
-	public void drop() {
-		ConnectionPool.pushConnectionBackToPool(con);
+
+	public List<Table> getTables(String catalog, String schemaPattern,
+			String tableNamePattern, String[] types) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

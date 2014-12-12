@@ -32,6 +32,11 @@ public class MySQLMetaDataWorkerTest {
 		worker.getSchemas();
 	}
 	
+	@Test
+	public void testGetTables() {
+		worker.getTables("");
+	}
+	
 	@After
 	public void drop() {
 		worker.drop();

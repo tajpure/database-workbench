@@ -14,7 +14,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 
 	public MySQLMetaDataWorker(Connection con) {
 		super(con);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -25,7 +24,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			ResultSet rs = metaData.getCatalogs();
 			while (rs.next()) {
 				Schema schema = new Schema();
-				schema.setSchemaName(rs.getString(1));
+				schema.setName(rs.getString(1));
 				schemas.add(schema);
 			}
 		} catch (SQLException e) {
@@ -34,10 +33,22 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		System.out.println(schemas);
 		return schemas;
 	}
+	
+	
 
 	@Override
-	public List<Table> getTables(String schemaName) {
-		// TODO Auto-generated method stub
+	public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) {
+		
+		try {
+			ResultSet rs = metaData.getTables(catalog, schemaPattern, tableNamePattern, types);
+			while (rs.next()) {
+				Table table = new Table();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
@@ -52,7 +63,11 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
+	@Override
+	public List<Table> getTables(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
