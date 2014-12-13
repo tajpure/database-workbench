@@ -17,6 +17,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
+	public Schema getSchema(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public List<Schema> getSchemas() {
 		List<Schema> schemas = new ArrayList<Schema>();
 		
@@ -33,9 +39,13 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		System.out.println(schemas);
 		return schemas;
 	}
-	
-	
 
+	@Override
+	public Table getTable(String tableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) {
 		
@@ -49,18 +59,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			e.printStackTrace();
 		}
 		
-		return null;
-	}
-
-	@Override
-	public Schema getSchema(String schemaName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Table getTable(String tableName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

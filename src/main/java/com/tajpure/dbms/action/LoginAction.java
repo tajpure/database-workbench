@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServlet;
 import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.dbms.database.Database;
 import com.tajpure.dbms.entity.User;
-import com.tajpure.dbms.utils.Assert;
-import com.tajpure.dbms.utils.ConnectionPool;
-import com.tajpure.dbms.utils.LoggerUtil;
+import com.tajpure.dbms.util.Assert;
+import com.tajpure.dbms.util.ConnectionPool;
+import com.tajpure.dbms.util.LoggerUtil;
 
 public class LoginAction extends HttpServlet{
 	

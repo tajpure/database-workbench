@@ -7,8 +7,8 @@ import java.util.List;
 
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
-import com.tajpure.dbms.utils.Assert;
-import com.tajpure.dbms.utils.ConnectionPool;
+import com.tajpure.dbms.util.Assert;
+import com.tajpure.dbms.util.ConnectionPool;
 
 
 /**

@@ -3,8 +3,8 @@ package com.tajpure.dbms.database;
 import java.sql.Connection;
 
 import com.tajpure.dbms.entity.User;
-import com.tajpure.dbms.utils.Assert;
-import com.tajpure.dbms.utils.ConnectionPool;
+import com.tajpure.dbms.util.Assert;
+import com.tajpure.dbms.util.ConnectionPool;
 
 
 public class DatabaseMetaDataFactory {

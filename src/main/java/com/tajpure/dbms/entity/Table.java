@@ -6,7 +6,7 @@ public class Table {
 	
 	private String name;
 	
-	private List<Field> fields;
+	private List<Column> columns;
 
 	public String getName() {
 		return name;
@@ -16,11 +16,11 @@ public class Table {
 		this.name = name;
 	}
 
-	public List<Field> getFields() {
-		return fields;
+	public List<Column> getColumns() {
+		return columns;
 	}
 
-	public void setFields(List<Field> fields) {
-		this.fields = fields;
+	public void setColumns(List<Column> columns) {
+		this.columns = columns;
 	}
 }
