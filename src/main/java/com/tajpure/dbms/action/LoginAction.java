@@ -18,7 +18,6 @@ public class LoginAction extends HttpServlet{
 	public String execute() {
 		Map<String, Object> map = ActionContext.getContext().getSession();
 		LoggerUtil.warn(username+" login successful.");
-		System.out.println(username + " " + password + " " + typeOfDB);
 		Database db = null;
 		switch(typeOfDB) {
 			case 0 : db = Database.MySQL; break;
@@ -27,13 +26,10 @@ public class LoginAction extends HttpServlet{
 			default : Assert.error("This kind of database isn't supported.");
 		}
 		User user = new User(username, password, db);
-		
 		if (!ConnectionPool.isUserLegal(user)) {
 			return "failure";
 		}
-		
-		map.put("name", user);
-		
+		map.put("user", user);
 		return "success";
 	}
 	

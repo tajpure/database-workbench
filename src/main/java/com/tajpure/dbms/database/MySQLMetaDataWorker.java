@@ -25,13 +25,13 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			ResultSet rs = metaData.getCatalogs();
 			while (rs.next()) {
 				Schema schema = new Schema();
-				schema.setSchemaName(rs.getString(1));
+				schema.setName(rs.getString(1));
 				schemas.add(schema);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(schemas);
+//		System.out.println(schemas);
 		return schemas;
 	}
 

@@ -30,7 +30,7 @@ public class SessionNullInterceptor implements Interceptor {
 		if (debug == true) {
 			return invocation.invoke();
 		} else {
-			if (session.get("name") == null) {
+			if (session.get("user") == null) {
 				return "login";
 			} else {
 				return invocation.invoke();

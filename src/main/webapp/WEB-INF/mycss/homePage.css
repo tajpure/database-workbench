@@ -120,7 +120,7 @@ nav
 .menu-arbol
 {
   background-color: teal;
-  max-width: 200px;
+  max-width: 280px;
   border-radius: 0.2rem;
   margin: 0 auto;
 }
@@ -193,7 +193,7 @@ pre
   font-family:'courier new',sans-serif;
   color: whitesmoke;
   font-size: 1.2rem;
-  width: 80%;
+  width: 100%;
   text-align: center;
   background-color: rgba(0,255,255,.2);
   padding: 0.5rem;

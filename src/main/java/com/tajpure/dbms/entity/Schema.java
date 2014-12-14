@@ -1,18 +1,30 @@
 package com.tajpure.dbms.entity;
 
+import java.util.List;
+
 public class Schema {
 	
-	private String schemaName = null;
+	private String name = null;
+	
+	private List<Table> tables = null;
 
-	public String getSchemaName() {
-		return schemaName;
+	public String getName() {
+		return name;
 	}
 
-	public void setSchemaName(String schemaName) {
-		this.schemaName = schemaName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public String toString() {
-		return schemaName;
+		return name;
+	}
+
+	public List<Table> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<Table> tables) {
+		this.tables = tables;
 	}
 }
