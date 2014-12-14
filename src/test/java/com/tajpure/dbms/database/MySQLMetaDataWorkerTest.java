@@ -1,4 +1,4 @@
-package com.tajpure.database;
+package com.tajpure.dbms.database;
 
 import static org.junit.Assert.*;
 

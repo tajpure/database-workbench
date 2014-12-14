@@ -1,6 +1,6 @@
 package com.tajpure.dbms.entity;
 
-public class Catalog {
+public class Field {
 	
 	private String name;
 
@@ -11,5 +11,4 @@ public class Catalog {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }
