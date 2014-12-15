@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
 
@@ -47,7 +48,20 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public Table getTable(String tableName) {
+	public Table getTable(String schemaName, String tableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Column getColumn(String schemaName, String tableName,
+			String columnName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Column> getColumns(String schemaName, String tableName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

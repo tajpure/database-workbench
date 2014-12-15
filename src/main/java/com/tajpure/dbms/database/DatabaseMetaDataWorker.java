@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.util.Assert;
@@ -55,16 +56,14 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<Schema> getSchemas();
 	
-	public abstract List<Table> getTables(String schemaName);
-	
 	public abstract Schema getSchema(String schemaName);
-	
-	public abstract Table getTable(String tableName);
 
-	public List<Table> getTables(String catalog, String schemaPattern,
-			String tableNamePattern, String[] types) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Table getTable(String schemaName, String tableName);
+	
+	public abstract List<Table> getTables(String schemaName);
+
+	public abstract Column getColumn(String schemaName, String tableName, String columnName);
+	
+	public abstract List<Column> getColumns(String schemaName, String tableName);
 
 }

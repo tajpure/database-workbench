@@ -6,9 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.tajpure.dbms.database.Database;
-import com.tajpure.dbms.database.DatabaseMetaDataFactory;
-import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.User;
 
 public class MySQLMetaDataWorkerTest {
@@ -31,10 +28,25 @@ public class MySQLMetaDataWorkerTest {
 	public void testGetSchemas() {
 		worker.getSchemas();
 	}
+
+	@Test
+	public void testGetTable() {
+		assertNotNull(worker.getTable("hoolai_share", "authorities"));
+	}
 	
 	@Test
 	public void testGetTables() {
-		worker.getTables("");
+		assertNotNull(worker.getTables("hoolai_share"));
+	}
+	
+	@Test
+	public void testGetColumn() {
+		assertNotNull(worker.getColumns("hoolai_share", "user"));
+	}
+	
+	@Test
+	public void testGetColumns() {
+		assertNotNull(worker.getColumn("hoolai_share", "user", "name"));
 	}
 	
 	@After
