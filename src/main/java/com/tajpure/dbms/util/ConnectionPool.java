@@ -84,7 +84,7 @@ public class ConnectionPool {
 		Connection con = null;
 
 		for (int i = 0; i < newCount; i++) {
-			con = getNewConnection(user);
+			con = getNewConnection(user, "");
 			if (con != null) {
 				list.add(con);
 			}
@@ -101,9 +101,9 @@ public class ConnectionPool {
 		return con;
 	}
 
-	public static Connection getNewConnection(User user) {
+	public static Connection getNewConnection(User user, String schema) {
 		try {
-			Connection con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
+			Connection con = DriverManager.getConnection(url + schema, user.getUsername(),user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();

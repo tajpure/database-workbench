@@ -8,6 +8,7 @@ import java.util.List;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
+import com.tajpure.dbms.entity.User;
 import com.tajpure.dbms.util.Assert;
 import com.tajpure.dbms.util.ConnectionPool;
 
@@ -65,5 +66,7 @@ public abstract class DatabaseMetaDataWorker {
 	public abstract Column getColumn(String schemaName, String tableName, String columnName);
 	
 	public abstract List<Column> getColumns(String schemaName, String tableName);
+	
+	public abstract List<List> getValues(User user, String schema, String table);
 
 }

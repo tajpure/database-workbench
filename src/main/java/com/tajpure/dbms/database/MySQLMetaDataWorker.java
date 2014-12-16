@@ -1,6 +1,7 @@
 package com.tajpure.dbms.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.List;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
+import com.tajpure.dbms.entity.User;
+import com.tajpure.dbms.util.ConnectionPool;
 
 
 public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
@@ -32,6 +35,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			while (rs.next()) {
 				Schema schema = new Schema();
 				schema.setName(rs.getString(1));
+				schema.setTables(getTables(schema.getName()));
 				schemas.add(schema);
 			}
 		} catch (SQLException e) {
@@ -62,6 +66,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			while (rs.next()) {
 				Table table = new Table();
 				table.setName(rs.getString(3));
+				table.setColumns(getColumns(catalog, tableNamePattern));
 				tables.add(table);
 			}
 		} catch (SQLException e) {
@@ -98,6 +103,32 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			e.printStackTrace();
 		}
 		return columns;
+	}
+	
+	public List<List> getValues(User user, String schema, String table) {
+		List<List> lists = new ArrayList<List>();
+		List<Object> objs = new ArrayList<Object>();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schema);
+        int sizeOfColumns = getColumns(schema, table).size();
+		try {
+				stmt = con.prepareStatement("select * from " + table + ";");
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					for (int i=1; i <= sizeOfColumns; i++) {
+					objs.add(rs.getObject(i));
+//					System.out.print(rs.getString(i) + " ");
+				}
+				lists.add(objs);
+//				System.out.println();
+				}
+				con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return lists;
 	}
 
 }

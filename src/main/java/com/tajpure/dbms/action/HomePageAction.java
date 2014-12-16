@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
 
 public class HomePageAction extends HttpServlet {
@@ -21,12 +22,25 @@ public class HomePageAction extends HttpServlet {
 		User user = (User) map.get("user");
 		DatabaseMetaDataWorker worker = factory.getWorker(user);
 		
+		if (tableName != null) {
+			table = worker.getTable(schemaName, tableName);
+			values = worker.getValues(user, schemaName, tableName);
+		}
+			
 		schemas = worker.getSchemas();
 		
 		return "success";
 	}
+	
+	private String schemaName = null;
+	
+	private String tableName = null;
 
 	private List<Schema> schemas = null;
+	
+	private Table table = null;
+	
+	private List<List> values = null;
 	
 	public List<Schema> getSchemas() {
 		return schemas;
@@ -34,5 +48,37 @@ public class HomePageAction extends HttpServlet {
 
 	public void setSchemas(List<Schema> schemas) {
 		this.schemas = schemas;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+	public String getSchemaName() {
+		return schemaName;
+	}
+
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
+	}
+
+	public List<List> getValues() {
+		return values;
+	}
+
+	public void setValues(List<List> values) {
+		this.values = values;
 	}
 }

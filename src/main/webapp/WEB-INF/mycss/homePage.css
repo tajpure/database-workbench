@@ -6,15 +6,14 @@ SOLO ESTO HACE LA MAGIA
 {
   opacity:0.5;
   height: 1px;
-  overflow: hidden;
   margin-top: 0.5rem;
+  overflow: hidden;
 }
 
 .menu-arbol .mostrar-menu:checked ~ ul
 {  
   opacity:1;
   height: auto;
-  overflow: hidden;
 }
 
 /*=================
@@ -45,7 +44,7 @@ LO DEMÁS ES ADORNO
 html, body
 {
   font-size: 16px;
-  background-color: #00353D;
+  background-color: #012B39;
   color: Yellowgreen;
 }
 h1
@@ -119,7 +118,7 @@ nav
 
 .menu-arbol
 {
-  background-color: teal;
+  background-color: #012B39;
   max-width: 280px;
   border-radius: 0.2rem;
   margin: 0 auto;
@@ -127,27 +126,12 @@ nav
 
 .nivel-00
 {
- background-color: teal;
+ background-color: #19364E;
 }
 
 .nivel-01
 {
-  background-color: darkcyan;
-}
-
-.nivel-02
-{
-  background-color: LightSeaGreen;
-}
-
-.nivel-03
-{
-  background-color: Turquoise;
-}
-
-.nivel-04
-{
-  background-color: Aquamarine;
+  background-color: #19364E;
 }
 
 .nivel-03 a,
@@ -205,4 +189,45 @@ pre
   max-width: 700px;
   width: 100%;
   margin: 0 auto;
+}
+
+
+/* table */
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+table {
+  background: #012B39;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap:break-word;
+  margin: 1em;
+}
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
+  height: 100px;
+  width: 100px;
+}
+.disabled td {
+  color: #4F5F64;
+}
+tbody tr {
+  transition: background 0.25s ease;
+}
+tbody tr:hover {
+  background: #014055;
 }

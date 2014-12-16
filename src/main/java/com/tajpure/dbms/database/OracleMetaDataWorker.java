@@ -9,6 +9,7 @@ import java.util.List;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
+import com.tajpure.dbms.entity.User;
 
 public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 	
@@ -62,6 +63,12 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 
 	@Override
 	public List<Column> getColumns(String schemaName, String tableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<List> getValues(User user, String schema, String table) {
 		// TODO Auto-generated method stub
 		return null;
 	}

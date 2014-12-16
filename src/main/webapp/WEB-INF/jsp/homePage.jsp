@@ -16,28 +16,38 @@
 </head>
 <body>
 	<div id="left">
+		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
 			<li>
-				<input type="radio" name="nivel-1" class="mostrar-menu" id="database">
-				<label for="database" class="ampliar"></label>
-				<a href="">database</a>
+				<input type="radio" name="nivel-1" class="mostrar-menu" id="${schema.name}">
+				<label for="${schema.name}" class="ampliar"></label>
+				<a href="">${schema.name}</a>
 				<ul class="nivel-01">
-				<c:forEach items="${schemas}" var="schema">
-					<li>
-						<input type="checkbox" class="mostrar-menu" id="${schema.name}">
-						<label for="menu02" class="ampliar"></label>
-						<a href="">${schema.name}</a>
-						<ul class="nivel-02">
-							<li><a href="">table</a></li>
-							<li><a href="">table</a></li>
-						</ul>
-					</li>
-				</c:forEach>
+					<c:forEach items="${schema.tables}" var="table">
+						<li><a href="homePage?schemaName=${schema.name}&tableName=${table.name}">${table.name}</a></li>
+					</c:forEach>
 				</ul>
 			</li>
 		</ul>
+		</c:forEach>
 	</div>
 	<div id="main">
+			<table>
+  				<thead>
+   				 <tr>
+					<c:forEach items="${table.columns}" var="column">
+      				<th>${column.name}
+					</c:forEach>
+ 				</thead>
+  					<tbody>
+					<c:forEach items="${values}" var="list">
+    				<tr>
+   					<c:forEach items="${list}" var="object">
+      					<td>${object}
+					</c:forEach>
+					</c:forEach>
+  					</tbody>
+			</table>
 	</div>
 	<div id="footer"></div>
 </body>

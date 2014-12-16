@@ -15,10 +15,12 @@ public class MySQLMetaDataWorkerTest {
 	
 	DatabaseMetaDataWorker worker = null;
 	
+	User user = null;
+	
 	@Before
 	public void init() {
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-		User user = new User("google", "google", Database.MySQL);
+		user = new User("root", "930710", Database.MySQL);
 		worker = factory.getWorker(user);
 	}
 	
@@ -35,6 +37,11 @@ public class MySQLMetaDataWorkerTest {
 	@Test
 	public void testGetTables() {
 		worker.getTables("");
+	}
+	
+	@Test
+	public void testGetValues() {
+		worker.getValues(user, "hoolai_share", "user");
 	}
 	
 	@After
