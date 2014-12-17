@@ -26,8 +26,9 @@ public class HomePageAction extends HttpServlet {
 			table = worker.getTable(schemaName, tableName);
 			values = worker.getValues(user, schemaName, tableName);
 		}
-			
-		schemas = worker.getSchemas();
+		if (schemas == null) {	// TODO Don't update schemas tree
+			schemas = worker.getSchemas();
+		}
 		
 		return "success";
 	}
@@ -35,8 +36,9 @@ public class HomePageAction extends HttpServlet {
 	private String schemaName = null;
 	
 	private String tableName = null;
-
-	private List<Schema> schemas = null;
+	
+	// TODO
+	private static List<Schema> schemas = null;
 	
 	private Table table = null;
 	

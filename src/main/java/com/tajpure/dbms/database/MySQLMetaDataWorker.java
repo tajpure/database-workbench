@@ -107,7 +107,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	
 	public List<List> getValues(User user, String schema, String table) {
 		List<List> lists = new ArrayList<List>();
-		List<Object> objs = new ArrayList<Object>();
         PreparedStatement stmt = null;
         Connection con = ConnectionPool.getNewConnection(user, "/" + schema);
         int sizeOfColumns = getColumns(schema, table).size();
@@ -115,12 +114,13 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				stmt = con.prepareStatement("select * from " + table + ";");
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
+					List<Object> objs = new ArrayList<Object>();
 					for (int i=1; i <= sizeOfColumns; i++) {
 					objs.add(rs.getObject(i));
 //					System.out.print(rs.getString(i) + " ");
-				}
-				lists.add(objs);
-//				System.out.println();
+					}
+					lists.add(objs);
+//					System.out.println();
 				}
 				con.close();
 		} catch (SQLException e) {
