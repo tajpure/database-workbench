@@ -15,6 +15,10 @@
 <title>DBMS</title>
 </head>
 <body>
+	<div id="header">
+		<a class="" href="user">Account</a>
+		<a class="" href="logout">Logout</a>
+	</div>
 	<div id="left">
 		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
