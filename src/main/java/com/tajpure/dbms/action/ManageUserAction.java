@@ -2,7 +2,7 @@ package com.tajpure.dbms.action;
 
 import javax.servlet.http.HttpServlet;
 
-public class ManageTableAction extends HttpServlet {
+public class ManageUserAction  extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
