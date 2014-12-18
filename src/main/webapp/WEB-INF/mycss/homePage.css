@@ -15,6 +15,10 @@
 	margin-left: 15px;
 	float: left;
 }
+#table-name h5 {
+	margin-left: 5px;
+	float: left;
+}
 .table-btn {
 	width: 40px;
 	height: 20px;
@@ -39,10 +43,10 @@
 	overflow: hidden;
 }
 
-.menu-arbol .mostrar-menu:checked ~ ul {
+.mostrar-menu:checked ~ ul {
 	opacity: 1;
 	height: auto;
-}
+} 
 
 @import
 	url(http://fonts.googleapis.com/css?family=Open+Sans:100,300,400,800);
@@ -117,10 +121,6 @@ li {
 	list-style: none;
 	padding: 0.5rem;
 	padding-bottom: 0;
-}
-
-.nivel-02 li:hover {
-  background: #014055;
 }
 
 .nivel-04>li {

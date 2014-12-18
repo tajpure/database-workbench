@@ -65,6 +65,11 @@
 		</c:forEach>
 	</div>
 	<div id="main">
+			<c:choose>
+			<c:when test="${not empty curTable}">
+			<div id="table-name"><h5 id="table-schema-name">${curTable.itsSchema}</h5> <h5>>></h5> <h5>${curTable.name}</h5></div>
+			</c:when>
+			</c:choose>
 			<div id="table">
 				<table>
   				<thead>
@@ -134,6 +139,10 @@
 			</c:choose>
 			</div>
 	</div>
-	<div id="footer"></div>
+	<div id="footer">
+		<script type="text/javascript">
+		showMenu();
+		</script>
+	</div>
 </body>
 </html>

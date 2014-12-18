@@ -43,6 +43,7 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public void drop() {
 		ConnectionPool.pushConnectionBackToPool(con);
+		con = null;
 	}
 	
 	public String getDriverName() {

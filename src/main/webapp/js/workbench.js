@@ -23,3 +23,12 @@ function refreshTable(columns, values) {
 						+ "<td><input class=\"table-btn\" value=\"Delete\" type=\"submit\"></tbody></table>";
 	$("#table").html(tableView);
 }
+
+function showMenu(schema) {
+	var schema = $("#table-schema-name").text();
+	var schemaId = '#' + schema;
+	var tableId = '#' + schema + '-tables';
+	$(schemaId.toString()).trigger("click");
+	$(tableId.toString()).trigger("click");
+}
+
