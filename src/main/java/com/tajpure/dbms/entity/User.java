@@ -4,24 +4,24 @@ import com.tajpure.dbms.database.Database;
 
 public class User {
 
-	private String username;
+	private String name;
 	
 	private String password;
 	
 	private Database database;
 	
 	public User(String username, String password, Database database) {
-		this.username = username;
+		this.name = username;
 		this.password = password;
 		this.database = database;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String username) {
+		this.name = username;
 	}
 
 	public String getPassword() {

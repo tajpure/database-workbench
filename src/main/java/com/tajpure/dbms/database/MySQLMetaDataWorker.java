@@ -33,6 +33,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		try {
 			ResultSet rs = metaData.getCatalogs();
 			while (rs.next()) {
+				if (isSysSchema(rs.getString(1))) {
+					continue;
+				}
 				Schema schema = new Schema();
 				schema.setName(rs.getString(1));
 				schema.setTables(getTables(schema.getName()));
@@ -66,6 +69,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			while (rs.next()) {
 				Table table = new Table();
 				table.setName(rs.getString(3));
+				table.setItsSchema(rs.getString(1));
 				table.setColumns(getColumns(catalog, tableNamePattern));
 				tables.add(table);
 			}
@@ -105,13 +109,16 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return columns;
 	}
 	
-	public List<List> getValues(User user, String schema, String table) {
-		List<List> lists = new ArrayList<List>();
+	public List<List<Object>> getValues(User user, Table table) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+		List<List<Object>> lists = new ArrayList<List<Object>>();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schema);
-        int sizeOfColumns = getColumns(schema, table).size();
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int sizeOfColumns = getColumns(schemaName, tableName).size();
 		try {
-				stmt = con.prepareStatement("select * from " + table + ";");
+				stmt = con.prepareStatement("select * from ?;");
+				stmt.setString(1, tableName);
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
 					List<Object> objs = new ArrayList<Object>();
@@ -124,11 +131,78 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				}
 				con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return lists;
+	}
+
+	@Override
+	public List<List<Object>> getValuesByPage(User user, Table table, int page, int rowsPerPage) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+		List<List<Object>> lists = new ArrayList<List<Object>>();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        List<Column> columns = getColumns(schemaName, tableName);
+        int sizeOfColumns = columns.size();
+		try {
+				stmt = con.prepareStatement("select * from " + tableName + " order by ? desc limit ?,?;");
+				stmt.setString(1, columns.get(0).getName());
+				stmt.setInt(2, (page-1)*rowsPerPage);
+				stmt.setInt(3, rowsPerPage);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					List<Object> objs = new ArrayList<Object>();
+					for (int i=1; i <= sizeOfColumns; i++) {
+					objs.add(rs.getObject(i));
+//					System.out.print(rs.getString(i) + " ");
+					}
+					lists.add(objs);
+//					System.out.println();
+				}
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lists;
+	}
+
+	@Override
+	public boolean isSysSchema(String schemaName) {
+		String[] sysSchemas = {"information_schema", "mysql", "performance_schema"};
+		for (int i=0; i < sysSchemas.length; i++) {
+			if (sysSchemas[i].equals(schemaName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public int getValuesTotalPages(User user, Table table, int rowsPerPage) {
+		int totalRows = 0;
+		int totalPages = 0;
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+		try {
+				stmt = con.prepareStatement("select count(*) from " + tableName + ";");
+				ResultSet rs = stmt.executeQuery();
+				rs.next();
+				totalRows = rs.getInt(1);
+				con.close();
+				if (totalRows % rowsPerPage == 0) {
+					totalPages = totalRows / rowsPerPage;
+				} else {
+					totalPages = totalRows / rowsPerPage + 1;
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalPages;
 	}
 
 }

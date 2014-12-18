@@ -1,6 +1,6 @@
 package com.tajpure.database;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.tajpure.dbms.database.Database;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
+import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
 
 public class MySQLMetaDataWorkerTest {
@@ -41,7 +42,8 @@ public class MySQLMetaDataWorkerTest {
 	
 	@Test
 	public void testGetValues() {
-		worker.getValues(user, "hoolai_share", "user");
+		Table table = new Table("hoolai_share", "user");
+		worker.getValues(user, table);
 	}
 	
 	@After

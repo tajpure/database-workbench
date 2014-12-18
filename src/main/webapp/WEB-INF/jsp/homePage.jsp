@@ -28,7 +28,7 @@
 				<a href="">${schema.name}</a>
 				<ul class="nivel-01">
 					<c:forEach items="${schema.tables}" var="table">
-						<li><a href="homePage?schemaName=${schema.name}&tableName=${table.name}">${table.name}</a></li>
+						<li><a href="homePage?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a></li>
 					</c:forEach>
 				</ul>
 			</li>
@@ -39,19 +39,39 @@
 			<table>
   				<thead>
    				 <tr>
-					<c:forEach items="${table.columns}" var="column">
+					<c:forEach items="${curTable.columns}" var="column">
       				<th>${column.name}
 					</c:forEach>
+				<td><input class="table-btn" value="Insert" type="submit">
  				</thead>
-  					<tbody>
-					<c:forEach items="${values}" var="list">
-    				<tr>
-   					<c:forEach items="${list}" var="object">
-      					<td>${object}
-					</c:forEach>
-					</c:forEach>
-  					</tbody>
+  				<tbody>
+				<c:forEach items="${values}" var="list">
+    			<tr>
+   				<c:forEach items="${list}" var="object">
+      				<td><input class=""  value="${object}"/>
+				</c:forEach>
+				<td><input class="table-btn" value="Save" type="submit">
+				<td><input class="table-btn" value="Delete" type="submit">
+				</c:forEach>
+  				</tbody>
 			</table>
+			<div id="page">
+			<c:choose>
+			<c:when test="${totalPages gt 1}">
+			<c:choose>
+				<c:when test="${page gt 1}">
+					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-1}">Previous</a></h5>
+				</c:when>
+				<c:otherwise><h5>Previous</h5></c:otherwise>
+				</c:choose><h5>${page}</h5><c:choose>
+				<c:when test="${page lt totalPages}">
+					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">Next</a></h5>
+				</c:when>
+				<c:otherwise><h5>Next</h5></c:otherwise>
+			</c:choose>
+			</c:when>
+			</c:choose>
+			</div>
 	</div>
 	<div id="footer"></div>
 </body>

@@ -51,11 +51,30 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
-	public List<List> getValues(User user, String schema, String table) {
+	public List<List<Object>> getValues(User user, Table table) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<List<Object>> getValuesByPage(User user, Table table, int page,
+			int rowsPerPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isSysSchema(String schemaName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getValuesTotalPages(User user, Table table, int rowsPerPage) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

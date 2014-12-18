@@ -15,16 +15,23 @@ import com.tajpure.dbms.entity.User;
 public class HomePageAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static final int rowsPerPage = 25;
 
 	public String execute() {
+		String tableName = curTable.getName();
+		String schemaName = curTable.getItsSchema();
 		Map<String, Object> map = ActionContext.getContext().getSession();
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 		User user = (User) map.get("user");
 		DatabaseMetaDataWorker worker = factory.getWorker(user);
 		
 		if (tableName != null) {
-			table = worker.getTable(schemaName, tableName);
-			values = worker.getValues(user, schemaName, tableName);
+			curTable = worker.getTable(schemaName, tableName);
+			values = worker.getValuesByPage(user, curTable, page, rowsPerPage);
+			if(totalPages == 0) {
+				totalPages = worker.getValuesTotalPages(user, curTable, rowsPerPage);
+			}
 		}
 		if (schemas == null) {	// TODO Don't update schemas tree
 			schemas = worker.getSchemas();
@@ -32,17 +39,17 @@ public class HomePageAction extends HttpServlet {
 		
 		return "success";
 	}
+
+	private int page = 1;
 	
-	private String schemaName = null;
+	private int totalPages = 0;
 	
-	private String tableName = null;
+	private Table curTable = new Table();
 	
 	// TODO
 	private static List<Schema> schemas = null;
 	
-	private Table table = null;
-	
-	private List<List> values = null;
+	private List<List<Object>> values = null;
 	
 	public List<Schema> getSchemas() {
 		return schemas;
@@ -52,35 +59,35 @@ public class HomePageAction extends HttpServlet {
 		this.schemas = schemas;
 	}
 
-	public Table getTable() {
-		return table;
-	}
-
-	public void setTable(Table table) {
-		this.table = table;
-	}
-
-	public String getTableName() {
-		return tableName;
-	}
-
-	public void setTableName(String tableName) {
-		this.tableName = tableName;
-	}
-
-	public String getSchemaName() {
-		return schemaName;
-	}
-
-	public void setSchemaName(String schemaName) {
-		this.schemaName = schemaName;
-	}
-
-	public List<List> getValues() {
+	public List<List<Object>> getValues() {
 		return values;
 	}
 
-	public void setValues(List<List> values) {
+	public void setValues(List<List<Object>> values) {
 		this.values = values;
+	}
+
+	public Table getCurTable() {
+		return curTable;
+	}
+
+	public void setCurTable(Table curTable) {
+		this.curTable = curTable;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+	
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
 	}
 }

@@ -103,7 +103,7 @@ public class ConnectionPool {
 
 	public static Connection getNewConnection(User user, String schema) {
 		try {
-			Connection con = DriverManager.getConnection(url + schema, user.getUsername(),user.getPassword());
+			Connection con = DriverManager.getConnection(url + schema, user.getName(),user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,7 +115,7 @@ public class ConnectionPool {
 	public static boolean isUserLegal(User user) {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(url, user.getUsername(),user.getPassword());
+			con = DriverManager.getConnection(url, user.getName(),user.getPassword());
 		} catch (SQLException e) {
 			return false;
 		}

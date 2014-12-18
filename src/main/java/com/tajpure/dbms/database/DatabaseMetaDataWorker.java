@@ -67,6 +67,12 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<Column> getColumns(String schemaName, String tableName);
 	
-	public abstract List<List> getValues(User user, String schema, String table);
+	public abstract List<List<Object>> getValues(User user, Table table);
+	
+	public abstract List<List<Object>> getValuesByPage(User user, Table table, int page, int rowsPerPage);
+	
+	public abstract int getValuesTotalPages(User user, Table table, int rowsPerPage);
+	
+	public abstract boolean isSysSchema(String schemaName);
 
 }
