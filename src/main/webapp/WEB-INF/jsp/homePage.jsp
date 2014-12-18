@@ -66,7 +66,7 @@
 	</div>
 	<div id="main">
 			<c:choose>
-			<c:when test="${not empty curTable}">
+			<c:when test="${not empty curTable.itsSchema}">
 			<div id="table-name"><h5 id="table-schema-name">${curTable.itsSchema}</h5> <h5>>></h5> <h5>${curTable.name}</h5></div>
 			</c:when>
 			</c:choose>
@@ -104,31 +104,26 @@
 				</c:when>
 				<c:otherwise><h5>Previous</h5></c:otherwise>
 				</c:choose>
-				<h5>${page}</h5>
-				<c:choose>
-				<c:when test="${page+1 lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">${page+1}</a></h5>
+				<c:if test="${page <= 5}">
+				<c:forEach var="i" begin="0" end="9">
+   				<c:choose>
+				<c:when test="${i+1 <= totalPages && i != page-1}">
+					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${i+1}">${i+1}</a></h5>
 				</c:when>
-				<c:otherwise><h5>${page+1}</h5></c:otherwise>
+				<c:otherwise><h5>${i+1}</h5></c:otherwise>
 				</c:choose>
-				<c:choose>
-				<c:when test="${page+2 lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+2}">${page+2}</a></h5>
+				</c:forEach>
+				</c:if>
+				<c:if test="${page > 5}">
+				<c:forEach var="i" begin="0" end="9">
+   				<c:choose>
+				<c:when test="${page-5+i <= totalPages && i != 5}">
+					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-5+i}">${page-5+i}</a></h5>
 				</c:when>
-				<c:otherwise><h5>${page+2}</h5></c:otherwise>
+				<c:otherwise><h5>${page-5+i}</h5></c:otherwise>
 				</c:choose>
-				<c:choose>
-				<c:when test="${page+3 lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+3}">${page+3}</a></h5>
-				</c:when>
-				<c:otherwise><h5>${page+3}</h5></c:otherwise>
-				</c:choose>
-				<c:choose>
-				<c:when test="${page+4 lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+4}">${page+4}</a></h5>
-				</c:when>
-				<c:otherwise><h5>${page+4}</h5></c:otherwise>
-				</c:choose>
+				</c:forEach>
+				</c:if>
 				<c:choose>
 				<c:when test="${page lt totalPages}">
 					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">Next</a></h5>
