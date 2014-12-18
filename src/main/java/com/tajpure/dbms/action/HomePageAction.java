@@ -36,7 +36,7 @@ public class HomePageAction extends HttpServlet {
 		if (schemas == null) {	// TODO Don't update schemas tree
 			schemas = worker.getSchemas();
 		}
-		
+		worker.drop();
 		return "success";
 	}
 

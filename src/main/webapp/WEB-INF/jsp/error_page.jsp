@@ -11,7 +11,7 @@
 	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Sharenjoy</title>
+<title>Workbench</title>
 </head>
 <body>
 	<div id="content">

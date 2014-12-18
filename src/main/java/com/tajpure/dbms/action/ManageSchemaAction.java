@@ -10,4 +10,16 @@ public class ManageSchemaAction extends HttpServlet {
 		
 		return "success";
 	}
+	
+	public String insert() {
+		return "";
+	}
+	
+	public String update() {
+		return "";
+	}
+	
+	public String delete() {
+		return "";
+	}
 }

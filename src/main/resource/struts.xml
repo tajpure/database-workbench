@@ -5,20 +5,16 @@
 <struts>
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	<package name="struts2" extends="struts-default" namespace="">
-
 		<interceptors>
 			<interceptor name="sessionNull"
 				class="com.tajpure.dbms.interceptor.SessionNullInterceptor"></interceptor>
 		</interceptors>
-
 		<global-results>
 			<result name="login" type="redirect">login</result>
 		</global-results>
-
 		<action name="login">
 			<result name="success">/WEB-INF/jsp/login.jsp</result>
 		</action>
-
 		<action name="checklogin" class="com.tajpure.dbms.action.LoginAction">
 			<result name="success" type="redirect">homePage</result>
 			<result name="failure" type="redirectAction" > 
@@ -27,22 +23,58 @@
 				<param name="returnUrl">${returnUrl}</param>
 			</result>
 		</action>
-		
 		<action name="homePage" class="com.tajpure.dbms.action.HomePageAction">
 			<result name="success">/WEB-INF/jsp/homePage.jsp</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-	
 		<action name="error" class="com.tajpure.dbms.action.ErrorPageAction">
 			<result name="success">/WEB-INF/jsp/error_page.jsp</result>
 		</action>
-		
 		<action name="logout" class="com.tajpure.dbms.action.LogoutAction">
 			<result name="success">/WEB-INF/jsp/login.jsp</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-
+		<action name="showTable" class="com.tajpure.dbms.action.ManageTableAction">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="insertTable" class="com.tajpure.dbms.action.ManageTableAction" method="insert">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="updateTable" class="com.tajpure.dbms.action.ManageTableAction" method="update">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="dropTable" class="com.tajpure.dbms.action.ManageTableAction" method="delete">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+			<action name="showValue" class="com.tajpure.dbms.action.ManageValueAction">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="insertValue" class="com.tajpure.dbms.action.ManageValueAction" method="insert">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="updateValue" class="com.tajpure.dbms.action.ManageValueAction" method="update">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="dropValue" class="com.tajpure.dbms.action.ManageValueAction" method="delete">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
 	</package>
 </struts>

@@ -6,24 +6,23 @@
 
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/mycss/flat-ui.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
 	<!--<%@ include file="/WEB-INF/mycss/login-style.css"%>-->
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>DBMS</title>
+<title>Workbench</title>
 </head>
 <body>
 
 	<div id="main">
 		<div id="login_card">
-			<div id="login">登录DBMS</div>
+			<div id="login">Welcome to Database Workbench</div>
 		<div id="loginform">
 			<form action="checklogin" method="post">
 				<br>
 				<div id="row">
 					<div id="text">
-						账号
+						Username
 					</div>
 					<div id="text">
 						<input id="id" class="form-control input-sm" name="username" />
@@ -32,7 +31,7 @@
 				<br>
 				<div id="row">
 					<div id="text">
-						密码
+						Password
 					</div>
 					<div id="text">
 						<input id="psw" type="password" class="form-control input-sm"
@@ -42,7 +41,7 @@
 				<br>
 				<div id="row">
 					<div id="text">
-						DB类型
+						Type
 					</div>
 					<div id="selector">
 						<select name="typeOfDB">
@@ -54,7 +53,7 @@
 				</div>
 				<br>
 				<input id="log" class="btn btn-embossed btn-primary" type="submit"
-					value="登录" style="cursor:pointer;"/>
+					value="login" style="cursor:pointer;"/>
 			</form>
 		</div>
 		<div id="register_card" class="">

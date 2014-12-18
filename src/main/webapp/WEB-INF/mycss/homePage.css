@@ -28,7 +28,10 @@
 	color: #ffffff;
 	background-color: #1abc9c;
 }
-
+.table-text {
+	width: 80px;
+	height: 20px;
+}
 .menu-arbol ul {
 	opacity: 0.5;
 	height: 1px;
@@ -116,6 +119,10 @@ li {
 	padding-bottom: 0;
 }
 
+.nivel-02 li:hover {
+  background: #014055;
+}
+
 .nivel-04>li {
 	padding-bottom: .5rem;
 }
@@ -143,6 +150,10 @@ nav {
 
 .nivel-01 {
 	background-color: #19364E;
+}
+
+.nivel-02 {
+	background-color: #293F4F;
 }
 
 .nivel-03 a,.nivel-03 a:link {
@@ -176,16 +187,6 @@ nav {
 	text-align: center;
 }
 
-pre {
-	font-family: 'courier new', sans-serif;
-	color: whitesmoke;
-	font-size: 1.2rem;
-	width: 100%;
-	text-align: center;
-	background-color: rgba(0, 255, 255, .2);
-	padding: 0.5rem;
-	margin: 0 auto;
-}
 
 .contenedor {
 	max-width: 700px;
