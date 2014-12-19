@@ -51,8 +51,13 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-			<action name="showValue" class="com.tajpure.dbms.action.ManageValueAction">
-			<result></result>
+			<action name="insertValue" class="com.tajpure.dbms.action.ManageValueAction" method="insert">
+			<result name="success" type="redirectAction" > 
+				<param name="actionName">homePage</param>
+				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
+				<param name="curTable.name">${curTable.name}</param>
+				<param name="page">${page}</param>
+			</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
@@ -61,6 +66,7 @@
 				<param name="actionName">homePage</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
 				<param name="curTable.name">${curTable.name}</param>
+				<param name="page">${page}</param>
 			</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />

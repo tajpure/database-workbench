@@ -10,8 +10,8 @@ import com.tajpure.dbms.entity.User;
 
 public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 
-	public SQLServerMetaDataWorker(Connection con) {
-		super(con);
+	public SQLServerMetaDataWorker(Connection con, User user) {
+		super(con, user);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -53,14 +53,7 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public List<List<Object>> getValues(User user, Table table) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<List<Object>> getValuesByPage(User user, Table table, int page,
-			int rowsPerPage) {
+	public List<List<Object>> getValues(Table table) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,28 +65,35 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int getValuesTotalPages(User user, Table table, int rowsPerPage) {
+	public int getValuesTotalPages(Table table, int rowsPerPage) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertValue(User user, Table table, List<Object> list) {
+	public <T> int insertValue(Table table, List<T> list) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int insertValues(User user, Table table, List<List<Object>> list) {
+	public <T> int insertValues(Table table, List<List<T>> list) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateValues(User user, Table table, List<List<Object>> oldList,
-			List<List<Object>> newlist) {
+	public <T> int updateValues(Table table, List<List<T>> oldList,
+			List<List<T>> newlist) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public <T> List<List<T>> getValuesByPage(Table table, int page,
+			int rowsPerPage) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

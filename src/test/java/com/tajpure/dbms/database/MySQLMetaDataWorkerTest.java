@@ -16,7 +16,7 @@ public class MySQLMetaDataWorkerTest {
 	public void init() {
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 		User user = new User("google", "google", Database.MySQL);
-		worker = factory.getWorker(user);
+		worker = factory.getWorker();
 	}
 	
 	@Test

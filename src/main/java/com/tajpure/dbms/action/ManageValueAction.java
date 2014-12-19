@@ -2,31 +2,34 @@ package com.tajpure.dbms.action;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Table;
-import com.tajpure.dbms.entity.User;
 
 public class ManageValueAction extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
 	public String execute() {
 		
 		return "";
 	}
 	
+	public String insert() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		worker.insertValue( curTable, StrArrListToStrList(insertObj));
+		worker.drop();
+		return "success";
+	}
+	
 	public String save() {
-		Map<String, Object> map = ActionContext.getContext().getSession();
-		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-		User user = (User) map.get("user");
-		DatabaseMetaDataWorker worker = factory.getWorker(user);
-		worker.updateValues(user, curTable, ListToNestingList(oldList), ListToNestingList(newList));
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		worker.updateValues( curTable, ListToNestingList(oldList), ListToNestingList(newList));
 		worker.drop();
 		return "success";
 	}
@@ -58,14 +61,24 @@ public class ManageValueAction extends HttpServlet {
 		}
 		return result;
 	}
+	
+	public List<String> StrArrListToStrList(List<String[]> strArrList) {
+		List<String> strList = new ArrayList<String>();
+		for (String[] strArr : strArrList) {
+			strList.add(StringArrayToString(strArr));
+		}
+		return strList;
+	}
 
 	private List<String[]> newList = new ArrayList<String[]>();
 
 	private List<String[]> oldList = new ArrayList<String[]>();
 	
-	private List<String> insertObj = new ArrayList<String>();
+	private List<String[]> insertObj = new ArrayList<String[]>();
 	
 	private Table curTable = new Table();
+	
+	private int page;
 	
 	public List<String[]> getNewList() {
 		return newList;
@@ -83,11 +96,11 @@ public class ManageValueAction extends HttpServlet {
 		this.curTable = curTable;
 	}
 
-	public List<String> getInsertObj() {
+	public List<String[]> getInsertObj() {
 		return insertObj;
 	}
 
-	public void setInsertObj(List<String> insertObj) {
+	public void setInsertObj(List<String[]> insertObj) {
 		this.insertObj = insertObj;
 	}
 
@@ -97,5 +110,13 @@ public class ManageValueAction extends HttpServlet {
 
 	public void setOldList(List<String[]> oldList) {
 		this.oldList = oldList;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
 	}
 }

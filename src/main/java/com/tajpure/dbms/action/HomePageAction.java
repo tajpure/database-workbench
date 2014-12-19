@@ -1,36 +1,32 @@
 package com.tajpure.dbms.action;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
-import com.tajpure.dbms.entity.User;
 
 public class HomePageAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private static final int rowsPerPage = 24;
+	
+	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
 	public String execute() {
 		String tableName = curTable.getName();
 		String schemaName = curTable.getItsSchema();
-		Map<String, Object> map = ActionContext.getContext().getSession();
-		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-		User user = (User) map.get("user");
-		DatabaseMetaDataWorker worker = factory.getWorker(user);
+		DatabaseMetaDataWorker worker = factory.getWorker();
 		
 		if (tableName != null) {
 			curTable = worker.getTable(schemaName, tableName);
-			values = worker.getValuesByPage(user, curTable, page, rowsPerPage);
+			values = worker.getValuesByPage( curTable, page, rowsPerPage);
 			if(totalPages == 0) {
-				totalPages = worker.getValuesTotalPages(user, curTable, rowsPerPage);
+				totalPages = worker.getValuesTotalPages( curTable, rowsPerPage);
 			}
 		}
 		if (schemas == null) {	// TODO Don't update schemas tree

@@ -19,8 +19,8 @@ import com.tajpure.dbms.util.ConnectionPool;
 
 public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 
-	public MySQLMetaDataWorker(Connection con) {
-		super(con);
+	public MySQLMetaDataWorker(Connection con, User user) {
+		super(con, user);
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return columns;
 	}
 	
-	public List<List<Object>> getValues(User user, Table table) {
+	public List<List<Object>> getValues(Table table) {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
 		List<List<Object>> lists = new ArrayList<List<Object>>();
@@ -147,7 +147,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public List<List<Object>> getValuesByPage(User user, Table table, int page, int rowsPerPage) {
+	public List<List<Object>> getValuesByPage(Table table, int page, int rowsPerPage) {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
 		List<List<Object>> lists = new ArrayList<List<Object>>();
@@ -188,7 +188,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int getValuesTotalPages(User user, Table table, int rowsPerPage) {
+	public int getValuesTotalPages(Table table, int rowsPerPage) {
 		int totalRows = 0;
 		int totalPages = 0;
 		String tableName = table.getName();
@@ -213,8 +213,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int insertValue(User user, Table table, List<Object> obj) {
-		System.out.println(obj);
+	public <T> int insertValue(Table table, List<T> obj) {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
@@ -240,7 +239,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int insertValues(User user, Table table, List<List<Object>> list) {
+	public <T> int insertValues(Table table, List<List<T>> list) {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
@@ -253,7 +252,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         }
         questionMarks = questionMarks + "?";
 		try {
-				for (List obj : list) {
+				for (List<T> obj : list) {
 					stmt = con.prepareStatement("insert into " + tableName + " values(" + questionMarks + ");");
 					for (int i=1; i <= columns.size(); i++) {
 						stmt.setObject(i, mapDataType(columns.get(i-1), obj.get(i-1).toString()));
@@ -271,21 +270,22 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	public Object mapDataType(Column column, String val) {
 		Object obj = null;
 		switch (column.getDataType()) {
-		case Types.BIGINT : obj = Integer.parseInt(val); break;
+		case Types.BIGINT : obj = Long.parseLong(val); break;
 		case Types.BOOLEAN : obj = Boolean.parseBoolean(val); break;
 		case Types.CHAR : obj = val; break;
 		case Types.DATE : obj = Date.parse(val); break;
 		case Types.DOUBLE : obj = Double.parseDouble(val); break;
 		case Types.FLOAT : obj = Float.parseFloat(val); break;
 		case Types.INTEGER : obj = Integer.parseInt(val); break;
-		case Types.VARCHAR : obj = val; break;
-		default : Assert.error("This data type isn't supported now.(column : " + column + ")");
+		case Types.VARCHAR :
+		case Types.LONGNVARCHAR : obj = val; break;
+		default : Assert.error("This data type isn't supported now.(column -type -size: " + column + ")");
 		}
 		return obj;
 	}
 
 	@Override
-	public int updateValues(User user, Table table, List<List<Object>> oldList, List<List<Object>> newList) {
+	public <T> int updateValues(Table table, List<List<T>> oldList, List<List<T>> newList) {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
@@ -296,8 +296,8 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         int rs = 0;
 		try {
 				for (int i = 0 ; i < newList.size(); i++) {
-					List<Object> oldObj = oldList.get(i);
-					List<Object> newObj = newList.get(i);
+					List<T> oldObj = oldList.get(i);
+					List<T> newObj = newList.get(i);
 					stmt = con.prepareStatement(SQL);
 //					System.out.print("new : ");
 					for (int j = 1; j <= columnsSize; j++) {
@@ -319,7 +319,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return rs;
 	}
 	
-	public String getUpdateSQL( List<Column> columns, String tableName) {
+	public String getUpdateSQL(List<Column> columns, String tableName) {
 		StringBuilder SQL = new StringBuilder("update ").append(tableName).append(" set ");
 		int i = 0;
 		Column column = null;

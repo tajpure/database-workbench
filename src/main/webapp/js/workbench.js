@@ -1,5 +1,6 @@
 /**
- * 
+ * Some database workbench functions.
+ * author:taojx
  */
 
 function init() {

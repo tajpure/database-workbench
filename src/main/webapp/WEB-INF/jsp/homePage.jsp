@@ -78,12 +78,10 @@
 					<c:forEach items="${curTable.columns}" var="column">
       				<th>${column.name}
 					</c:forEach>
-					<c:choose>
-					<c:when test="${fn:length(curTable.columns) gt 0}">
+					<c:if test="${fn:length(curTable.columns) gt 0}">
 					<th><input class="table-btn" value="Save" type="button" onClick="saveValue()">
 					<th><input class="table-btn" value="Delete" type="button" onClick="deleteValue()">
-					</c:when>
-					</c:choose>
+					</c:if>
  				</thead>
   				<tbody>
 				<c:set var="i" scope="page" value="0"/>
@@ -112,6 +110,7 @@
 				</table>
 				<input name="curTable.name" value="${curTable.name}" type="hidden"/>
 				<input name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
+				<input name="page" value="${page}" type="hidden"/>
 				</form>
 			</div>
 			<div id="page">
