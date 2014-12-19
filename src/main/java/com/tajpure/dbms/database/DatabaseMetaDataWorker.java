@@ -73,18 +73,20 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<Column> getColumns(String schemaName, String tableName);
 	
-	public abstract List<List<Object>> getValues( Table table);
+	public abstract List<List<Object>> getValues(Table table);
 	
-	public abstract <T> int insertValue( Table table, List<T> list);
+	public abstract <T> int insertValue(Table table, List<T> list);
 	
-	public abstract <T> int insertValues( Table table, List<List<T>> list);
+	public abstract <T> int insertValues(Table table, List<List<T>> list);
 	
-	public abstract <T> int updateValues( Table table, List<List<T>> oldList, List<List<T>> newlist);
+	public abstract <T> int updateValues(Table table, List<List<T>> oldList, List<List<T>> newlist);
 	
-	public abstract <T> List<List<T>> getValuesByPage( Table table, int page, int rowsPerPage);
+	public abstract <T> int deleteValue(Table table, List<T> list);
 	
-	public abstract int getValuesTotalPages( Table table, int rowsPerPage);
+	public abstract <T> List<List<T>> getValuesByPage(Table table, int page, int rowsPerPage);
+	
+	public abstract int getValuesTotalPages(Table table, int rowsPerPage);
 	
 	public abstract boolean isSysSchema(String schemaName);
-
+	
 }

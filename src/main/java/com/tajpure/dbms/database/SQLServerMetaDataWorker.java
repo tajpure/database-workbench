@@ -96,4 +96,10 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		return null;
 	}
 
+	@Override
+	public <T> int deleteValue(Table table, List<T> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

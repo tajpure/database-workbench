@@ -110,6 +110,12 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public <T> int deleteValue(Table table, List<T> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
 

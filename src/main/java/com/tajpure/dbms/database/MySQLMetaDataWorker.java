@@ -338,4 +338,10 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		SQL.append(column.getName()).append(" = ?;");
 		return SQL.toString();
 	}
+
+	@Override
+	public <T> int deleteValue(Table table, List<T> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

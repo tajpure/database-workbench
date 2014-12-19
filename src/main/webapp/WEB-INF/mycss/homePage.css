@@ -225,6 +225,7 @@ td {
 	padding: 0.2em 0.5em;
 	height: 20px;
 	width: 50px;
+	cursor: pointer;
 }
 
 .disabled td {

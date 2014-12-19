@@ -3,30 +3,24 @@
  * author:taojx
  */
 
+var selectedItems = [];
+
+var indexOfItems = 0;
+
 function init() {
 	showMenu();
+	initSwitch();
+}
+
+function initSwitch() {
+	$.fn.bootstrapSwitch.defaults.size = "mini";
+	$.fn.bootstrapSwitch.defaults.offText = "Delete Mode";
+	$.fn.bootstrapSwitch.defaults.onText = "Save Mode";
+	$("#mode-switch").bootstrapSwitch();
 }
 
 function showTable() {
 	$.ajax({type: "Get",url: URL,}).done(refreshTable(columns, values));
-}
-
-function refreshTable(columns, values) {
-	var tableView = "<table><thead><tr>";
-	for (var column in columns) {
-		tableView = tableView + "<th>" + column;
-	}
-	tableView = tableView + "<th><input class=\"table-btn\" value=\"Insert\" type=\"submit\">";
-	tableView = tableView + "</thead><tbody>";
-	for (var list in values) {
-		tableView = tableView + "<tr>";
-		for (var val in list) {
-			tableView = tableView + "<td>" + list;
-		}
-	}
-	tableView = tableView + "<td><input class=\"table-btn\" value=\"Save\" type=\"submit\">"
-						+ "<td><input class=\"table-btn\" value=\"Delete\" type=\"submit\"></tbody></table>";
-	$("#table").html(tableView);
 }
 
 function showMenu() {
@@ -43,12 +37,52 @@ function saveValue() {
 }
 
 function deleteValue() {
-	valueForm.action="deleteValue";
-	valueForm.submit(); 
+	/*valueForm.action="deleteValue";
+	valueForm.submit(); */
 }
 
 function insertValue() {
 	valueForm.action="insertValue";
 	valueForm.submit(); 
 }
+
+function select(index) { 
+	var item = "row_" + index;
+	if (!isSelected(item)) {
+		document.getElementById(item).style.backgroundColor="lightblue";
+		selectedItems[indexOfItems] = item;
+	} else {
+		document.getElementById(item).style.backgroundColor="#012B39";
+		remove(item);
+	}
+	indexOfItems++;
+}
+
+function isSelected(item) {
+	for (var i in selectedItems) {
+		if (item == selectedItems[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function indexOf(item) {
+	for (var i in selectedItems) {
+		if (item == selectedItems[i]) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function remove(item) { 
+	var index = indexOf(item); 
+	if (index >= 0) { 
+		selectedItems.splice(index, 1); 
+		return true; 
+	} 
+	return false; 
+}; 
+
 

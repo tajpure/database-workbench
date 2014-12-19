@@ -9,8 +9,10 @@
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/mycss/homePage.css"%>-->
 	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
+	<!--<%@ include file="/WEB-INF/mycss/bootstrap-switch.css"%>-->
 </style>
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
 <script type="text/javascript" src="/js/workbench.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
@@ -79,19 +81,21 @@
       				<th>${column.name}
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) gt 0}">
-					<th><input class="table-btn" value="Save" type="button" onClick="saveValue()">
-					<th><input class="table-btn" value="Delete" type="button" onClick="deleteValue()">
+					<th><input class="table-btn" value="Define" type="button" onClick="saveValue()">
+					<th><input type="checkbox" class="table-btn common" id="mode-switch" type="checkbox" onClick="deleteValue()" checked/>
 					</c:if>
  				</thead>
   				<tbody>
 				<c:set var="i" scope="page" value="0"/>
+				<c:set var="j" scope="page" value="0"/>
 				<c:forEach items="${values}" var="list">
-    			<tr>
+    			<tr id="row_${j}" onclick="select(${j});">
    				<c:forEach items="${list}" var="object">
       				<td><input type="text" class="table-text"  value="${object}" name="newList[${i}]"/>
       				<input type="hidden" value="${object}" name="oldList[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
+				<c:set var="j" scope="page" value="${j+1}"/>
 				</tr>
 				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
 				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>

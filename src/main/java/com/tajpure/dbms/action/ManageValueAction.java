@@ -35,7 +35,10 @@ public class ManageValueAction extends HttpServlet {
 	}
 	
 	public String delete() {
-		return "";
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		worker.deleteValue( curTable, StrArrListToStrList(insertObj));
+		worker.drop();
+		return "success";
 	}
 	
 	public List<List<Object>> ListToNestingList(List<String[]> list) {
