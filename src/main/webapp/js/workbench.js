@@ -14,8 +14,8 @@ function init() {
 
 function initSwitch() {
 	$.fn.bootstrapSwitch.defaults.size = "mini";
-	$.fn.bootstrapSwitch.defaults.offText = "Delete Mode";
-	$.fn.bootstrapSwitch.defaults.onText = "Save Mode";
+	$.fn.bootstrapSwitch.defaults.offText = "Delete";
+	$.fn.bootstrapSwitch.defaults.onText = "Save";
 	$("#mode-switch").bootstrapSwitch();
 }
 
