@@ -41,8 +41,6 @@ public class ConnectionPool {
 		if (props != null) {
 			url = props.getProperty("url");
 			driver = props.getProperty("driver");
-//			username = props.getProperty("username");
-//			password = props.getProperty("password");
 			try {
 				Class.forName(driver);
 			} catch (ClassNotFoundException e) {

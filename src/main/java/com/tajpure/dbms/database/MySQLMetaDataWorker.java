@@ -1,9 +1,11 @@
 package com.tajpure.dbms.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
+import com.tajpure.dbms.util.Assert;
 import com.tajpure.dbms.util.ConnectionPool;
 
 
@@ -50,18 +53,18 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	@Override
 	public Table getTable(String schemaName, String tableName) {
 		Table table = null;
-		table = getTables(schemaName, "%", tableName, new String[] {"TABLE"}).get(0);
+		table = getTables(schemaName, "%", tableName, new String[] {"TABLE"}, true).get(0);
 		return table;
 	}
 
 	@Override
 	public List<Table> getTables(String schemaName) {
 		List<Table> tables = null;
-		tables = getTables(schemaName, "%", "%", new String[] {"TABLE"});
+		tables = getTables(schemaName, "%", "%", new String[] {"TABLE"}, false);
 		return tables;
 	}
 	
-	public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types) {
+	public List<Table> getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types, boolean needColumns) {
 		List<Table> tables = new ArrayList<Table>();
 		
 		try {
@@ -70,7 +73,10 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				Table table = new Table();
 				table.setName(rs.getString(3));
 				table.setItsSchema(rs.getString(1));
-				table.setColumns(getColumns(catalog, tableNamePattern));
+				// For loading the table list faster
+				if (needColumns) {
+					table.setColumns(getColumns(catalog, tableNamePattern));
+				}
 				tables.add(table);
 			}
 		} catch (SQLException e) {
@@ -100,7 +106,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			ResultSet rs = metaData.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern);
 			while (rs.next()) {
 				Column column = new Column();
-				column.setName(rs.getString(4));
+				column.setName(rs.getString("COLUMN_NAME"));
+				column.setDataType(rs.getInt("DATA_TYPE"));
+				column.setColumnSize(rs.getInt("COLUMN_SIZE"));
+				column.setItsTable(rs.getString("TABLE_NAME"));
+				column.setItsSchema(rs.getString("TABLE_SCHEM"));
+				column.setItsCatalog(rs.getString("TABLE_CAT"));
 				columns.add(column);
 			}
 		} catch (SQLException e) {
@@ -123,11 +134,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				while (rs.next()) {
 					List<Object> objs = new ArrayList<Object>();
 					for (int i=1; i <= sizeOfColumns; i++) {
-					objs.add(rs.getObject(i));
-//					System.out.print(rs.getString(i) + " ");
+						objs.add(rs.getObject(i));
 					}
 					lists.add(objs);
-//					System.out.println();
 				}
 				con.close();
 		} catch (SQLException e) {
@@ -155,11 +164,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				while (rs.next()) {
 					List<Object> objs = new ArrayList<Object>();
 					for (int i=1; i <= sizeOfColumns; i++) {
-					objs.add(rs.getObject(i));
-//					System.out.print(rs.getString(i) + " ");
+						objs.add(rs.getObject(i));
 					}
 					lists.add(objs);
-//					System.out.println();
 				}
 				con.close();
 		} catch (SQLException e) {
@@ -205,4 +212,130 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return totalPages;
 	}
 
+	@Override
+	public int insertValue(User user, Table table, List<Object> obj) {
+		System.out.println(obj);
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        List<Column> columns = getColumns(schemaName, tableName);
+        int rs = 0;
+        String questionMarks = "";
+        for (int i=0; i < columns.size()-1; i++) {
+        	questionMarks += "?, ";
+        }
+        questionMarks = questionMarks + "?";
+		try {
+				stmt = con.prepareStatement("insert into " + tableName + " values(" + questionMarks + ");");
+				for (int i=1; i <= columns.size(); i++) {
+					stmt.setObject(i, mapDataType(columns.get(i-1), obj.get(i-1).toString()));
+		        }
+				rs = stmt.executeUpdate();
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	@Override
+	public int insertValues(User user, Table table, List<List<Object>> list) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        List<Column> columns = getColumns(schemaName, tableName);
+        int rs = 0;
+        String questionMarks = "";
+        for (int i=0; i < columns.size()-1; i++) {
+        	questionMarks += "?, ";
+        }
+        questionMarks = questionMarks + "?";
+		try {
+				for (List obj : list) {
+					stmt = con.prepareStatement("insert into " + tableName + " values(" + questionMarks + ");");
+					for (int i=1; i <= columns.size(); i++) {
+						stmt.setObject(i, mapDataType(columns.get(i-1), obj.get(i-1).toString()));
+					}
+					rs = stmt.executeUpdate();
+				}
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public Object mapDataType(Column column, String val) {
+		Object obj = null;
+		switch (column.getDataType()) {
+		case Types.BIGINT : obj = Integer.parseInt(val); break;
+		case Types.BOOLEAN : obj = Boolean.parseBoolean(val); break;
+		case Types.CHAR : obj = val; break;
+		case Types.DATE : obj = Date.parse(val); break;
+		case Types.DOUBLE : obj = Double.parseDouble(val); break;
+		case Types.FLOAT : obj = Float.parseFloat(val); break;
+		case Types.INTEGER : obj = Integer.parseInt(val); break;
+		case Types.VARCHAR : obj = val; break;
+		default : Assert.error("This data type isn't supported now.(column : " + column + ")");
+		}
+		return obj;
+	}
+
+	@Override
+	public int updateValues(User user, Table table, List<List<Object>> oldList, List<List<Object>> newList) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        List<Column> columns = getColumns(schemaName, tableName);
+        String SQL = getUpdateSQL(columns, tableName);
+        int columnsSize = columns.size();
+        int rs = 0;
+		try {
+				for (int i = 0 ; i < newList.size(); i++) {
+					List<Object> oldObj = oldList.get(i);
+					List<Object> newObj = newList.get(i);
+					stmt = con.prepareStatement(SQL);
+//					System.out.print("new : ");
+					for (int j = 1; j <= columnsSize; j++) {
+						stmt.setObject(j, mapDataType(columns.get(j-1), newObj.get(j-1).toString()));
+//						System.out.print(newObj.get(j-1).toString() + " ");
+					}
+//					System.out.print("old : ");
+					for (int j = 1; j <= columnsSize; j++) {
+						stmt.setObject(j + columnsSize, mapDataType(columns.get(j-1), oldObj.get(j-1).toString()));
+//						System.out.print(oldObj.get(j-1).toString() + " ");
+					}
+//					System.out.println();
+					rs = stmt.executeUpdate();
+				}
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getUpdateSQL( List<Column> columns, String tableName) {
+		StringBuilder SQL = new StringBuilder("update ").append(tableName).append(" set ");
+		int i = 0;
+		Column column = null;
+		for (i = 0; i < columns.size()-1; i++) {
+			column = columns.get(i);
+			SQL.append(column.getName()).append(" = ?, ");
+		}
+		column = columns.get(i);
+		SQL.append(column.getName()).append(" = ?");
+		SQL.append(" where ");
+		for (i = 0; i < columns.size()-1; i++) {
+			column = columns.get(i);
+			SQL.append(column.getName()).append(" = ? and ");
+		}
+		column = columns.get(i);
+		SQL.append(column.getName()).append(" = ?;");
+		return SQL.toString();
+	}
 }

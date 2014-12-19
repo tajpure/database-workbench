@@ -71,6 +71,7 @@
 			</c:when>
 			</c:choose>
 			<div id="table">
+				<form name="valueForm" method=post>
 				<table>
   				<thead>
    				 <tr>
@@ -79,21 +80,39 @@
 					</c:forEach>
 					<c:choose>
 					<c:when test="${fn:length(curTable.columns) gt 0}">
-					<th><input class="table-btn" value="Insert" type="submit">
+					<th><input class="table-btn" value="Save" type="button" onClick="saveValue()">
+					<th><input class="table-btn" value="Delete" type="button" onClick="deleteValue()">
 					</c:when>
 					</c:choose>
  				</thead>
   				<tbody>
+				<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${values}" var="list">
     			<tr>
    				<c:forEach items="${list}" var="object">
-      				<td><input type="text" class="table-text"  value="${object}"/>
+      				<td><input type="text" class="table-text"  value="${object}" name="newList[${i}]"/>
+      				<input type="hidden" value="${object}" name="oldList[${i}]"/>
+					<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
-				<td><input class="table-btn" value="Save" type="submit">
-				<td><input class="table-btn" value="Delete" type="submit">
+				</tr>
+				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
+				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
+				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
+    			<tr>
+					<c:set var="i" scope="page" value="0"/>
+					<c:forEach items="${curTable.columns}" var="column">
+      				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
+					<c:set var="i" scope="page" value="${i+1}"/>
+					</c:forEach>
+					<c:if test="${fn:length(curTable.columns) > 0}">
+					<td><input class="table-btn" value="Insert" type="button" onClick="insertValue()">
+					</c:if>
   				</tbody>
 				</table>
+				<input name="curTable.name" value="${curTable.name}" type="hidden"/>
+				<input name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
+				</form>
 			</div>
 			<div id="page">
 			<c:choose>
@@ -103,7 +122,7 @@
 					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-1}">Previous</a></h5>
 				</c:when>
 				<c:otherwise><h5>Previous</h5></c:otherwise>
-				</c:choose>
+			</c:choose>
 				<c:if test="${page <= 5}">
 				<c:forEach var="i" begin="0" end="9">
    				<c:choose>
@@ -133,11 +152,11 @@
 			</c:when>
 			</c:choose>
 			</div>
+		<script type="text/javascript">
+		init();
+		</script>
 	</div>
 	<div id="footer">
-		<script type="text/javascript">
-		showMenu();
-		</script>
 	</div>
 </body>
 </html>

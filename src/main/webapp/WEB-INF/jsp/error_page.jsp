@@ -18,9 +18,9 @@
 		<div id="left">
 		</div>
 		<div id="main">
-			<div id="title">错误</div>
+			<div id="title">Error!</div>
 			${errorInfo}
-			<a href="${returnUrl}">点击此处返回</a>
+			<a href="login">Click here to return</a>
 		</div>
 		<div id="footer"></div>
 	</div>

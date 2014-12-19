@@ -91,6 +91,25 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int insertValue(User user, Table table, List<Object> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertValues(User user, Table table, List<List<Object>> list) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateValues(User user, Table table, List<List<Object>> oldList,
+			List<List<Object>> newlist) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
 

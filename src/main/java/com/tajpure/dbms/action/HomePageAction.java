@@ -16,7 +16,7 @@ public class HomePageAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final int rowsPerPage = 25;
+	private static final int rowsPerPage = 24;
 
 	public String execute() {
 		String tableName = curTable.getName();
@@ -46,8 +46,7 @@ public class HomePageAction extends HttpServlet {
 	
 	private Table curTable = new Table();
 	
-	// TODO
-	private static List<Schema> schemas = null;
+	private List<Schema> schemas = null;
 	
 	private List<List<Object>> values = null;
 	

@@ -2,6 +2,10 @@
  * 
  */
 
+function init() {
+	showMenu();
+}
+
 function showTable() {
 	$.ajax({type: "Get",url: URL,}).done(refreshTable(columns, values));
 }
@@ -24,11 +28,26 @@ function refreshTable(columns, values) {
 	$("#table").html(tableView);
 }
 
-function showMenu(schema) {
+function showMenu() {
 	var schema = $("#table-schema-name").text();
 	var schemaId = '#' + schema;
 	var tableId = '#' + schema + '-tables';
 	$(schemaId.toString()).trigger("click");
 	$(tableId.toString()).trigger("click");
+}
+
+function saveValue() {
+	valueForm.action="saveValue";
+	valueForm.submit(); 
+}
+
+function deleteValue() {
+	valueForm.action="deleteValue";
+	valueForm.submit(); 
+}
+
+function insertValue() {
+	valueForm.action="insertValue";
+	valueForm.submit(); 
 }
 

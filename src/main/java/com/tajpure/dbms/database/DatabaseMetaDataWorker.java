@@ -70,6 +70,12 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<List<Object>> getValues(User user, Table table);
 	
+	public abstract int insertValue(User user, Table table, List<Object> list);
+	
+	public abstract int insertValues(User user, Table table, List<List<Object>> list);
+	
+	public abstract int updateValues(User user, Table table, List<List<Object>> oldList, List<List<Object>> newlist);
+	
 	public abstract List<List<Object>> getValuesByPage(User user, Table table, int page, int rowsPerPage);
 	
 	public abstract int getValuesTotalPages(User user, Table table, int rowsPerPage);
