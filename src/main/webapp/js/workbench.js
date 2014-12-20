@@ -7,7 +7,7 @@ var selectedItems = [];
 
 var indexOfItems = 0;
 
-var operation = 0; // 0 : Save , 1 : Delete
+var curMode = 0; // 0 : Save Mode , 1 : Delete Mode
 
 function init() {
 	showMenu();
@@ -41,6 +41,7 @@ function saveValue() {
 function deleteValue() {
 	/*valueForm.action="deleteValue";
 	valueForm.submit(); */
+	console.log("delete...");
 }
 
 function insertValue() {
@@ -48,7 +49,10 @@ function insertValue() {
 	valueForm.submit(); 
 }
 
-function select(index) { 
+function select(index) {
+	if (curMode == 0) {
+		return;
+	}
 	var item = "row_" + index;
 	if (!isSelected(item)) {
 		document.getElementById(item).style.backgroundColor="lightblue";
@@ -85,10 +89,24 @@ function remove(item) {
 		return true; 
 	} 
 	return false; 
-};
-
-function changeMode() {
-	
 }
 
+//$("#mode-switch").on('switch-change', changeMode());
 
+function changeMode() {
+	if (curMode == 0) {
+		curMode = 1;
+	} else {
+		curMode = 0;
+	}
+	console.log(curMode);
+}
+
+function define() {
+	console.log(curMode);
+	if (curMode == 0) {
+		saveValue();
+	} else {
+		deleteValue();
+	}
+}
