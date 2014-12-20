@@ -7,6 +7,8 @@ var selectedItems = [];
 
 var indexOfItems = 0;
 
+var operation = 0; // 0 : Save , 1 : Delete
+
 function init() {
 	showMenu();
 	initSwitch();
@@ -83,6 +85,10 @@ function remove(item) {
 		return true; 
 	} 
 	return false; 
-}; 
+};
+
+function changeMode() {
+	
+}
 
 

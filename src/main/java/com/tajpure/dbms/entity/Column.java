@@ -1,6 +1,5 @@
 package com.tajpure.dbms.entity;
 
-import java.sql.Types;
 
 public class Column {
 	

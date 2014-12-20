@@ -82,7 +82,7 @@
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) gt 0}">
 					<th><input class="table-btn" value="Define" type="button" onClick="saveValue()">
-					<th><input type="checkbox" class="table-btn common" id="mode-switch" type="checkbox" onClick="deleteValue()" checked/>
+					<th><input type="checkbox" class="table-btn common" id="mode-switch" type="checkbox" onClick="changeMode()" checked/>
 					</c:if>
  				</thead>
   				<tbody>
