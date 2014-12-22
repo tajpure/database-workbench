@@ -7,13 +7,13 @@
 <head>
 
 <style type="text/css">
-	<!--<%@ include file="/WEB-INF/mycss/homePage.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/bootstrap-switch.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
 </style>
-<script type="text/javascript" src="/js/jquery.min.js"></script>
-<script type="text/javascript" src="/js/bootstrap-switch.js"></script>
-<script type="text/javascript" src="/js/workbench.js"></script>
+<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
+<script type="text/javascript" src="resources/js/workbench.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -82,7 +82,7 @@
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) gt 0}">
 					<th><input class="table-btn" value="Define" type="button" onClick="define()">
-					<th onclick="changeMode();"><input type="checkbox" class="table-btn common" id="mode-switch" type="checkbox" checked/>
+					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
 					</c:if>
  				</thead>
   				<tbody>

@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+body {margin: 0; overflow-x: hidden; background-color: #00353D;}
+#main {float: left;position: relative;top:40px;left: 320px;width: 720px;padding-bottom: 60px;hieght:720px;}
+#right{position: relative;top: 60px;left: 600px;width: 400px;}
+#Footer {height: 50px;}
+#reg {font-size: 15px;color: white;position: relative;left: 30px;}
+#login_card {position:relative; left: 20px; top: 60px; background-color:white;height:360px;padding:10px;-moz-border-radius: 5px;-khtml-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 20px;border:0px;}
+#loginform {position: relative;top: 20px;left: 150px;height: 60px;width: 500px;}
+#login {position: relative;top: 20px;font-size: 25px;}
+#selector {position: relative; top: 20px;left:40px;}
+#row {margin: 5px;width: 300px;padding: 8px;}
+#text {align: center;height: 20px;width: 120px;float: left;font-size: 20px;margin:5px;}
+#id {position: relative;top: 10px;height: 12px;}
+#psw {position: relative;top: 10px;height: 12px;}
+#log {position: relative;padding: 1px;height: 30px;width: 80px;top: 40px;left: 160px;margin: 10;}

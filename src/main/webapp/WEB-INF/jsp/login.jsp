@@ -5,10 +5,9 @@
 <head>
 
 <style type="text/css">
-	<!--<%@ include file="/WEB-INF/mycss/flat-ui.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/login-style.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/flat-ui.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/login-style.css"%>-->
 </style>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>

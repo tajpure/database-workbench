@@ -4,11 +4,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <style type="text/css">
-	<!--<%@ include file="/WEB-INF/mycss/flat-ui.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/functionPage.css"%>-->
-	<!--<%@ include file="/WEB-INF/mycss/main.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/flat-ui.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/functionPage.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
