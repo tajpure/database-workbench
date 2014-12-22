@@ -6,9 +6,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.tajpure.dbms.entity.Column;
+import com.tajpure.dbms.entity.Function;
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.StoredProcedure;
 import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
+import com.tajpure.dbms.entity.View;
 import com.tajpure.dbms.util.Assert;
 import com.tajpure.dbms.util.ConnectionPool;
 
@@ -43,7 +46,10 @@ public abstract class DatabaseMetaDataWorker {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * This method need to be called after the employ of the worker finished.
+	 */
 	public void drop() {
 		ConnectionPool.pushConnectionBackToPool(con);
 		con = null;
@@ -51,6 +57,12 @@ public abstract class DatabaseMetaDataWorker {
 		metaData = null;
 	}
 	
+	@Override
+	protected void finalize() throws Throwable {
+		drop();
+		super.finalize();
+	}
+
 	public String getDriverName() {
 		String driverName = null;
 		try {
@@ -89,4 +101,9 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract boolean isSysSchema(String schemaName);
 	
+	public abstract List<View> getViews(String schemaName);
+	
+	public abstract List<StoredProcedure> getStoredProcedures();
+	
+	public abstract List<Function> getFunctions();
 }

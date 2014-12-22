@@ -13,7 +13,7 @@
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
-<script type="text/javascript" src="resources/js/workbench.js"></script>
+<script type="text/javascript" src="resources/js/table.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -71,97 +71,62 @@
 		</c:forEach>
 	</div>
 	<div id="main">
-			<c:choose>
-			<c:when test="${not empty curTable.itsSchema}">
-			<div id="table-name"><h5 id="table-schema-name">${curTable.itsSchema}</h5> <h5>>></h5> <h5>${curTable.name}</h5></div>
-			</c:when>
-			</c:choose>
+			<c:if test="${not empty curTable.itsSchema}">
+			<div id="table-name">
+				<h5 id="table-schema-name">${curTable.itsSchema}</h5> 
+				<h5>>></h5> 
+				<h5>${curTable.name}</h5>
+				<h5>>></h5> 
+				<h5>property</h5>
+			</div>
+			</c:if>
 			<div id="table">
 				<form name="valueForm" method=post>
 				<table>
   				<thead>
    				 <tr>
-					<c:forEach items="${curTable.columns}" var="column">
-      				<th>${column.name}
-					</c:forEach>
-					<c:if test="${fn:length(curTable.columns) gt 0}">
+					<c:if test="${fn:length(columns) gt 0}">
+      				<th>Column
+      				<th>Data type
+      				<th>Size
 					<th><input class="table-btn" value="Define" type="button" onClick="define()">
 					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
 					</c:if>
  				</thead>
   				<tbody>
-				<c:set var="i" scope="page" value="0"/>
-				<c:set var="j" scope="page" value="0"/>
-				<c:forEach items="${values}" var="list">
-    			<tr id="row_${j}" onclick="select(${j});">
-   				<c:forEach items="${list}" var="object">
-      				<td><input type="text" class="table-text"  value="${object}" name="newList[${i}]"/>
-      				<input type="hidden" value="${object}" name="oldList[${i}]"/>
+    			<c:set var="i" scope="page" value="0"/>
+				<c:forEach items="${columns}" var="column">
+    			<tr id="row_${i}" onclick="select(${i});">
+      				<td><input type="text" class="table-text"  value="${column.name}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.name}" name="oldList[${i}]"/>
+      				<td><input type="text" class="table-text"  value="${column.dataType}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.dataType}" name="oldList[${i}]"/>
+      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.columnSize}" name="oldList[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
-				</c:forEach>
-				<c:set var="j" scope="page" value="${j+1}"/>
 				</tr>
 				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
 				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
 				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
     			<tr>
-					<c:set var="i" scope="page" value="0"/>
-					<c:forEach items="${curTable.columns}" var="column">
+					<c:forEach var="i" begin="0" end="2">
       				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 					</c:forEach>
-					<c:if test="${fn:length(curTable.columns) > 0}">
+					<c:if test="${fn:length(columns) > 0}">
 					<td><input class="table-btn" value="Insert" type="button" onClick="insertValue()">
 					</c:if>
+  				</tbody>
   				</tbody>
 				</table>
 				<input name="curTable.name" value="${curTable.name}" type="hidden"/>
 				<input name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
-				<input name="page" value="${page}" type="hidden"/>
 				</form>
 			</div>
-			<div id="page">
-			<c:choose>
-			<c:when test="${totalPages gt 1}">
-			<c:choose>
-				<c:when test="${page gt 1}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-1}">Previous</a></h5>
-				</c:when>
-				<c:otherwise><h5>Previous</h5></c:otherwise>
-			</c:choose>
-				<c:if test="${page <= 5}">
-				<c:forEach var="i" begin="0" end="9">
-   				<c:choose>
-				<c:when test="${i+1 <= totalPages && i != page-1}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${i+1}">${i+1}</a></h5>
-				</c:when>
-				<c:otherwise><h5>${i+1}</h5></c:otherwise>
-				</c:choose>
-				</c:forEach>
-				</c:if>
-				<c:if test="${page > 5}">
-				<c:forEach var="i" begin="0" end="9">
-   				<c:choose>
-				<c:when test="${page-5+i <= totalPages && i != 5}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-5+i}">${page-5+i}</a></h5>
-				</c:when>
-				<c:otherwise><h5>${page-5+i}</h5></c:otherwise>
-				</c:choose>
-				</c:forEach>
-				</c:if>
-				<c:choose>
-				<c:when test="${page lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">Next</a></h5>
-				</c:when>
-				<c:otherwise><h5>Next</h5></c:otherwise>
-			</c:choose>
-			</c:when>
-			</c:choose>
-			</div>
-		<script type="text/javascript">
-			init();
-		</script>
+			<script type="text/javascript">
+				init();
+			</script>
 	</div>
 	<div id="footer">
 	</div>

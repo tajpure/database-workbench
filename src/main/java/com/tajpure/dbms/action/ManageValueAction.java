@@ -21,6 +21,9 @@ public class ManageValueAction extends HttpServlet {
 	}
 	
 	public String insert() {
+		if (insertObj.size() == 0) {
+			return "failure";
+		}
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		worker.insertValue(curTable, StrArrListToStrList(insertObj));
 		worker.drop();
@@ -36,9 +39,6 @@ public class ManageValueAction extends HttpServlet {
 	
 	public String delete() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-//		if (delIndexStr == null || "".equals(delIndexStr)) {
-//			return "success";
-//		}
 		worker.deleteValue(curTable, getListByIndexArr(delIndexStr));
 		worker.drop();
 		return "success";
@@ -81,9 +81,9 @@ public class ManageValueAction extends HttpServlet {
 		List<List<Object>> oldList = ListToNestingList(this.oldList);
 		String[] indexArr = getIndexArr(indexStr);
 		for (String index : indexArr) {
-//			if ("undefine".equals(index)) {
-//				continue;
-//			}
+			if ("undefined".equals(index)) {
+				continue;
+			}
 			delList.add(oldList.get(Integer.parseInt(index)));
 		}
 		return delList;
@@ -92,7 +92,6 @@ public class ManageValueAction extends HttpServlet {
 	private String[] getIndexArr(String indexStr) {
 		if (indexStr == null || "".equals(indexStr)) return null;
 		String[] indexArr = indexStr.split("o");
-		System.out.println(delIndexStr);
 		return indexArr;
 	}
 

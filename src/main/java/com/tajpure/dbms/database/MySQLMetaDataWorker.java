@@ -10,9 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tajpure.dbms.entity.Column;
+import com.tajpure.dbms.entity.Function;
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.StoredProcedure;
 import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
+import com.tajpure.dbms.entity.View;
 import com.tajpure.dbms.util.Assert;
 import com.tajpure.dbms.util.ConnectionPool;
 
@@ -25,8 +28,15 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 
 	@Override
 	public Schema getSchema(String schemaName) {
-		// TODO Auto-generated method stub
-		return null;
+		Schema schema = null;
+		List<Schema> schemas = getSchemas();
+		for (Schema tmp : schemas) {
+			if (tmp.getName().equals(schemaName)) {
+				schema = tmp;
+				break;
+			}
+		}
+		return schema;
 	}
 
 	@Override
@@ -371,5 +381,23 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		column = columns.get(i);
 		SQL.append(column.getName()).append(" = ?;");
 		return SQL.toString();
+	}
+
+	@Override
+	public List<View> getViews(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StoredProcedure> getStoredProcedures() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Function> getFunctions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

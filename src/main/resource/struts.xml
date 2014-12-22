@@ -36,8 +36,13 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="showTable" class="com.tajpure.dbms.action.ManageTableAction">
-			<result></result>
+		<action name="schemaInfo" class="com.tajpure.dbms.action.ManageSchemaAction">
+			<result name="success">/WEB-INF/jsp/schemaManage.jsp</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="tableInfo" class="com.tajpure.dbms.action.ManageTableAction">
+			<result name="success">/WEB-INF/jsp/tableManage.jsp</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>

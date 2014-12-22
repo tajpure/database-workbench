@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.tajpure.dbms.entity.Column;
+import com.tajpure.dbms.entity.Function;
 import com.tajpure.dbms.entity.Schema;
+import com.tajpure.dbms.entity.StoredProcedure;
 import com.tajpure.dbms.entity.Table;
 import com.tajpure.dbms.entity.User;
+import com.tajpure.dbms.entity.View;
 
 public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 
@@ -100,6 +103,24 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 	public <T> int deleteValue(Table table, List<List<T>> list) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<View> getViews(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<StoredProcedure> getStoredProcedures() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Function> getFunctions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
