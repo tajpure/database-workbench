@@ -22,21 +22,24 @@ public class ManageValueAction extends HttpServlet {
 	
 	public String insert() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		worker.insertValue( curTable, StrArrListToStrList(insertObj));
+		worker.insertValue(curTable, StrArrListToStrList(insertObj));
 		worker.drop();
 		return "success";
 	}
 	
 	public String save() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		worker.updateValues( curTable, ListToNestingList(oldList), ListToNestingList(newList));
+		worker.updateValues(curTable, ListToNestingList(oldList), ListToNestingList(newList));
 		worker.drop();
 		return "success";
 	}
 	
 	public String delete() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		worker.deleteValue( curTable, StrArrListToStrList(insertObj));
+//		if (delIndexStr == null || "".equals(delIndexStr)) {
+//			return "success";
+//		}
+		worker.deleteValue(curTable, getListByIndexArr(delIndexStr));
 		worker.drop();
 		return "success";
 	}
@@ -72,12 +75,34 @@ public class ManageValueAction extends HttpServlet {
 		}
 		return strList;
 	}
+	
+	public List<List<Object>> getListByIndexArr(String indexStr) { 
+		List<List<Object>> delList = new ArrayList<List<Object>>();
+		List<List<Object>> oldList = ListToNestingList(this.oldList);
+		String[] indexArr = getIndexArr(indexStr);
+		for (String index : indexArr) {
+//			if ("undefine".equals(index)) {
+//				continue;
+//			}
+			delList.add(oldList.get(Integer.parseInt(index)));
+		}
+		return delList;
+	}
+	
+	private String[] getIndexArr(String indexStr) {
+		if (indexStr == null || "".equals(indexStr)) return null;
+		String[] indexArr = indexStr.split("o");
+		System.out.println(delIndexStr);
+		return indexArr;
+	}
 
 	private List<String[]> newList = new ArrayList<String[]>();
 
 	private List<String[]> oldList = new ArrayList<String[]>();
 	
 	private List<String[]> insertObj = new ArrayList<String[]>();
+	
+	private String delIndexStr;
 	
 	private Table curTable = new Table();
 	
@@ -121,5 +146,13 @@ public class ManageValueAction extends HttpServlet {
 
 	public void setPage(int page) {
 		this.page = page;
+	}
+
+	public String getDelIndexStr() {
+		return delIndexStr;
+	}
+
+	public void setDelIndexStr(String delIndexStr) {
+		this.delIndexStr = delIndexStr;
 	}
 }

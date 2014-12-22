@@ -299,17 +299,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					List<T> oldObj = oldList.get(i);
 					List<T> newObj = newList.get(i);
 					stmt = con.prepareStatement(SQL);
-//					System.out.print("new : ");
 					for (int j = 1; j <= columnsSize; j++) {
 						stmt.setObject(j, mapDataType(columns.get(j-1), newObj.get(j-1).toString()));
-//						System.out.print(newObj.get(j-1).toString() + " ");
 					}
-//					System.out.print("old : ");
 					for (int j = 1; j <= columnsSize; j++) {
 						stmt.setObject(j + columnsSize, mapDataType(columns.get(j-1), oldObj.get(j-1).toString()));
-//						System.out.print(oldObj.get(j-1).toString() + " ");
 					}
-//					System.out.println();
 					rs = stmt.executeUpdate();
 				}
 				con.close();
@@ -340,8 +335,41 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public <T> int deleteValue(Table table, List<T> list) {
-		// TODO Auto-generated method stub
-		return 0;
+	public <T> int deleteValue(Table table, List<List<T>> list) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        List<Column> columns = getColumns(schemaName, tableName);
+        String SQL = getDeleteSQL(columns, tableName);
+        int columnsSize = columns.size();
+        int rs = 0;
+		try {
+				for (int i = 0 ; i < list.size(); i++) {
+					List<T> delObj = list.get(i);
+					stmt = con.prepareStatement(SQL);
+					for (int j = 1; j <= columnsSize; j++) {
+						stmt.setObject(j, mapDataType(columns.get(j-1), delObj.get(j-1).toString()));
+					}
+					rs = stmt.executeUpdate();
+				}
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getDeleteSQL(List<Column> columns, String tableName) {
+		StringBuilder SQL = new StringBuilder("delete from ").append(tableName).append(" where ");
+		int i = 0;
+		Column column = null;
+		for (i = 0; i < columns.size()-1; i++) {
+			column = columns.get(i);
+			SQL.append(column.getName()).append(" = ? and ");
+		}
+		column = columns.get(i);
+		SQL.append(column.getName()).append(" = ?;");
+		return SQL.toString();
 	}
 }

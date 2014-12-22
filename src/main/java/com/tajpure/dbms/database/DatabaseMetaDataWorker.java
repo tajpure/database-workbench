@@ -81,7 +81,7 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract <T> int updateValues(Table table, List<List<T>> oldList, List<List<T>> newlist);
 	
-	public abstract <T> int deleteValue(Table table, List<T> list);
+	public abstract <T> int deleteValue(Table table, List<List<T>> list);
 	
 	public abstract <T> List<List<T>> getValuesByPage(Table table, int page, int rowsPerPage);
 	

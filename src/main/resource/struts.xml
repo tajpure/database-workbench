@@ -71,8 +71,18 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="dropValue" class="com.tajpure.dbms.action.ManageValueAction" method="delete">
-			<result></result>
+		<action name="deleteValue" class="com.tajpure.dbms.action.ManageValueAction" method="delete">
+			<result name="success" type="redirectAction" > 
+				<param name="actionName">homePage</param>
+				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
+				<param name="curTable.name">${curTable.name}</param>
+				<param name="page">${page}</param>
+			</result>
+			<result name="failure" type="redirectAction" > 
+				<param name="actionName">error</param>
+				<param name="errorInfo">${loginError}</param>
+				<param name="returnUrl">${returnUrl}</param>
+			</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>

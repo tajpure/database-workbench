@@ -156,7 +156,7 @@
 			</c:choose>
 			</div>
 		<script type="text/javascript">
-		init();
+			init();
 		</script>
 	</div>
 	<div id="footer">

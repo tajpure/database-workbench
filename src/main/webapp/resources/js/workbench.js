@@ -7,6 +7,8 @@ var selectedItems = [];
 
 var indexOfItems = 0;
 
+var switcher = "#mode-switch";
+
 function init() {
 	showMenu();
 	initSwitch();
@@ -16,14 +18,10 @@ function initSwitch() {
 	$.fn.bootstrapSwitch.defaults.size = "mini";
 	$.fn.bootstrapSwitch.defaults.offText = "Delete";
 	$.fn.bootstrapSwitch.defaults.onText = "Save";
-	$("#mode-switch").bootstrapSwitch('state', true, true);
-	$('#mode-switch').on('switchChange.bootstrapSwitch', function () {
+	$(switcher).bootstrapSwitch('state', true, true);
+	$(switcher).on('switchChange.bootstrapSwitch', function () {
 		console.log("Switch mode changed");
 	}); 
-}
-
-function showTable() {
-	$.ajax({type: "Get",url: URL,}).done(refreshTable(columns, values));
 }
 
 function showMenu() {
@@ -40,9 +38,8 @@ function saveValue() {
 }
 
 function deleteValue() {
-	/*valueForm.action="deleteValue";
-	valueForm.submit(); */
-	console.log("delete...");
+	valueForm.action="deleteValue?" + getSelectedItems();
+	valueForm.submit();
 }
 
 function insertValue() {
@@ -52,17 +49,18 @@ function insertValue() {
 
 function select(index) {
 	var item = "row_" + index;
-	if ($('#mode-switch').bootstrapSwitch('state') == true) {
+	if ($(switcher).bootstrapSwitch('state') == true) {
 		return;
 	}
-	if (!isSelected(item)) {
+	if (!isSelected(index)) {
 		document.getElementById(item).style.backgroundColor="lightblue";
-		selectedItems[indexOfItems] = item;
+		selectedItems[indexOfItems] = index;
 	} else {
 		document.getElementById(item).style.backgroundColor="#012B39";
-		remove(item);
+		remove(index);
 	}
 	indexOfItems++;
+	console.log(selectedItems);
 }
 
 function isSelected(item) {
@@ -89,13 +87,23 @@ function remove(item) {
 		selectedItems.splice(index, 1); 
 		return true; 
 	} 
-	return false; 
+	return false;
 }
 
 function define() {
-	if ($('#mode-switch').bootstrapSwitch('state') == true) {
+	if ($(switcher).bootstrapSwitch('state') == true) {
 		saveValue();
 	} else {
 		deleteValue();
 	}
+}
+
+function getSelectedItems() {
+	var itemsStr = "";
+	var i = 0;
+	for (; i < selectedItems.length - 1; i++) {
+		itemsStr = itemsStr + selectedItems[i] + "o";
+	}
+	itemsStr = itemsStr + selectedItems[i];
+	return "delIndexStr=" + itemsStr;
 }
