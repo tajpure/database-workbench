@@ -19,9 +19,8 @@ public class ManageSchemaAction extends HttpServlet {
 		if (curSchema == null || curSchema.getName() == null) {
 			curSchema = worker.getSchema(schemaName);
 		}
-		if (schemas == null) {	// TODO Don't update schemas tree
-			schemas = worker.getSchemas();
-		}
+		
+		schemas = worker.getSchemas();
 		worker.drop();
 		return "success";
 	}

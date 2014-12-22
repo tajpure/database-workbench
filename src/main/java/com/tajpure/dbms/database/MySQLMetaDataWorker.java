@@ -81,8 +81,10 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			ResultSet rs = metaData.getTables(catalog, schemaPattern, tableNamePattern, types);
 			while (rs.next()) {
 				Table table = new Table();
-				table.setName(rs.getString(3));
-				table.setItsSchema(rs.getString(1));
+				table.setName(rs.getString("TABLE_NAME"));
+				table.setItsSchema(rs.getString("TABLE_CAT"));
+				table.setTableType(rs.getString("TABLE_TYPE"));
+				table.setRemarks(rs.getString("REMARKS"));
 				// For loading the table list faster
 				if (needColumns) {
 					table.setColumns(getColumns(catalog, tableNamePattern));
@@ -399,5 +401,11 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	public List<Function> getFunctions() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public int createSchema(String schemaName) {
+		int rs = 0;
+//		rs = metaData.
+		return rs;
 	}
 }

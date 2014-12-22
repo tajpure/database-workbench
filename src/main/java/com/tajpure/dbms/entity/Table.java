@@ -5,7 +5,6 @@ import java.util.List;
 public class Table {
 	
 	public Table() {
-		
 	}
 	
 	public Table(String name, String itsSchema) {
@@ -15,7 +14,11 @@ public class Table {
 	
 	private String name;
 	
+	private String tableType;
+	
 	private List<Column> columns;
+	
+	private String remarks;
 	
 	// The schema that the table belong to.
 	private String itsSchema;
@@ -46,5 +49,21 @@ public class Table {
 
 	public void setItsSchema(String itsSchema) {
 		this.itsSchema = itsSchema;
+	}
+
+	public String getTableType() {
+		return tableType;
+	}
+
+	public void setTableType(String tableType) {
+		this.tableType = tableType;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }

@@ -19,9 +19,7 @@ public class ManageTableAction extends HttpServlet {
 	
 	public String execute() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		if (schemas == null) {	// TODO Don't update schemas tree
-			schemas = worker.getSchemas();
-		}
+		schemas = worker.getSchemas();
 		if (columns == null || columns.size() == 0) {
 			columns = worker.getColumns(curTable.getItsSchema(), curTable.getName());
 		}

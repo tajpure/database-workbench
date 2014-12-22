@@ -12,8 +12,9 @@
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
-<script type="text/javascript" src="resources/js/table.js"></script>
+<script type="text/javascript" src="resources/js/schema.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -78,7 +79,38 @@
 				<h5>property</h5>
 			</div>
 			</c:if>
-			
+			<div id="table">
+				<form name="valueForm" method=post>
+				<table>
+  				<thead>
+   				 <tr>
+					<c:if test="${not empty curSchema.name}">
+      				<th>Table
+      				<th>Table type
+					<th><input class="table-btn" value="Define" type="button" onClick="define()">
+					<th><input class="table-btn" value="Create" type="button">
+					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
+					</c:if>
+ 				</thead>
+  				<tbody>
+    			<c:set var="i" scope="page" value="0"/>
+				<c:forEach items="${curSchema.tables}" var="table">
+    			<tr id="row_${i}" onclick="select(${i});">
+      				<td><input type="text" class="table-text"  value="${table.name}" name="newList[${i}]"/>
+      				<input type="hidden" value="${table.name}" name="oldList[${i}]"/>
+      				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newList[${i}]"/>
+      				<input type="hidden" value="${table.tableType}" name="oldList[${i}]"/>
+					<c:set var="i" scope="page" value="${i+1}"/>
+				</tr>
+				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
+				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
+				<c:set var="i" scope="page" value="${i+1}"/>
+				</c:forEach>
+  				</tbody>
+  				</tbody>
+				</table>
+				</form>
+			</div>
 			<script type="text/javascript">
 				init();
 			</script>
