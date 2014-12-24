@@ -14,7 +14,7 @@
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
-<script type="text/javascript" src="resources/js/schema.js"></script>
+<script type="text/javascript" src="resources/js/workbench.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
@@ -41,7 +41,6 @@
 						<c:forEach items="${schema.tables}" var="table">
 						<li>
 							<a href="homePage?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a>
-							<a class="table-config-btn" type="button" href="tableInfo?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">Config</a>
 						</li>
 						</c:forEach>
 						</ul>
@@ -77,7 +76,7 @@
 			<div id="table-name">
 				<h5 id="table-schema-name">${curSchema.name}</h5>
 				<h5>>></h5> 
-				<h5>property</h5>
+				<h5>properties</h5>
 			</div>
 			</c:if>
 			<br>
@@ -101,13 +100,13 @@
       				<th>Table
       				<th>Table type
 					<th><input class="table-btn" value="Define" type="button" onClick="define()">
-					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
+					<th><input type="checkbox" class="table-btn common" id="mode-switch-schema" checked/>
 					</c:if>
  				</thead>
   				<tbody>
     			<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${curSchema.tables}" var="table">
-    			<tr id="row_${i}" onclick="select(${i});">
+    			<tr id="row_${i}" onclick="schema.select(${i});">
       				<td><input type="text" class="table-text"  value="${table.name}" name="newList[${i}]"/>
       				<input type="hidden" value="${table.name}" name="oldList[${i}]"/>
       				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newList[${i}]"/>
@@ -131,7 +130,7 @@
 			</div>
 			
 			<script type="text/javascript">
-				init();
+			schema.init();
 			</script>
 	</div>
 	<div id="footer">

@@ -10,9 +10,11 @@
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/workbench.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
@@ -39,7 +41,6 @@
 						<c:forEach items="${schema.tables}" var="table">
 						<li>
 							<a href="homePage?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a>
-							<a class="table-config-btn" type="button" href="tableInfo?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">Config</a>
 						</li>
 						</c:forEach>
 						</ul>
@@ -74,8 +75,18 @@
 			<c:choose>
 			<c:when test="${not empty curTable.itsSchema}">
 			<div id="table-name"><h5 id="table-schema-name">${curTable.itsSchema}</h5> <h5>>></h5> <h5>${curTable.name}</h5></div>
-			</c:when>
-			</c:choose>
+			<br>
+			<div calss="tabpanel" role="tabpanel">
+  			<!-- Nav tabs -->
+  			<ul class="nav nav-tabs" role="tablist">
+   			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Columns</a></li>
+    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Config</a></li>
+    		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Info</a></li>
+    		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+  			</ul>
+			<!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
 			<div id="table">
 				<form name="valueForm" method=post>
 				<table>
@@ -85,15 +96,15 @@
       				<th>${column.name}
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) gt 0}">
-					<th><input class="table-btn" value="Define" type="button" onClick="define()">
-					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
+					<th><input class="table-btn" value="Define" type="button" onClick="define_value()">
+					<th><input type="checkbox" class="table-btn common" id="mode-switch-value" checked/>
 					</c:if>
  				</thead>
   				<tbody>
 				<c:set var="i" scope="page" value="0"/>
 				<c:set var="j" scope="page" value="0"/>
 				<c:forEach items="${values}" var="list">
-    			<tr id="row_${j}" onclick="select(${j});">
+    			<tr id="row_${j}" onclick="value.select(${j});">
    				<c:forEach items="${list}" var="object">
       				<td><input type="text" class="table-text"  value="${object}" name="newList[${i}]"/>
       				<input type="hidden" value="${object}" name="oldList[${i}]"/>
@@ -112,7 +123,7 @@
 					<c:set var="i" scope="page" value="${i+1}"/>
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) > 0}">
-					<td><input class="table-btn" value="Insert" type="button" onClick="insertValue()">
+					<td><input class="table-btn" value="Insert" type="button" onClick="insert_value()">
 					</c:if>
   				</tbody>
 				</table>
@@ -159,8 +170,86 @@
 			</c:when>
 			</c:choose>
 			</div>
+			 </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+			<div id="table">
+				<form name="tableForm" method=post>
+				<table>
+  				<thead>
+   				 <tr>
+					<c:if test="${fn:length(columns) gt 0}">
+      				<th>Column
+      				<th>Data type
+      				<th>Size
+      				<th><a data-tooltip="Belongs to primary key">PK</a>
+      				<th><a data-tooltip="Not Null">NN</a>
+      				<th><a data-tooltip="Unique Index">UQ</a>
+      				<th><a data-tooltip="Is binary column">BIN</a>
+      				<th><a data-tooltip="Insigned data type">UN</a>
+      				<th><a data-tooltip="Fill up values for that column with 0's if it is numeric">ZF</a>
+      				<th><a data-tooltip="Auto Incremental">AI</a>
+      				<th>Default
+					<th><input class="table-btn" value="Define" type="button" onClick="define_column()">
+					<th><input type="checkbox" class="table-btn common" id="mode-switch-column" checked/>
+					</c:if>
+ 				</thead>
+  				<tbody>
+    			<c:set var="i" scope="page" value="0"/>
+				<c:forEach items="${columns}" var="column">
+    			<tr id="row_${i}" onclick="column.select(${i});">
+      				<td><input type="text" class="table-text"  value="${column.name}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.name}" name="oldList[${i}]"/>
+      				<td><input type="text" class="table-text"  value="${column.dataType}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.dataType}" name="oldList[${i}]"/>
+      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newList[${i}]"/>
+      				<input type="hidden" value="${column.columnSize}" name="oldList[${i}]"/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
+					<c:set var="i" scope="page" value="${i+1}"/>
+				</tr>
+				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
+				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
+				<c:set var="i" scope="page" value="${i+1}"/>
+				</c:forEach>
+    			<tr>
+					<c:forEach var="i" begin="0" end="2">
+      				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
+					<c:set var="i" scope="page" value="${i+1}"/>
+					</c:forEach>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
+					<c:if test="${fn:length(columns) > 0}">
+					<td><input class="table-btn" value="Insert" type="button" onClick="column.insertValue()">
+					</c:if>
+  				</tbody>
+  				</tbody>
+				</table>
+				<input name="curTable.name" value="${curTable.name}" type="hidden"/>
+				<input name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
+				</form>
+			</div>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+			    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+			  </div>
+			</div>
+			</c:when>
+			</c:choose>
 		<script type="text/javascript">
-			init();
+			column.init();
+			value.init();
 		</script>
 	</div>
 	<div id="footer">

@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
@@ -13,7 +12,7 @@
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
-<script type="text/javascript" src="resources/js/table.js"></script>
+<script type="text/javascript" src="resources/js/workbench.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -77,7 +76,7 @@
 				<h5>>></h5> 
 				<h5>${curTable.name}</h5>
 				<h5>>></h5> 
-				<h5>property</h5>
+				<h5>properties</h5>
 			</div>
 			</c:if>
 			<div id="table">
@@ -89,6 +88,14 @@
       				<th>Column
       				<th>Data type
       				<th>Size
+      				<th><a data-tooltip="Belongs to primary key">PK</a>
+      				<th><a data-tooltip="Not Null">NN</a>
+      				<th><a data-tooltip="Unique Index">UQ</a>
+      				<th><a data-tooltip="Is binary column">BIN</a>
+      				<th><a data-tooltip="Insigned data type">UN</a>
+      				<th><a data-tooltip="Fill up values for that column with 0's if it is numeric">ZF</a>
+      				<th><a data-tooltip="Auto Incremental">AI</a>
+      				<th>Default
 					<th><input class="table-btn" value="Define" type="button" onClick="define()">
 					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
 					</c:if>
@@ -103,6 +110,14 @@
       				<input type="hidden" value="${column.dataType}" name="oldList[${i}]"/>
       				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newList[${i}]"/>
       				<input type="hidden" value="${column.columnSize}" name="oldList[${i}]"/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 				</tr>
 				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
@@ -114,6 +129,14 @@
       				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 					</c:forEach>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class=""/>
+      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
 					<c:if test="${fn:length(columns) > 0}">
 					<td><input class="table-btn" value="Insert" type="button" onClick="insertValue()">
 					</c:if>
