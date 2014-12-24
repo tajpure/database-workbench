@@ -10,11 +10,12 @@
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
-<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
 <script type="text/javascript" src="resources/js/schema.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -79,7 +80,19 @@
 				<h5>property</h5>
 			</div>
 			</c:if>
-			<div id="table">
+			<br>
+			<div role="tabpanel">
+  			<!-- Nav tabs -->
+  			<ul class="nav nav-tabs" role="tablist">
+   			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tables</a></li>
+    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Create Table</a></li>
+    		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Scheme</a></li>
+    		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+  			</ul>
+			<!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
+			    	<div id="table">
 				<form name="valueForm" method=post>
 				<table>
   				<thead>
@@ -88,7 +101,6 @@
       				<th>Table
       				<th>Table type
 					<th><input class="table-btn" value="Define" type="button" onClick="define()">
-					<th><input class="table-btn" value="Create" type="button">
 					<th><input type="checkbox" class="table-btn common" id="mode-switch" checked/>
 					</c:if>
  				</thead>
@@ -111,6 +123,13 @@
 				</table>
 				</form>
 			</div>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
+			    <div role="tabpanel" class="tab-pane" id="messages">...</div>
+			    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+			  </div>
+			</div>
+			
 			<script type="text/javascript">
 				init();
 			</script>

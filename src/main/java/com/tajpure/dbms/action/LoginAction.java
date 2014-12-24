@@ -17,7 +17,7 @@ public class LoginAction extends HttpServlet{
 
 	public String execute() {
 		Map<String, Object> map = ActionContext.getContext().getSession();
-		LoggerUtil.warn(username+" login successful.");
+		LoggerUtil.info(username+" login successful.");
 		Database db = null;
 		switch(typeOfDB) {
 			case 0 : db = Database.MySQL; break;
