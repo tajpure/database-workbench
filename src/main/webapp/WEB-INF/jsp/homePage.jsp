@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
@@ -79,9 +78,8 @@
 			<div calss="tabpanel" role="tabpanel">
   			<!-- Nav tabs -->
   			<ul class="nav nav-tabs" role="tablist">
-   			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Columns</a></li>
-    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Config</a></li>
-    		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Info</a></li>
+   			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Values</a></li>
+    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Columns</a></li>
     		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
   			</ul>
 			<!-- Tab panes -->
@@ -199,17 +197,55 @@
     			<tr id="row_${i}" onclick="column.select(${i});">
       				<td><input type="text" class="table-text"  value="${column.name}" name="newList[${i}]"/>
       				<input type="hidden" value="${column.name}" name="oldList[${i}]"/>
-      				<td><input type="text" class="table-text"  value="${column.dataType}" name="newList[${i}]"/>
+      				<td><select name="newList[${i}]" id="select_${i}">
+							<option value=12>VARCHAR</option>
+							<option value=5>SMALLINT</option>
+							<option value=4>INTEGER</option>
+							<option value=-5>BIGINT</option>
+							<option value=6>FLOAT</option>
+							<option value=7>REAL</option>
+							<option value=8>DOUBLE</option>
+							<option value=2>NUMERIC</option>
+							<option value=3>DECIMAL</option>
+							<option value=1>CHAR</option>
+							<option value=-1>LONGVARCHAR</option>
+							<option value=92>DATE</option>
+							<option value=92>TIME</option>
+							<option value=93>TIMESTAMP</option>
+							<option value=-2>BINARY</option>
+							<option value=-3>VARBINARY</option>
+							<option value=-4>LONGVARBINARY</option>
+							<option value=0>NULL</option>
+							<option value=1111>OTHER</option>
+							<option value=2000>JAVA_OBJECT</option>
+							<option value=2001>DISTINCT</option>
+							<option value=2002>STRUCT</option>
+							<option value=2003>ARRAY</option>
+							<option value=2004>BLOB</option>
+							<option value=2005>CLOB</option>
+							<option value=2006>REF</option>
+							<option value=70>DATALINK</option>
+							<option value=16>BOOLEAN</option>
+							<option value=-8>ROWID</option>
+							<option value=-15>NCHAR</option>
+							<option value=-9>NVARCHAR</option>
+							<option value=-16>LONGNVARCHAR</option>
+							<option value=2011>NCLOB</option>
+							<option value=2009>SQLXML</option>
+						</select>
+						<script type="text/javascript">
+							$("#select_" + ${i}).val(${column.dataType});
+						</script>
       				<input type="hidden" value="${column.dataType}" name="oldList[${i}]"/>
       				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newList[${i}]"/>
       				<input type="hidden" value="${column.columnSize}" name="oldList[${i}]"/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
+      				<td><input type="checkbox" class="checkbox"/>
       				<td><input type="text" class=""  value="" name="newList[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 				</tr>
@@ -218,10 +254,44 @@
 				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
     			<tr>
-					<c:forEach var="i" begin="0" end="2">
       				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
-					<c:set var="i" scope="page" value="${i+1}"/>
-					</c:forEach>
+      				<td><select name="newList[${i}]">
+							<option value=12>VARCHAR</option>
+							<option value=5>SMALLINT</option>
+							<option value=4>INTEGER</option>
+							<option value=-5>BIGINT</option>
+							<option value=6>FLOAT</option>
+							<option value=7>REAL</option>
+							<option value=8>DOUBLE</option>
+							<option value=2>NUMERIC</option>
+							<option value=3>DECIMAL</option>
+							<option value=1>CHAR</option>
+							<option value=-1>LONGVARCHAR</option>
+							<option value=92>DATE</option>
+							<option value=92>TIME</option>
+							<option value=93>TIMESTAMP</option>
+							<option value=-2>BINARY</option>
+							<option value=-3>VARBINARY</option>
+							<option value=-4>LONGVARBINARY</option>
+							<option value=0>NULL</option>
+							<option value=1111>OTHER</option>
+							<option value=2000>JAVA_OBJECT</option>
+							<option value=2001>DISTINCT</option>
+							<option value=2002>STRUCT</option>
+							<option value=2003>ARRAY</option>
+							<option value=2004>BLOB</option>
+							<option value=2005>CLOB</option>
+							<option value=2006>REF</option>
+							<option value=70>DATALINK</option>
+							<option value=16>BOOLEAN</option>
+							<option value=-8>ROWID</option>
+							<option value=-15>NCHAR</option>
+							<option value=-9>NVARCHAR</option>
+							<option value=-16>LONGNVARCHAR</option>
+							<option value=2011>NCLOB</option>
+							<option value=2009>SQLXML</option>
+						</select>
+					<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
       				<td><input type="checkbox" class=""/>
       				<td><input type="checkbox" class=""/>
       				<td><input type="checkbox" class=""/>
@@ -231,7 +301,7 @@
       				<td><input type="checkbox" class=""/>
       				<td><input type="text" class=""  value="" name="newList[${i}]"/>
 					<c:if test="${fn:length(columns) > 0}">
-					<td><input class="table-btn" value="Insert" type="button" onClick="column.insertValue()">
+					<td><input class="table-btn" value="Add" type="button" onClick="column.insertValue()">
 					</c:if>
   				</tbody>
   				</tbody>
@@ -241,8 +311,9 @@
 				</form>
 			</div>
 			    </div>
-			    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-			    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+			    <div role="tabpanel" class="tab-pane" id="settings">
+					The settings of this table.
+				</div>
 			  </div>
 			</div>
 			</c:when>

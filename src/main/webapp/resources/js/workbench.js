@@ -173,7 +173,7 @@ var column = {
 				this.remove(index);
 			}
 			this.indexOfItems++;
-			console.log(selectedItems);
+			console.log(this.selectedItems);
 		},
 		"isSelected" : function(item) {
 			for (var i in this.selectedItems) {

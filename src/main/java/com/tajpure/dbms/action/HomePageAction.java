@@ -15,7 +15,7 @@ public class HomePageAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final int rowsPerPage = 24;
+	private static final int rowsPerPage = 20;
 	
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
