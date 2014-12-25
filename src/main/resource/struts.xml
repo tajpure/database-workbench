@@ -56,7 +56,7 @@
 				<param name="actionName">homePage</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
 				<param name="curTable.name">${curTable.name}</param>
-				<param name="page">${page}</param>
+				<param name="curTab">${curTab}</param>
 			</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
@@ -69,8 +69,9 @@
 			<action name="insertValue" class="com.tajpure.dbms.action.ManageValueAction" method="insert">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">homePage</param>
-				<param name="curTable">${curTable}</param>
-				<param name="curTab">${curTab}</param>
+				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
+				<param name="curTable.name">${curTable.name}</param>
+				<param name="page">${page}</param>
 			</result>
 			<result name="failure" type="redirectAction" > 
 				<param name="actionName">error</param>

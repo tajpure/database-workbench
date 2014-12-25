@@ -3,7 +3,7 @@ package com.tajpure.dbms.action;
 import javax.servlet.http.HttpServlet;
 
 /**
- * 错误页面，提示相应的错误信息
+ * Error page
  * @author taojx
  *
  */
