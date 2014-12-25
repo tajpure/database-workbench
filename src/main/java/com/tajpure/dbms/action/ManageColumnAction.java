@@ -17,9 +17,11 @@ public class ManageColumnAction extends HttpServlet {
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
 	public String updateColumns() {
+		System.out.println(oldColumns);
+		System.out.println(newColumns);
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (columns == null || columns.size() == 0) {
-			 worker.updateColumns(curTable, columns, columns);
+			 worker.updateColumns(curTable, oldColumns, newColumns);
 		}
 		worker.drop();
 		return "success";
@@ -37,10 +39,25 @@ public class ManageColumnAction extends HttpServlet {
 	public String deleteColumns() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (insertColumn.getName() != null) {
-			worker.deleteColumns(curTable, columns);
+			worker.deleteColumns(curTable, getDeleteColumn(delIndexStr));
 		}
 		worker.drop();
 		return "success";
+	}
+	
+	public List<Column> getDeleteColumn(String delIndexStr) {
+		List<Column> delColumns = new ArrayList<Column>();
+		String[] indexArr = getIndexArr(delIndexStr);
+		for (String index : indexArr) {
+			delColumns.add(newColumns.get(Integer.parseInt(index)));
+		}
+		return delColumns;
+	}
+	
+	private String[] getIndexArr(String indexStr) {
+		if (indexStr == null || "".equals(indexStr)) return null;
+		String[] indexArr = indexStr.split("o");
+		return indexArr;
 	}
 	
 	private int curTab = 1;
@@ -49,7 +66,13 @@ public class ManageColumnAction extends HttpServlet {
 	
 	private List<Column> columns = new ArrayList<Column>();
 	
+	private List<Column> newColumns = new ArrayList<Column>();
+	
+	private List<Column> oldColumns = new ArrayList<Column>();
+	
 	private Column insertColumn = new Column();
+	
+	private String delIndexStr;
 	
 	public Table getCurTable() {
 		return curTable;
@@ -81,6 +104,30 @@ public class ManageColumnAction extends HttpServlet {
 
 	public void setCurTab(int curTab) {
 		this.curTab = curTab;
+	}
+
+	public List<Column> getNewColumns() {
+		return newColumns;
+	}
+
+	public void setNewColumns(List<Column> newColumns) {
+		this.newColumns = newColumns;
+	}
+
+	public List<Column> getOldColumns() {
+		return oldColumns;
+	}
+
+	public void setOldColumns(List<Column> oldColumns) {
+		this.oldColumns = oldColumns;
+	}
+
+	public String getDelIndexStr() {
+		return delIndexStr;
+	}
+
+	public void setDelIndexStr(String delIndexStr) {
+		this.delIndexStr = delIndexStr;
 	}
 
 }

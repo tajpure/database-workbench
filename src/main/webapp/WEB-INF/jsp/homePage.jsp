@@ -194,9 +194,9 @@
     			<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${columns}" var="column">
     			<tr id="column-row${i}" onclick="column.select(${i});">
-      				<td><input type="text" class="table-text"  value="${column.name}" name="newColumns[].name"/>
-      				<input type="hidden" value="${column.name}" name="oldColumn.name"/>
-      				<td><select name="oldColumn.dataType" id="select_${i}">
+      				<td><input type="text" class="table-text"  value="${column.name}" name="newColumns[${i}].name"/>
+      				<input type="hidden" value="${column.name}" name="oldColumns[${i}].name"/>
+      				<td><select name="newColumns[${i}].dataType" id="select_${i}">
 							<option value=12>VARCHAR</option>
 							<option value=5>SMALLINT</option>
 							<option value=4>INTEGER</option>
@@ -235,56 +235,52 @@
 						<script type="text/javascript">
 							$("#select_" + ${i}).val(${column.dataType});
 						</script>
-      				<input type="hidden" value="${column.dataType}" name="oldColumn.dataType"/>
-      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="column.columnSize"/>
-      				<input type="hidden" value="${column.columnSize}" name="column.columnSize"/>
+      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newColumns[${i}].columnSize"/>
       				<td><input id="PK${i}" type="checkbox" class="checkbox" name="newColumns[${i}].PK" value="0" onchange="setCheck('PK${i}')"/>
 						<script type="text/javascript">
 						if (${column.PK}) {
 							$("#PK" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="NN${i}" type="checkbox" class="checkbox" name="column.NN"/>
+      				<td><input id="NN${i}" type="checkbox" class="checkbox" name="newColumns[${i}].NN"/>
 						<script type="text/javascript">
 						if (${column.NN}) {
 							$("#NN" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="UQ${i}" type="checkbox" class="checkbox" name="column.UQ"/>
+      				<td><input id="UQ${i}" type="checkbox" class="checkbox" name="newColumns[${i}].UQ"/>
 						<script type="text/javascript">
 						if (${column.UQ}) {
 							$("#UQ" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="BIN${i}" type="checkbox" class="checkbox" name="column.BIN"/>
+      				<td><input id="BIN${i}" type="checkbox" class="checkbox" name="newColumns[${i}].BIN"/>
 						<script type="text/javascript">
 						if (${column.BIN}) {
 							$("#BIN" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="UN${i}" type="checkbox" class="checkbox" name="column.UN"/>
+      				<td><input id="UN${i}" type="checkbox" class="checkbox" name="newColumns[${i}].UN"/>
 						<script type="text/javascript">
 						if (${column.UN}) {
 							$("#UN" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="ZF${i}" type="checkbox" class="checkbox" name="column.ZF"/>
+      				<td><input id="ZF${i}" type="checkbox" class="checkbox" name="newColumns[${i}].ZF"/>
 						<script type="text/javascript">
 						if (${column.ZF}) {
 							$("#ZF" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="AI${i}" type="checkbox" class="checkbox" name="column.AI"/>
+      				<td><input id="AI${i}" type="checkbox" class="checkbox" name="newColumns[${i}].AI"/>
 						<script type="text/javascript">
 						if (${column.AI}) {
 							$("#AI" + ${i}).prop('checked', true);
 						}
 						</script>
-      				<td><input id="default${i}" type="text" class="table-text"  value="${column.columnDefault}" name="newColumns[].columnDefault"/>
-      				<input type="hidden" value="${column.columnDefault}" name="oldColumn.columnDefault"/>
+      				<td><input id="default${i}" type="text" class="table-text"  value="${column.columnDefault}" name="newColumns[${i}].columnDefault"/>
 				</tr>
-				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
-				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
+				
 				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
     			<tr>
@@ -353,7 +349,6 @@
 			</c:when>
 			</c:choose>
 		<script type="text/javascript">
-		console.log(${curTab});
 			switch (${curTab}) {
 			case 0 : $("#tab0").trigger("click"); break;
 			case 1 : $("#tab1").trigger("click"); break;

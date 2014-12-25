@@ -8,7 +8,7 @@ function define_value() {
 };
 
 function define_column() {
-	column.define();
+	column.defineColumn();
 };
 
 function insert_value() {
@@ -134,6 +134,13 @@ function Workbench(name, switcher, row) {
 				this.saveValue();
 			} else {
 				this.deleteValue();
+			}
+		};
+		this.defineColumn = function() {
+			if ($(this.switcher).bootstrapSwitch('state') == true) {
+				this.saveColumn();
+			} else {
+				this.deleteColumn();
 			}
 		};
 		this.getSelectedItems = function() {
