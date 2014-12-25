@@ -10,26 +10,22 @@ import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Table;
 
-public class ManageTableAction extends HttpServlet {
+public class ManageColumnAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-	
-	public String execute() {
-		return "";
-	}
-	
-	public String updateTables() {
+
+	public String updateColumns() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (columns == null || columns.size() == 0) {
-			columns = worker.getColumns(curTable.getItsSchema(), curTable.getName());
+			 worker.updateColumns(curTable, columns, columns);
 		}
 		worker.drop();
 		return "success";
 	}
 	
-	public String insertTables() {
+	public String insertColumn() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (insertColumn.getName() != null) {
 			worker.insertColumn(curTable, insertColumn);
@@ -38,8 +34,13 @@ public class ManageTableAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String deleteTables() {
-		return "";
+	public String deleteColumns() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		if (insertColumn.getName() != null) {
+			worker.deleteColumns(curTable, columns);
+		}
+		worker.drop();
+		return "success";
 	}
 	
 	private int curTab = 1;

@@ -77,15 +77,15 @@
 			<div calss="tabpanel" role="tabpanel">
   			<!-- Nav tabs -->
   			<ul class="nav nav-tabs" role="tablist">
-   			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Values</a></li>
-    		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Columns</a></li>
-    		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+   			<li role="presentation" class="active"><a id="tab0" href="#home" aria-controls="home" role="tab" data-toggle="tab">Values</a></li>
+    		<li role="presentation"><a id="tab1" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Columns</a></li>
+    		<li role="presentation"><a id="tab2" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
   			</ul>
 			<!-- Tab panes -->
 			  <div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="home">
 			<div id="table">
-				<form name="valueForm" method=post>
+				<form name="ValueForm" method=post>
 				<table>
   				<thead>
    				 <tr>
@@ -170,7 +170,7 @@
 			 </div>
 			    <div role="tabpanel" class="tab-pane" id="profile">
 			<div id="table">
-				<form name="tableForm" method=post>
+				<form name="ColumnForm" method=post>
 				<table>
   				<thead>
    				 <tr>
@@ -335,7 +335,7 @@
       				<td><input type="checkbox" class="checkbox" name="insertColumn.AI"/>
       				<td><input type="text" class="table-text"  value="" name="insertColumn.columnDefault"/>
 					<c:if test="${fn:length(columns) > 0}">
-					<td><input class="table-btn" value="Add" type="button" onClick="column.insertValue()">
+					<td><input class="table-btn" value="Add" type="button" onClick="column.insertColumn()">
 					</c:if>
   				</tbody>
   				</tbody>
@@ -353,6 +353,12 @@
 			</c:when>
 			</c:choose>
 		<script type="text/javascript">
+		console.log(${curTab});
+			switch (${curTab}) {
+			case 0 : $("#tab0").trigger("click"); break;
+			case 1 : $("#tab1").trigger("click"); break;
+			case 2 : $("#tab2").trigger("click"); break;
+			}
 			column.init();
 			value.init();
 			value.showMenu();

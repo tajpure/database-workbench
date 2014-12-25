@@ -23,21 +23,19 @@ function save_value() {
 	value.saveValue();
 };
 
-function Workbench(switcher, row) {
+function Workbench(name, switcher, row) {
+		this.name = name;
 		this.selectedItems = [];
 		this.indexOfItems = 0;
 		this.switcher = switcher;
 		this.row = row;
+		this.form = '[name=' + name + 'Form' + ']';
 		this.init = function() {
 			this.initSwitch();
 			$('#myTab a').click(function (e) {
 				  e.preventDefault()
 				  $(this).tab('show')
 				});
-			$('#myTab a[href="#profile"]').tab('show'); // Select tab by name
-			$('#myTab a:first').tab('show'); // Select first tab
-			$('#myTab a:last').tab('show');// Select last tab
-			$('#myTab li:eq(2) a').tab('show'); // Select third tab (0-indexed)
 		};
 		this.initSwitch = function() {
 			$.fn.bootstrapSwitch.defaults.size = "mini";
@@ -56,16 +54,40 @@ function Workbench(switcher, row) {
 			$(tableId.toString()).trigger("click");
 		};
 		this.saveValue = function() {
-			valueForm.action="saveValue";
-			valueForm.submit(); 
+			ValueForm.action="saveValue";
+			ValueForm.submit(); 
 		};
 		this.deleteValue = function() {
-			valueForm.action="deleteValue?" + this.getSelectedItems();
-			valueForm.submit();
+			ValueForm.action="deleteValue?" + this.getSelectedItems();
+			ValueForm.submit();
+		};
+		this.insertColumn = function() {
+			ColumnForm.action = "insertColumn";
+			ColumnForm.submit();
+		};
+		this.saveColumn = function() {
+			ColumnForm.action="saveColumn";
+			ColumnForm.submit(); 
+		};
+		this.deleteColumn = function() {
+			ColumnForm.action="deleteColumn?" + this.getSelectedItems();
+			ColumnForm.submit();
+		};
+		this.insertTable = function() {
+			ValueForm.action = "insertValue";
+			ValueForm.submit();
+		};
+		this.saveTable = function() {
+			$(this.form).action="save" + this.name;
+			$(this.form).submit(); 
+		};
+		this.deleteTable = function() {
+			$(this.form).action="deleteValue?" + this.getSelectedItems();
+			$(this.form).submit();
 		};
 		this.insertValue = function() {
-			valueForm.action="insertValue";
-			valueForm.submit(); 
+			ValueForm.action = "insertValue";
+			ValueForm.submit();
 		};
 		this.select = function(index) {
 			var item = this.row + index;
@@ -101,7 +123,7 @@ function Workbench(switcher, row) {
 		};
 		this.remove = function(item) {
 			var index = this.indexOf(item);
-			if (index >= 0) { 
+			if (index >= 0) {
 				this.selectedItems.splice(index, 1); 
 				return true; 
 			} 
@@ -125,6 +147,6 @@ function Workbench(switcher, row) {
 		}
 };
 
-var value = new Workbench("#mode-switch-value", "value-row");
-var column = new Workbench("#mode-switch-column", "column-row");
-var schema = new Workbench("#mode-switch-schema", "schema-row");
+var value = new Workbench("Value", "#mode-switch-value", "value-row");
+var column = new Workbench("Column", "#mode-switch-column", "column-row");
+var schema = new Workbench("Schema", "#mode-switch-schema", "schema-row");

@@ -602,6 +602,8 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		StringBuilder SQL = new StringBuilder("alter table ");
 		SQL.append(tableName)
 			.append(" add column ")
+			.append(column.getName())
+			.append(" ")
 			.append(mapDataTypeToStr(column.getDataType()))
 			.append("(")
 			.append(column.getColumnSize())
