@@ -125,19 +125,7 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<StoredProcedure> getStoredProcedures() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Function> getFunctions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public int updateColumns(Table table, List<Column> oldColumns,
 			List<Column> newColumns) {
@@ -155,6 +143,18 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 	public int insertColumn(Table table, Column column) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<StoredProcedure> getStoredProcedures(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Function> getFunctions(String schemaName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

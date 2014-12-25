@@ -21,7 +21,11 @@ import com.tajpure.dbms.entity.View;
 import com.tajpure.dbms.util.Assert;
 import com.tajpure.dbms.util.ConnectionPool;
 
-
+/**
+ * 
+ * @author tajpure
+ *
+ */
 public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 
 	public MySQLMetaDataWorker(Connection con, User user) {
@@ -411,20 +415,78 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 
 	@Override
 	public List<View> getViews(String schemaName) {
-		// TODO Auto-generated method stub
-		return null;
+		List<View> views = new ArrayList<View>();
+		views = getViews(schemaName, "%", "%", new String[] {"VIEW"}, false);
+		return views;
+	}
+	
+	public List<View> getViews(String catalog, String schemaPattern,
+			String tableNamePattern, String types[], boolean needColumns) {
+		List<View> views = new ArrayList<View>();
+		try {
+			ResultSet rs = metaData.getTables(catalog, schemaPattern, tableNamePattern, types);
+			while (rs.next()) {
+				View view = new View();
+				view.setName(rs.getString("TABLE_NAME"));
+				view.setItsSchema(rs.getString("TABLE_CAT"));
+				view.setTableType(rs.getString("TABLE_TYPE"));
+				view.setRemarks(rs.getString("REMARKS"));
+				// For loading the view list faster
+				if (needColumns) {
+					view.setColumns(getColumns(catalog, tableNamePattern));
+				}
+				views.add(view);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return views;
 	}
 
 	@Override
-	public List<StoredProcedure> getStoredProcedures() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StoredProcedure> getStoredProcedures(String schemaName) {
+		List<StoredProcedure> procedures = new ArrayList<StoredProcedure>();
+		procedures = getStoredProcedures(schemaName, "%", "%");
+		return procedures;
+	}
+	
+	public List<StoredProcedure> getStoredProcedures(String catalog, String schemaPattern, String procedureNamePattern) {
+		List<StoredProcedure> procedures = new ArrayList<StoredProcedure>();
+		try {
+			ResultSet rs = metaData.getProcedures(catalog, schemaPattern, procedureNamePattern);
+			while (rs.next()) {
+				StoredProcedure procedure = new StoredProcedure();
+				procedure.setName(rs.getString("PROCEDURE_NAME"));
+				procedure.setRemarks(rs.getString("REMARKS"));
+				procedures.add(procedure);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return procedures;
 	}
 
 	@Override
-	public List<Function> getFunctions() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Function> getFunctions(String schemaName) {
+		List<Function> functions = new ArrayList<Function>();
+		functions = getFunctions(schemaName, "%", "%");
+		return functions;
+	}
+	
+	public List<Function> getFunctions(String catalog,String schemaPattern,String functionNamePattern) {
+		List<Function> functions = new ArrayList<Function>();
+		try {
+			ResultSet rs = metaData.getFunctions(catalog, schemaPattern, functionNamePattern);
+			while (rs.next()) {
+				Function function = new Function();
+				function.setName(rs.getString("FUNCTION_NAME"));
+				function.setRemarks(rs.getString("REMARKS"));
+				functions.add(function);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return functions;
 	}
 	
 	public int createSchema(String schemaName) {
@@ -452,7 +514,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         	}
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
@@ -504,7 +565,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         	}
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;
@@ -533,7 +593,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		rs = stmt.executeUpdate();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rs;

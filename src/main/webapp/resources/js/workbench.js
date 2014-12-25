@@ -1,6 +1,6 @@
 /**
  * Some database workbench functions.
- * author:taojx
+ * author:tajpure
  */
 
 function define_value() {

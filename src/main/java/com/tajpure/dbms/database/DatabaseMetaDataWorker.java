@@ -109,7 +109,7 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<View> getViews(String schemaName);
 	
-	public abstract List<StoredProcedure> getStoredProcedures();
+	public abstract List<StoredProcedure> getStoredProcedures(String schemaName);
 	
-	public abstract List<Function> getFunctions();
+	public abstract List<Function> getFunctions(String schemaName);
 }
