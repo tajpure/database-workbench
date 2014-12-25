@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -102,7 +101,7 @@
 				<c:set var="i" scope="page" value="0"/>
 				<c:set var="j" scope="page" value="0"/>
 				<c:forEach items="${values}" var="list">
-    			<tr id="row_${j}" onclick="value.select(${j});">
+    			<tr id="value-row${j}" onclick="value.select(${j});">
    				<c:forEach items="${list}" var="object">
       				<td><input type="text" class="table-text"  value="${object}" name="newList[${i}]"/>
       				<input type="hidden" value="${object}" name="oldList[${i}]"/>
@@ -186,7 +185,7 @@
       				<th><a data-tooltip="Insigned data type">UN</a>
       				<th><a data-tooltip="Fill up values for that column with 0's if it is numeric">ZF</a>
       				<th><a data-tooltip="Auto Incremental">AI</a>
-      				<th>Default
+      				<th>Remark
 					<th><input class="table-btn" value="Define" type="button" onClick="define_column()">
 					<th><input type="checkbox" class="table-btn common" id="mode-switch-column" checked/>
 					</c:if>
@@ -194,10 +193,10 @@
   				<tbody>
     			<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${columns}" var="column">
-    			<tr id="row_${i}" onclick="column.select(${i});">
-      				<td><input type="text" class="table-text"  value="${column.name}" name="newList[${i}]"/>
-      				<input type="hidden" value="${column.name}" name="oldList[${i}]"/>
-      				<td><select name="newList[${i}]" id="select_${i}">
+    			<tr id="column-row${i}" onclick="column.select(${i});">
+      				<td><input type="text" class="table-text"  value="${column.name}" name="newColumns[].name"/>
+      				<input type="hidden" value="${column.name}" name="oldColumn.name"/>
+      				<td><select name="oldColumn.dataType" id="select_${i}">
 							<option value=12>VARCHAR</option>
 							<option value=5>SMALLINT</option>
 							<option value=4>INTEGER</option>
@@ -236,26 +235,61 @@
 						<script type="text/javascript">
 							$("#select_" + ${i}).val(${column.dataType});
 						</script>
-      				<input type="hidden" value="${column.dataType}" name="oldList[${i}]"/>
-      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="newList[${i}]"/>
-      				<input type="hidden" value="${column.columnSize}" name="oldList[${i}]"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="checkbox" class="checkbox"/>
-      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
-					<c:set var="i" scope="page" value="${i+1}"/>
+      				<input type="hidden" value="${column.dataType}" name="oldColumn.dataType"/>
+      				<td><input type="text" class="table-text"  value="${column.columnSize}" name="column.columnSize"/>
+      				<input type="hidden" value="${column.columnSize}" name="column.columnSize"/>
+      				<td><input id="PK${i}" type="checkbox" class="checkbox" name="newColumns[${i}].PK" value="0" onchange="setCheck('PK${i}')"/>
+						<script type="text/javascript">
+						if (${column.PK}) {
+							$("#PK" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="NN${i}" type="checkbox" class="checkbox" name="column.NN"/>
+						<script type="text/javascript">
+						if (${column.NN}) {
+							$("#NN" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="UQ${i}" type="checkbox" class="checkbox" name="column.UQ"/>
+						<script type="text/javascript">
+						if (${column.UQ}) {
+							$("#UQ" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="BIN${i}" type="checkbox" class="checkbox" name="column.BIN"/>
+						<script type="text/javascript">
+						if (${column.BIN}) {
+							$("#BIN" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="UN${i}" type="checkbox" class="checkbox" name="column.UN"/>
+						<script type="text/javascript">
+						if (${column.UN}) {
+							$("#UN" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="ZF${i}" type="checkbox" class="checkbox" name="column.ZF"/>
+						<script type="text/javascript">
+						if (${column.ZF}) {
+							$("#ZF" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="AI${i}" type="checkbox" class="checkbox" name="column.AI"/>
+						<script type="text/javascript">
+						if (${column.AI}) {
+							$("#AI" + ${i}).prop('checked', true);
+						}
+						</script>
+      				<td><input id="default${i}" type="text" class="table-text"  value="${column.columnDefault}" name="newColumns[].columnDefault"/>
+      				<input type="hidden" value="${column.columnDefault}" name="oldColumn.columnDefault"/>
 				</tr>
 				<input type="hidden" value="{~_~}" name="newList[${i}]"/>
 				<input type="hidden" value="{~_~}" name="oldList[${i}]"/>
 				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
     			<tr>
-      				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
-      				<td><select name="newList[${i}]">
+      				<td><input type="text" class="table-text"  value="" name="insertColumn.name"/>
+      				<td><select name="insertColumn.dataType">
 							<option value=12>VARCHAR</option>
 							<option value=5>SMALLINT</option>
 							<option value=4>INTEGER</option>
@@ -291,15 +325,15 @@
 							<option value=2011>NCLOB</option>
 							<option value=2009>SQLXML</option>
 						</select>
-					<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="checkbox" class=""/>
-      				<td><input type="text" class=""  value="" name="newList[${i}]"/>
+					<td><input type="text" class="table-text"  value="" name="insertColumn.columnSize"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.PK"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.NN"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.UQ"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.BIN"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.UN"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.ZF"/>
+      				<td><input type="checkbox" class="checkbox" name="insertColumn.AI"/>
+      				<td><input type="text" class="table-text"  value="" name="insertColumn.columnDefault"/>
 					<c:if test="${fn:length(columns) > 0}">
 					<td><input class="table-btn" value="Add" type="button" onClick="column.insertValue()">
 					</c:if>
@@ -321,6 +355,18 @@
 		<script type="text/javascript">
 			column.init();
 			value.init();
+			value.showMenu();
+			function setCheck(item) {
+				var checkbox = item;
+				if ($(checkbox).is(':checked')) {
+					$(checkbox).prop('checked', false);
+					$(checkbox).val("0");
+				} else {
+					$(checkbox).prop('checked', true);
+					$(checkbox).val("1");
+				}
+				console.log(checkbox + ' ' + $(checkbox));
+			}
 		</script>
 	</div>
 	<div id="footer">

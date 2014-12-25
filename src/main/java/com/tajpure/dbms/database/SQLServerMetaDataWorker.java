@@ -123,4 +123,23 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		return null;
 	}
 
+	@Override
+	public int updateColumns(Table table, List<Column> oldColumns,
+			List<Column> newColumns) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteColumns(Table table, List<Column> columns) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertColumn(Table table, Column column) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

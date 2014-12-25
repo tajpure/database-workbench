@@ -27,15 +27,21 @@ public class ManageTableAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String insert() {
+	public String updateColumns() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		schemas = worker.getSchemas();
+		if (columns == null || columns.size() == 0) {
+			columns = worker.getColumns(curTable.getItsSchema(), curTable.getName());
+		}
+		worker.drop();
+		return "success";
+	}
+	
+	public String insertColumn() {
 		return "";
 	}
 	
-	public String update() {
-		return "";
-	}
-	
-	public String delete() {
+	public String deleteColumns() {
 		return "";
 	}
 	

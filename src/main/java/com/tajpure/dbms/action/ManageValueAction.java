@@ -14,11 +14,6 @@ public class ManageValueAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-
-	public String execute() {
-		
-		return "";
-	}
 	
 	public String insert() {
 		if (insertObj.size() == 0) {

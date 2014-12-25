@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Function;
@@ -113,23 +115,45 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 	
 	public List<Column> getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern) {
+		if (catalog == null || tableNamePattern == null) return null;
 		List<Column> columns = new ArrayList<Column>();
+		Map<String,String> primaryKeyMap = new HashMap<String,String>();
 		try {
-			ResultSet rs = metaData.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern);
+			ResultSet rs = metaData.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);
+			while (rs.next()) {
+				primaryKeyMap.put(rs.getString("COLUMN_NAME"), "exist");
+			}
+			rs = metaData.getColumns(catalog, schemaPattern, tableNamePattern, columnNamePattern);
 			while (rs.next()) {
 				Column column = new Column();
 				column.setName(rs.getString("COLUMN_NAME"));
 				column.setDataType(rs.getInt("DATA_TYPE"));
 				column.setColumnSize(rs.getInt("COLUMN_SIZE"));
-				column.setItsTable(rs.getString("TABLE_NAME"));
-				column.setItsSchema(rs.getString("TABLE_SCHEM"));
-				column.setItsCatalog(rs.getString("TABLE_CAT"));
+				column.setNN(mapStrToBoo(rs.getString("IS_NULLABLE")));
+				column.setAI(mapStrToBoo(rs.getString("IS_AUTOINCREMENT")));
+				column.setColumnDefault(rs.getString("REMARKS"));
+				if ("exist".equals(primaryKeyMap.get(column.getName()))) {
+					column.setPK(true);
+				}
 				columns.add(column);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return columns;
+	}
+	
+	/**
+	 * "YES" -> true, "NO" or others -> false
+	 * @param result
+	 * @return
+	 */
+	public boolean mapStrToBoo(String result) {
+		if ("YES".equals(result)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public List<List<Object>> getValues(Table table) {
@@ -407,5 +431,152 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		int rs = 0;
 //		rs = metaData.
 		return rs;
+	}
+
+	@Override
+	public int updateColumns(Table table, List<Column> oldColumns,
+			List<Column> newColumns) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        	for (int i = 0; i < oldColumns.size(); i++) {
+        		Column oldColumn = oldColumns.get(i);
+        		Column newColumn = newColumns.get(i);
+        		SQL = getUpdateColumnsSQL(tableName, oldColumn, newColumn);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        	}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getUpdateColumnsSQL(String tableName, Column oldColumn,
+			Column newColumn) {
+		StringBuilder SQL = new StringBuilder("alter table ");
+		SQL.append(tableName)
+			.append(" change ")
+			.append(oldColumn.getName())
+			.append(" ")
+			.append(newColumn.getName())
+			.append(" ")
+			.append(mapDataTypeToStr(newColumn.getDataType()))
+			.append("(")
+			.append(newColumn.getColumnSize())
+			.append(")");
+		if (newColumn.isNN()) {
+			SQL.append(" not null");
+		}
+		if (newColumn.isUN()) {
+			SQL.append(" unsigned");
+		}
+		if (newColumn.isZF()) {
+			SQL.append(" default 0");
+		}
+		if (newColumn.isAI()) {
+			SQL.append(" auto_increment");
+		}
+		SQL.append(";");
+		return SQL.toString();
+	}
+
+	@Override
+	public int deleteColumns(Table table, List<Column> columns) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        	for (int i = 0; i < columns.size(); i++) {
+        		Column column = columns.get(i);
+        		SQL = getDeleteSQL(tableName, column);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        	}
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getDeleteSQL(String tableName, Column column) {
+		StringBuilder SQL = new StringBuilder("alter table ");
+		SQL.append(tableName)
+			.append(" drop  column ")
+			.append(column.getName())
+			.append(";");
+		return SQL.toString();
+	}
+
+	@Override
+	public int insertColumn(Table table, Column column) {
+		String tableName = table.getName();
+		String schemaName = table.getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        		SQL = getInsertColumnSQL(tableName, column);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getInsertColumnSQL(String tableName, Column column) {
+		StringBuilder SQL = new StringBuilder("alter table ");
+		SQL.append(tableName)
+			.append(" add column ")
+			.append(mapDataTypeToStr(column.getDataType()))
+			.append("(")
+			.append(column.getColumnSize())
+			.append(")");
+		if (column.isNN()) {
+			SQL.append(" not null");
+		}
+		if (column.isUN()) {
+			SQL.append(" unsigned");
+		}
+		if (column.isZF()) {
+			SQL.append(" default 0");
+		}
+		if (column.isAI()) {
+			SQL.append(" auto_increment");
+		}
+		SQL.append(";");
+		return SQL.toString();
+	}
+	
+	public String mapDataTypeToStr(int dataType) {
+		String type = null;
+		switch (dataType) {
+		case Types.BIGINT : type = "bigint"; break;
+		case Types.BOOLEAN : type = "tinyint"; break;
+		case Types.DATE : type = "date"; break;
+		case Types.DOUBLE : type = "double"; break;
+		case Types.FLOAT : type = "float"; break;
+		case Types.INTEGER : type = "int"; break;
+		case Types.CHAR : type = "char"; break;
+		case Types.VARCHAR : type = "varchar"; break;
+		case Types.LONGNVARCHAR : type = "longblob"; break;
+		default : Assert.error("This data type isn't supported now.(dataType: " + dataType + ")");
+		}
+		return type;
 	}
 }

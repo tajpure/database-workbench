@@ -18,7 +18,7 @@ import com.tajpure.dbms.util.ConnectionPool;
 
 /**
  * 
- * @author taojx
+ * @author tajpure
  *
  */
 public abstract class DatabaseMetaDataWorker {
@@ -48,7 +48,7 @@ public abstract class DatabaseMetaDataWorker {
 	}
 
 	/**
-	 * This method need to be called after the employ of the worker finished.
+	 * This method need to be called after the use of the worker finished.
 	 */
 	public void drop() {
 		ConnectionPool.pushConnectionBackToPool(con);
@@ -84,6 +84,12 @@ public abstract class DatabaseMetaDataWorker {
 	public abstract Column getColumn(String schemaName, String tableName, String columnName);
 	
 	public abstract List<Column> getColumns(String schemaName, String tableName);
+	
+	public abstract int updateColumns(Table table, List<Column> oldColumns, List<Column> newColumns);
+	
+	public abstract int deleteColumns(Table table, List<Column> columns);
+	
+	public abstract int insertColumn(Table table, Column column);
 	
 	public abstract List<List<Object>> getValues(Table table);
 	

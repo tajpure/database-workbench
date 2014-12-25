@@ -85,7 +85,6 @@
   			<ul class="nav nav-tabs" role="tablist">
    			<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Tables</a></li>
     		<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Create Table</a></li>
-    		<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Scheme</a></li>
     		<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
   			</ul>
 			<!-- Tab panes -->
@@ -106,7 +105,7 @@
   				<tbody>
     			<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${curSchema.tables}" var="table">
-    			<tr id="row_${i}" onclick="schema.select(${i});">
+    			<tr id="schema-row${i}" onclick="schema.select(${i});">
       				<td><input type="text" class="table-text"  value="${table.name}" name="newList[${i}]"/>
       				<input type="hidden" value="${table.name}" name="oldList[${i}]"/>
       				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newList[${i}]"/>
@@ -123,14 +122,18 @@
 				</form>
 			</div>
 			    </div>
-			    <div role="tabpanel" class="tab-pane" id="profile">Profile</div>
-			    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-			    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+					Create table
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="settings">
+			    	Settings
+			    </div>
 			  </div>
 			</div>
 			
 			<script type="text/javascript">
 			schema.init();
+			schema.showMenu();
 			</script>
 	</div>
 	<div id="footer">
