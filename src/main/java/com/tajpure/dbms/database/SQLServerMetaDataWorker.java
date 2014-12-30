@@ -142,4 +142,28 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		return null;
 	}
 
+	@Override
+	public int createTable(Table table) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int dropTable(Table table) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int dropTables(List<Table> tables) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateTables(List<Table> tables) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

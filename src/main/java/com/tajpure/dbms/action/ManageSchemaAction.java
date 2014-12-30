@@ -36,6 +36,16 @@ public class ManageSchemaAction extends HttpServlet {
 	public String delete() {
 		return "";
 	}
+	
+	private int curTab = 0;
+
+	public int getCurTab() {
+		return curTab;
+	}
+
+	public void setCurTab(int curTab) {
+		this.curTab = curTab;
+	}
 
 	private List<Schema> schemas = null;
 	

@@ -17,8 +17,6 @@ public class ManageColumnAction extends HttpServlet {
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
 	public String updateColumns() {
-		System.out.println(oldColumns);
-		System.out.println(newColumns);
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (columns == null || columns.size() == 0) {
 			 worker.updateColumns(curTable, oldColumns, newColumns);

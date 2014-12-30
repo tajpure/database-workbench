@@ -157,3 +157,74 @@ function Workbench(name, switcher, row) {
 var value = new Workbench("Value", "#mode-switch-value", "value-row");
 var column = new Workbench("Column", "#mode-switch-column", "column-row");
 var schema = new Workbench("Schema", "#mode-switch-schema", "schema-row");
+
+
+var indexOfColumn = 1;
+// So dirty...
+function addTr() {
+	var insertTd0 = "<input type='text' class='table-text' name='insertColumns[" + indexOfColumn + "].name'/>";
+	var insertTd1 = "<select name='insertColumns[" + indexOfColumn + "].dataType'> <option value=12>VARCHAR</option>" + 
+											"<option value=5>SMALLINT</option>" +
+											"<option value=4>INTEGER</option>" +
+											"<option value=-5>BIGINT</option>" +
+											"<option value=6>FLOAT</option>" +
+											"<option value=7>REAL</option>" +
+											"<option value=8>DOUBLE</option>" +
+											"<option value=2>NUMERIC</option>" +
+											"<option value=3>DECIMAL</option>" +
+											"<option value=1>CHAR</option>" +
+											"<option value=-1>LONGVARCHAR</option>" +
+											"<option value=92>DATE</option>" +
+											"<option value=92>TIME</option>" +
+											"<option value=93>TIMESTAMP</option>" +
+											"<option value=-2>BINARY</option>" +
+											"<option value=-3>VARBINARY</option>" +
+											"<option value=-4>LONGVARBINARY</option>" +
+											"<option value=0>NULL</option>" +
+											"<option value=1111>OTHER</option>" +
+											"<option value=2000>JAVA_OBJECT</option>" +
+											"<option value=2001>DISTINCT</option>" +
+											"<option value=2002>STRUCT</option>" +
+											"<option value=2003>ARRAY</option>" +
+											"<option value=2004>BLOB</option>" +
+											"<option value=2005>CLOB</option>" +
+											"<option value=2006>REF</option>" +
+											"<option value=70>DATALINK</option>" +
+											"<option value=16>BOOLEAN</option>" +
+											"<option value=-8>ROWID</option>" +
+											"<option value=-15>NCHAR</option>" +
+											"<option value=-9>NVARCHAR</option>" +
+											"<option value=-16>LONGNVARCHAR</option>" +
+											"<option value=2011>NCLOB</option>" +
+											"<option value=2009>SQLXML</option>" +
+										"</select>";
+	var insertTd2 = "<input type='text' class='table-text' name='insertColumns[" + indexOfColumn + "].columnSize'/>";
+	var insertTd3 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].PK'/>";
+	var insertTd4 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].NN'/>";
+	var insertTd5 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].UQ'/>";
+	var insertTd6 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].BIN'/>";
+	var insertTd7 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].UN'/>";
+	var insertTd8 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].ZF'/>";
+	var insertTd9 = "<input type='checkbox' class='checkbox' name='insertColumns[" + indexOfColumn + "].AI'/>";
+	var insertTd10 = "<input type='text' class='table-text'  value='' name='insertColumns[" + indexOfColumn + "].columnDefault'/>";
+	var insertTd11 = "<input class='column-btn-remove' value='Remove' type='button' onclick='removeTr("+ indexOfColumn +")'>";
+	
+	$('#columnTable tr:last').after('<tr id="tr' + indexOfColumn + '"><td>' + insertTd0 + 
+			'<td>' + insertTd1 +
+			'<td>' + insertTd2 +
+			'<td>' + insertTd3 +
+			'<td>' + insertTd4 +
+			'<td>' + insertTd5 +
+			'<td>' + insertTd6 +
+			'<td>' + insertTd7 +
+			'<td>' + insertTd8 +
+			'<td>' + insertTd9 +
+			'<td>' + insertTd10 +
+			'<td>' + insertTd11 +
+			'</tr>');
+	indexOfColumn++;
+};
+
+function removeTr(id) {
+	$("#tr"+id).remove();
+};

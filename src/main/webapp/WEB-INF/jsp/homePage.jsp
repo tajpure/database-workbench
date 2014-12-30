@@ -23,19 +23,31 @@
 		<a class="" href="logout">Logout</a>
 	</div>
 	<div id="left">
+		<ul class="menu-arbol">
+			<li>
+			<input type="button" class="schema-new-btn" value="New Schema"/>
+			</li>
+		</ul>
 		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
 			<li>
 				<input type="radio" name="nivel-1" class="mostrar-menu" id="${schema.name}">
 				<label for="${schema.name}" class="ampliar"></label>
-				<a href="">${schema.name}</a>
+				<a>${schema.name}</a>
 				<a class="schema-config-btn" type="button" href="schemaInfo?schemaName=${schema.name}">Config</a>
 				<ul class="nivel-01">
 					<li>
 						<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}-tables">
 						<label for="${schema.name}-tables" class="ampliar"></label>
-						<a href="">Tables</a>
+						<a>Tables</a>
 						<ul class="nivel-02">
+						<li>
+						<form action="schemaInfo" method="post">
+						<input type="hidden" value="${schema.name}" name="schemaName">
+						<input type="hidden" value="1" name="curTab">
+						<input type="submit" class="table-new-btn" value="New Table"/>
+						</form>
+						</li>
 						<c:forEach items="${schema.tables}" var="table">
 						<li>
 							<a href="homePage?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a>
@@ -46,22 +58,31 @@
 					<li>
 						<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}-views">
 						<label for="${schema.name}-views" class="ampliar"></label>
-						<a href="">Views</a>
+						<a>Views</a>
 						<ul class="nivel-02">
+						<li>
+						<input type="button" class="table-new-btn" value="New View"/>
+						</li>
 						</ul>
 					</li>
 					<li>
 						<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}-sps">
 						<label for="${schema.name}-sps" class="ampliar"></label>
-						<a href="">Stored Procedures</a>
+						<a>Stored Procedures</a>
 						<ul class="nivel-02">
+						<li>
+						<input type="button" class="table-new-btn" value="New Stored Procedure"/>
+						</li>
 						</ul>
 					</li>
 					<li>
 						<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}-functions">
 						<label for="${schema.name}-functions" class="ampliar"></label>
-						<a href="">Functions</a>
+						<a>Functions</a>
 						<ul class="nivel-02">
+						<li>
+						<input type="button" class="table-new-btn" value="New Function"/>
+						</li>
 						</ul>
 					</li>
 				</ul>

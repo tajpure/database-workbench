@@ -306,6 +306,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return rs;
 	}
 	
+	/**
+	 * TODO To support all the data type
+	 * @param column
+	 * @param val
+	 * @return
+	 */
 	@SuppressWarnings("deprecation")
 	public Object mapDataType(Column column, String val) {
 		Object obj = null;
@@ -624,6 +630,11 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		return SQL.toString();
 	}
 	
+	/**
+	 * TODO To support all the data type
+	 * @param dataType
+	 * @return
+	 */
 	public String mapDataTypeToStr(int dataType) {
 		String type = null;
 		switch (dataType) {
@@ -639,5 +650,84 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		default : Assert.error("This data type isn't supported now.(dataType: " + dataType + ")");
 		}
 		return type;
+	}
+
+	@Override
+	public int createTable(Table table) {
+		String schemaName = table.getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        		SQL = getCreatTableSQL(table);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getCreatTableSQL(Table table) {
+		int i = 0;
+		StringBuilder SQL = new StringBuilder("create table ");
+		SQL.append(table.getName()).append("(");
+		List<Column> columns = table.getColumns();
+		Column column = null;
+		for (; i < columns.size()-1; i++) {
+			column = columns.get(i);
+			SQL.append(column.getName())
+				.append(" ")
+				.append(mapDataTypeToStr(column.getDataType()))
+				.append("(")
+				.append(column.getColumnSize())
+				.append("),");
+		}
+		column = columns.get(i);
+		SQL.append(column.getName())
+			.append(" ")	
+			.append(mapDataTypeToStr(column.getDataType()))
+			.append("(")
+			.append(column.getColumnSize())
+			.append("));");
+		return SQL.toString();
+	}
+
+	@Override
+	public int dropTable(Table table) {
+		String schemaName = table.getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        		SQL = getDropTableSQL(table);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getDropTableSQL(Table table) {
+		StringBuilder SQL = new StringBuilder("drop table ");
+		SQL.append(table.getName());
+		return SQL.toString();
+	}
+
+	@Override
+	public int dropTables(List<Table> tables) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateTables(List<Table> tables) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

@@ -10,6 +10,11 @@ import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Table;
 
+/**
+ * TODO To support boolean fields
+ * @author tajpure
+ *
+ */
 public class ManageTableAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -21,34 +26,34 @@ public class ManageTableAction extends HttpServlet {
 	}
 	
 	public String updateTables() {
-		DatabaseMetaDataWorker worker = factory.getWorker();
-		if (columns == null || columns.size() == 0) {
-			columns = worker.getColumns(curTable.getItsSchema(), curTable.getName());
-		}
-		worker.drop();
 		return "success";
 	}
 	
-	public String insertTables() {
+	public String createTable() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		if (insertColumn.getName() != null) {
-			worker.insertColumn(curTable, insertColumn);
-		}
+		newTable.setColumns(insertColumns);
+		curTable.setName(newTable.getName());
+		curTable.setItsSchema(newTable.getItsSchema());
+		worker.createTable(newTable);
 		worker.drop();
 		return "success";
 	}
 	
 	public String deleteTables() {
-		return "";
+		return "success";
 	}
 	
 	private int curTab = 1;
 	
 	private Table curTable = new Table();
 	
-	private List<Column> columns = new ArrayList<Column>();
+	private Table newTable = new Table();
 	
-	private Column insertColumn = new Column();
+	private List<Table> newTables = new ArrayList<Table>();
+
+	private List<Table> oldTables = new ArrayList<Table>();
+	
+	private List<Column> insertColumns = new ArrayList<Column>();
 	
 	public Table getCurTable() {
 		return curTable;
@@ -57,22 +62,6 @@ public class ManageTableAction extends HttpServlet {
 	public void setCurTable(Table curTable) {
 		this.curTable = curTable;
 	}
-	
-	public List<Column> getColumns() {
-		return columns;
-	}
-
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
-	}
-
-	public Column getInsertColumn() {
-		return insertColumn;
-	}
-
-	public void setInsertColumn(Column insertColumn) {
-		this.insertColumn = insertColumn;
-	}
 
 	public int getCurTab() {
 		return curTab;
@@ -80,6 +69,38 @@ public class ManageTableAction extends HttpServlet {
 
 	public void setCurTab(int curTab) {
 		this.curTab = curTab;
+	}
+
+	public Table getNewTable() {
+		return newTable;
+	}
+
+	public void setNewTable(Table newTable) {
+		this.newTable = newTable;
+	}
+
+	public List<Column> getInsertColumns() {
+		return insertColumns;
+	}
+
+	public void setInsertColumns(List<Column> insertColumns) {
+		this.insertColumns = insertColumns;
+	}
+
+	public List<Table> getNewTables() {
+		return newTables;
+	}
+
+	public void setNewTables(List<Table> newTables) {
+		this.newTables = newTables;
+	}
+
+	public List<Table> getOldTables() {
+		return oldTables;
+	}
+
+	public void setOldTables(List<Table> oldTables) {
+		this.oldTables = oldTables;
 	}
 
 }

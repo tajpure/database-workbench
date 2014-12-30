@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Table {
 	
-	public Table() {
-	}
+	public Table() {}
 	
 	public Table(String name, String itsSchema) {
 		this.name = name;
@@ -17,6 +16,8 @@ public class Table {
 	private String tableType;
 	
 	private List<Column> columns;
+	
+	private String storageEngine;
 	
 	private String remarks;
 	
@@ -65,5 +66,13 @@ public class Table {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getStorageEngine() {
+		return storageEngine;
+	}
+
+	public void setStorageEngine(String storageEngine) {
+		this.storageEngine = storageEngine;
 	}
 }

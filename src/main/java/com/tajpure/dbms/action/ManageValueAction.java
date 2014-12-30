@@ -16,7 +16,7 @@ public class ManageValueAction extends HttpServlet {
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 	
 	public String insert() {
-		if (insertObj.size() == 0) {
+		if (insertObj.size() == 0 || insertObj.get(0) == null || insertObj.get(0).length == 0) {
 			return "failure";
 		}
 		DatabaseMetaDataWorker worker = factory.getWorker();

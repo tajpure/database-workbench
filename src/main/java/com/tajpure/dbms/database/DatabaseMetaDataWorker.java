@@ -80,6 +80,14 @@ public abstract class DatabaseMetaDataWorker {
 	public abstract Table getTable(String schemaName, String tableName);
 	
 	public abstract List<Table> getTables(String schemaName);
+	
+	public abstract int createTable(Table table);
+	
+	public abstract int dropTable(Table table);
+	
+	public abstract int dropTables(List<Table> tables);
+	
+	public abstract int updateTables(List<Table> tables);
 
 	public abstract Column getColumn(String schemaName, String tableName, String columnName);
 	
