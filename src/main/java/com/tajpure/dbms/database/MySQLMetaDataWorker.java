@@ -716,13 +716,28 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	public String getDropTableSQL(Table table) {
 		StringBuilder SQL = new StringBuilder("drop table ");
 		SQL.append(table.getName());
+		SQL.append(";");
 		return SQL.toString();
 	}
 
 	@Override
 	public int dropTables(List<Table> tables) {
-		// TODO Auto-generated method stub
-		return 0;
+		String schemaName = tables.get(0).getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        		for (Table table : tables) {
+		        	SQL = getDropTableSQL(table);
+		        	stmt = con.prepareStatement(SQL);
+		        	rs = stmt.executeUpdate();
+        		}
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 	@Override

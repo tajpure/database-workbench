@@ -11,6 +11,10 @@ function define_column() {
 	column.defineColumn();
 };
 
+function define_table() {
+	table.defineTable();
+};
+
 function insert_value() {
 	value.insertValue();
 };
@@ -78,12 +82,12 @@ function Workbench(name, switcher, row) {
 			ValueForm.submit();
 		};
 		this.saveTable = function() {
-			$(this.form).action="save" + this.name;
-			$(this.form).submit(); 
+			TableForm.action="saveTable";
+			TableForm.submit(); 
 		};
 		this.deleteTable = function() {
-			$(this.form).action="deleteValue?" + this.getSelectedItems();
-			$(this.form).submit();
+			TableForm.action="deleteTable?" + this.getSelectedItems();
+			TableForm.submit();
 		};
 		this.insertValue = function() {
 			ValueForm.action = "insertValue";
@@ -143,6 +147,13 @@ function Workbench(name, switcher, row) {
 				this.deleteColumn();
 			}
 		};
+		this.defineTable = function() {
+			if ($(this.switcher).bootstrapSwitch('state') == true) {
+				this.saveTable();
+			} else {
+				this.deleteTable();
+			}
+		};
 		this.getSelectedItems = function() {
 			var itemsStr = "";
 			var i = 0;
@@ -156,7 +167,7 @@ function Workbench(name, switcher, row) {
 
 var value = new Workbench("Value", "#mode-switch-value", "value-row");
 var column = new Workbench("Column", "#mode-switch-column", "column-row");
-var schema = new Workbench("Schema", "#mode-switch-schema", "schema-row");
+var table = new Workbench("Table", "#mode-switch-table", "table-row");
 
 
 var indexOfColumn = 1;

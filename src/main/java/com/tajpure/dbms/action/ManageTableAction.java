@@ -40,8 +40,33 @@ public class ManageTableAction extends HttpServlet {
 	}
 	
 	public String deleteTables() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		curTable.setItsSchema(oldTables.get(0).getItsSchema());
+		worker.dropTables(getListByIndexArr(delIndexStr));
+		worker.drop();
 		return "success";
 	}
+
+	public List<Table> getListByIndexArr(String indexStr) { 
+		List<Table> delList = new ArrayList<Table>();
+		List<Table> oldList = this.oldTables;
+		String[] indexArr = getIndexArr(indexStr);
+		for (String index : indexArr) {
+			if ("undefined".equals(index)) {
+				continue;
+			}
+			delList.add(oldList.get(Integer.parseInt(index)));
+		}
+		return delList;
+	}
+	
+	private String[] getIndexArr(String indexStr) {
+		if (indexStr == null || "".equals(indexStr)) return null;
+		String[] indexArr = indexStr.split("o");
+		return indexArr;
+	}
+	
+	private String delIndexStr;
 	
 	private int curTab = 1;
 	
@@ -101,6 +126,14 @@ public class ManageTableAction extends HttpServlet {
 
 	public void setOldTables(List<Table> oldTables) {
 		this.oldTables = oldTables;
+	}
+
+	public String getDelIndexStr() {
+		return delIndexStr;
+	}
+
+	public void setDelIndexStr(String delIndexStr) {
+		this.delIndexStr = delIndexStr;
 	}
 
 }

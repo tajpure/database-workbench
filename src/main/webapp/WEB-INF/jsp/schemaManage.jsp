@@ -112,25 +112,26 @@
 			  <div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="home">
 			    	<div id="table">
-				<form name="valueForm" method=post>
+				<form name="TableForm" method=post>
 				<table>
   				<thead>
    				 <tr>
 					<c:if test="${not empty curSchema.name}">
       				<th>Table
       				<th>Table type
-					<th><input class="table-btn" value="Define" type="button" onClick="define()">
-					<th><input type="checkbox" class="table-btn common" id="mode-switch-schema" checked/>
+					<th><input class="table-btn" value="Define" type="button" onClick="define_table()">
+					<th><input type="checkbox" class="table-btn common" id="mode-switch-table" checked/>
 					</c:if>
  				</thead>
   				<tbody>
     			<c:set var="i" scope="page" value="0"/>
 				<c:forEach items="${curSchema.tables}" var="table">
-    			<tr id="schema-row${i}" onclick="schema.select(${i});">
-      				<td><input type="text" class="table-text"  value="${table.name}" name="newTables[${i}]"/>
-      				<input type="hidden" value="${table.name}" name="oldTables[${i}]"/>
-      				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newTables[${i}]"/>
-      				<input type="hidden" value="${table.tableType}" name="oldTables[${i}]"/>
+    			<tr id="table-row${i}" onclick="table.select(${i});">
+      				<td><input type="text" class="table-text"  value="${table.name}" name="newTables[${i}].name"/>
+      				<input type="hidden" value="${curSchema.name}" name="oldTables[${i}].itsSchema"/>
+      				<input type="hidden" value="${table.name}" name="oldTables[${i}].name"/>
+      				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newTables[${i}].tableType"/>
+      				<input type="hidden" value="${table.tableType}" name="oldTables[${i}].tableType"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 				</tr>
 				<input type="hidden" value="{~_~}" name="newTables[${i}]"/>
@@ -247,8 +248,8 @@
 			case 1 : $("#tab1").trigger("click"); break;
 			case 2 : $("#tab2").trigger("click"); break;
 			};
-			schema.init();
-			schema.showMenu();
+			table.init();
+			table.showMenu();
 			</script>
 	</div>
 	<div id="footer">
