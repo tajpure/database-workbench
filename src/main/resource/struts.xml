@@ -59,8 +59,7 @@
 		<action name="deleteTable" class="com.tajpure.dbms.action.ManageTableAction" method="deleteTables">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">schemaInfo</param>
-				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
-				<param name="curTable.name">${curTable.name}</param>
+				<param name="schemaName">${curTable.itsSchema}</param>
 			</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
