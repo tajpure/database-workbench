@@ -180,6 +180,12 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void executeCommond(String sql) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
 

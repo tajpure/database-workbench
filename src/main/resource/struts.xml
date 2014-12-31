@@ -41,7 +41,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="createTable" class="com.tajpure.dbms.action.ManageTableAction" method="createTable">
+		<action name="createTable" class="com.tajpure.dbms.action.ManageTableAction" method="create">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
@@ -51,7 +51,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="deleteTable" class="com.tajpure.dbms.action.ManageTableAction" method="deleteTables">
+		<action name="deleteTable" class="com.tajpure.dbms.action.ManageTableAction" method="delete">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">schema</param>
 				<param name="schemaName">${curTable.itsSchema}</param>
@@ -59,7 +59,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="updateTable" class="com.tajpure.dbms.action.ManageTableAction" method="updateTables">
+		<action name="updateTable" class="com.tajpure.dbms.action.ManageTableAction" method="update">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">schema</param>
 				<param name="schemaName">${curTable.itsSchema}</param>
@@ -67,7 +67,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="insertColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="insertColumn">
+		<action name="insertColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="insert">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
@@ -77,7 +77,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="deleteColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="deleteColumns">
+		<action name="deleteColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="delete">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
@@ -87,7 +87,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="saveColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="updateColumns">
+		<action name="saveColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="update">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>
@@ -113,7 +113,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="saveValue" class="com.tajpure.dbms.action.ManageValueAction" method="save">
+		<action name="updateValue" class="com.tajpure.dbms.action.ManageValueAction" method="update">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>

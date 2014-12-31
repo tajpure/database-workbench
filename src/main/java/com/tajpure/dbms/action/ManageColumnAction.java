@@ -16,7 +16,7 @@ public class ManageColumnAction extends HttpServlet {
 
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 
-	public String updateColumns() {
+	public String update() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (columns == null || columns.size() == 0) {
 			 worker.updateColumns(curTable, oldColumns, newColumns);
@@ -25,7 +25,7 @@ public class ManageColumnAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String insertColumn() {
+	public String insert() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (insertColumn.getName() != null) {
 			worker.insertColumn(curTable, insertColumn);
@@ -34,7 +34,7 @@ public class ManageColumnAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String deleteColumns() {
+	public String delete() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		if (insertColumn.getName() != null) {
 			worker.deleteColumns(curTable, getDeleteColumn(delIndexStr));

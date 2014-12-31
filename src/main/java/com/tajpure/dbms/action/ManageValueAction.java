@@ -26,7 +26,7 @@ public class ManageValueAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String save() {
+	public String update() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		worker.updateValues(curTable, ListToNestingList(oldList), ListToNestingList(newList));
 		worker.drop();

@@ -3,6 +3,13 @@
  * author:tajpure
  */
 
+function initEditor() {
+	var editor = ace.edit("editor");
+	editor.setTheme("ace/theme/twilight");
+	var JavaScriptMode = require("ace/mode/sql").Mode;
+	editor.getSession().setMode(new JavaScriptMode());
+}
+
 function define_value() {
 	value.define();
 };
@@ -23,8 +30,8 @@ function delete_value() {
 	value.deleteValue();
 };
 
-function save_value() {
-	value.saveValue();
+function update_value() {
+	value.updateValue();
 };
 
 function Workbench(name, switcher, row) {
@@ -44,7 +51,7 @@ function Workbench(name, switcher, row) {
 		this.initSwitch = function() {
 			$.fn.bootstrapSwitch.defaults.size = "mini";
 			$.fn.bootstrapSwitch.defaults.offText = "Drop";
-			$.fn.bootstrapSwitch.defaults.onText = "Save";
+			$.fn.bootstrapSwitch.defaults.onText = "Update";
 			$(this.switcher).bootstrapSwitch('state', true, true);
 			$(this.switcher).on('switchChange.bootstrapSwitch', function () {
 				console.log("Switch mode changed");
@@ -57,8 +64,8 @@ function Workbench(name, switcher, row) {
 			$(schemaId.toString()).trigger("click");
 			$(tableId.toString()).trigger("click");
 		};
-		this.saveValue = function() {
-			ValueForm.action="saveValue";
+		this.updateValue = function() {
+			ValueForm.action="updateValue";
 			ValueForm.submit(); 
 		};
 		this.deleteValue = function() {
@@ -69,8 +76,8 @@ function Workbench(name, switcher, row) {
 			ColumnForm.action = "insertColumn";
 			ColumnForm.submit();
 		};
-		this.saveColumn = function() {
-			ColumnForm.action="saveColumn";
+		this.updateColumn = function() {
+			ColumnForm.action="updateColumn";
 			ColumnForm.submit(); 
 		};
 		this.deleteColumn = function() {
@@ -81,7 +88,7 @@ function Workbench(name, switcher, row) {
 			ValueForm.action = "insertValue";
 			ValueForm.submit();
 		};
-		this.saveTable = function() {
+		this.updateTable = function() {
 			TableForm.action="updateTable";
 			TableForm.submit(); 
 		};
@@ -135,21 +142,21 @@ function Workbench(name, switcher, row) {
 		};
 		this.define = function() {
 			if ($(this.switcher).bootstrapSwitch('state') == true) {
-				this.saveValue();
+				this.updateValue();
 			} else {
 				this.deleteValue();
 			}
 		};
 		this.defineColumn = function() {
 			if ($(this.switcher).bootstrapSwitch('state') == true) {
-				this.saveColumn();
+				this.updateColumn();
 			} else {
 				this.deleteColumn();
 			}
 		};
 		this.defineTable = function() {
 			if ($(this.switcher).bootstrapSwitch('state') == true) {
-				this.saveTable();
+				this.updateTable();
 			} else {
 				this.deleteTable();
 			}

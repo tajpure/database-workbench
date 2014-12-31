@@ -21,11 +21,7 @@ public class ManageTableAction extends HttpServlet {
 
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 	
-	public String execute() {
-		return "success";
-	}
-	
-	public String updateTables() {
+	public String update() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		curTable.setItsSchema(oldTables.get(0).getItsSchema());
 		worker.updateTables(oldTables, newTables);
@@ -33,7 +29,7 @@ public class ManageTableAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String createTable() {
+	public String create() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		newTable.setColumns(insertColumns);
 		curTable.setName(newTable.getName());
@@ -43,7 +39,7 @@ public class ManageTableAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String deleteTables() {
+	public String delete() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
 		curTable.setItsSchema(oldTables.get(0).getItsSchema());
 		worker.dropTables(getListByIndexArr(delIndexStr));

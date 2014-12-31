@@ -829,4 +829,10 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			.append(newTable.getName());
 		return SQL.toString();
 	}
+
+	@Override
+	public void executeCommond(String sql) {
+		// TODO Auto-generated method stub
+		
+	}
 }

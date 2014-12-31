@@ -15,6 +15,9 @@
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
 <script type="text/javascript" src="resources/js/workbench.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/js/ace/ace.js"></script>
+<script type="text/javascript" src="resources/js/ace/theme-twilight.js"></script>
+<script src="resources/js/ace/mode-sql.js" type="text/javascript" charset="utf-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
@@ -105,7 +108,7 @@
   			<ul class="nav nav-tabs" role="tablist">
    			<li role="presentation" class="active"><a id="tab0" href="#home" aria-controls="home" role="tab" data-toggle="tab">Tables</a></li>
     		<li role="presentation"><a id="tab1" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Create Table</a></li>
-    		<li role="presentation"><a id="tab2" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+    		<li role="presentation"><a id="tab2" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">SQL</a></li>
   			</ul>
 			<!-- Tab panes -->
 			  <div class="tab-content">
@@ -233,12 +236,16 @@
 			    	</form>
 				</div>
 			    <div role="tabpanel" class="tab-pane" id="settings">
-			    	Settings
+			    	<form action="commond">
+						<div><div id="editor"></div></div><br>
+						<input id="table-btn-execute" type="button" class="table-btn" value="execute"/>
+					</form>
 			    </div>
 			  </div>
 			</div>
 			
 			<script type="text/javascript">
+			initEditor()
 			switch (${curTab}) {
 			case 0 : $("#tab0").trigger("click"); break;
 			case 1 : $("#tab1").trigger("click"); break;

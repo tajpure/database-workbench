@@ -166,4 +166,10 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		return 0;
 	}
 
+	@Override
+	public void executeCommond(String sql) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

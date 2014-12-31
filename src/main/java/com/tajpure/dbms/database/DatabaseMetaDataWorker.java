@@ -120,4 +120,6 @@ public abstract class DatabaseMetaDataWorker {
 	public abstract List<StoredProcedure> getStoredProcedures(String schemaName);
 	
 	public abstract List<Function> getFunctions(String schemaName);
+	
+	public abstract void executeCommond(String sql);
 }
