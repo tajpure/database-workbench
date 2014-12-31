@@ -165,11 +165,17 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public int executeCommond(String sql, String curSchema) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
-	public void executeCommond(String sql) {
+	public List<List<Object>> executeQueryCommond(String sql, String curSchema) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

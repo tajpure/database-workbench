@@ -42,6 +42,13 @@ body {margin: 0; background-color: #012B39;}
         width: 500px;
         height: 400px;
 }
+#console-box {
+	 position: absolute;
+	 margin-top: 270px;
+     width: 100%;
+     height: 240px;
+     font-size: 18px;
+}
 #editor {
         position: absolute;
 		margin-top: 30px;

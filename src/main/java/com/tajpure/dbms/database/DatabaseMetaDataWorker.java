@@ -121,5 +121,7 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract List<Function> getFunctions(String schemaName);
 	
-	public abstract void executeCommond(String sql);
+	public abstract int executeCommond(String sql, String schemaName);
+	
+	public abstract List<List<Object>> executeQueryCommond(String sql, String schemaName);
 }

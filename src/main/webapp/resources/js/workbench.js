@@ -3,8 +3,10 @@
  * author:tajpure
  */
 
+var eidtor;
+
 function initEditor() {
-	var editor = ace.edit("editor");
+	editor = ace.edit("editor");
 	editor.setTheme("ace/theme/twilight");
 	var JavaScriptMode = require("ace/mode/sql").Mode;
 	editor.getSession().setMode(new JavaScriptMode());
@@ -246,3 +248,11 @@ function addTr() {
 function removeTr(id) {
 	$("#tr"+id).remove();
 };
+
+function execute() {
+	var commond = editor.getSession().getValue();
+	var schemaName = $("#schema-name").val();
+	$.ajax({type:"GET",url:"executeCommond?commond="+commond+"&schemaName="+schemaName,success:function(result){
+	    $("#console").html(result);
+	  }});
+}

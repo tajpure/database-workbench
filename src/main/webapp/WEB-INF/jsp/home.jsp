@@ -307,7 +307,7 @@
 				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
     			<tr>
-      				<td><input type="text" class="table-text"  value="" name="insertColumn.name"/>
+      				<td><input type="text" class="table-text" name="insertColumn.name"/>
       				<td><select name="insertColumn.dataType">
 							<option value=12>VARCHAR</option>
 							<option value=5>SMALLINT</option>
@@ -344,7 +344,7 @@
 							<option value=2011>NCLOB</option>
 							<option value=2009>SQLXML</option>
 						</select>
-					<td><input type="text" class="table-text"  value="" name="insertColumn.columnSize"/>
+					<td><input type="text" class="table-text" name="insertColumn.columnSize"/>
       				<td><input type="checkbox" class="checkbox" name="insertColumn.PK"/>
       				<td><input type="checkbox" class="checkbox" name="insertColumn.NN"/>
       				<td><input type="checkbox" class="checkbox" name="insertColumn.UQ"/>
@@ -360,22 +360,23 @@
   				</tbody>
 				</table>
 				<input name="curTable.name" value="${curTable.name}" type="hidden"/>
-				<input name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
+				<input id="schema-name" name="curTable.itsSchema" value="${curTable.itsSchema}" type="hidden"/>
 				</form>
 			</div>
 			    </div>
 			    <div role="tabpanel" class="tab-pane" id="settings">
-			    	<form action="commond">
-						<div><div id="editor"></div></div><br>
-						<input id="table-btn-execute" type="button" class="table-btn" value="execute"/>
-					</form>
+						<div id="editor"></div><br>
+						<div id="console-box">console:<div id="console"></div></div>
+						<input id="table-btn-execute" type="button" class="table-btn" value="execute" onclick="execute();"/>
 				</div>
+				<script type="text/javascript">
+					initEditor()
+				</script>
 			  </div>
 			</div>
 			</c:when>
 			</c:choose>
 		<script type="text/javascript">
-			initEditor()
 			switch (${curTab}) {
 			case 0 : $("#tab0").trigger("click"); break;
 			case 1 : $("#tab1").trigger("click"); break;

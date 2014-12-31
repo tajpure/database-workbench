@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Function;
@@ -831,8 +833,60 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public void executeCommond(String sql) {
-		// TODO Auto-generated method stub
-		
+	public int executeCommond(String sql, String schemaName) {
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, schemaName);
+        int rs = 0;
+        
+        try {
+		        stmt = con.prepareStatement(sql);
+		        rs = stmt.executeUpdate();
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+    	return rs;
 	}
+
+	@Override
+	public List<List<Object>> executeQueryCommond(String sql, String schemaName) {
+		PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, schemaName);
+        List<List<Object>> lists = new ArrayList<List<Object>>();
+        int sizeOfColumns = getCountOfColumn(sql);
+        try {
+		        stmt = con.prepareStatement(sql);
+		        ResultSet rs = stmt.executeQuery();
+		        while (rs.next()) {
+					List<Object> objs = new ArrayList<Object>();
+					for (int i=1; i <= sizeOfColumns; i++) {
+						objs.add(rs.getObject(i));
+					}
+					lists.add(objs);
+				}
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public int getCountOfColumn(String SQL) {
+		int count = 0;
+		SQL = SQL.toLowerCase();
+		SQL = SQL.replace("select", "");
+		Pattern pat = Pattern.compile("^\\s*");
+		Matcher mat = pat.matcher(SQL);
+		SQL = mat.replaceAll("");
+		if (SQL.indexOf("*") == 0) {
+			String schemaName = null;
+			String tableName = null;
+			count = getColumns(schemaName, tableName).size();
+		} else {
+			
+		}
+		return count;
+	}
+	
 }

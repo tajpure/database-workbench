@@ -182,9 +182,15 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public void executeCommond(String sql) {
+	public int executeCommond(String sql, String curSchema) {
 		// TODO Auto-generated method stub
-		
+		return 0;
+	}
+
+	@Override
+	public List<List<Object>> executeQueryCommond(String sql, String curSchema) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

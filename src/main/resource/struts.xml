@@ -138,5 +138,10 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
+		<action name="executeCommond" class="com.tajpure.dbms.action.CommondAction">
+			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
 	</package>
 </struts>

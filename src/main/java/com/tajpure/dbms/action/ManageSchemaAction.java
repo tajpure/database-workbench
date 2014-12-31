@@ -16,6 +16,7 @@ public class ManageSchemaAction extends HttpServlet {
 	
 	public String execute() {
 		DatabaseMetaDataWorker worker = factory.getWorker();
+		
 		if (curSchema == null || curSchema.getName() == null) {
 			curSchema = worker.getSchema(schemaName);
 		}
