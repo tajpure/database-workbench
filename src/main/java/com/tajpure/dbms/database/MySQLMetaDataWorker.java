@@ -122,6 +122,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		if (catalog == null || tableNamePattern == null) return null;
 		List<Column> columns = new ArrayList<Column>();
 		Map<String,String> primaryKeyMap = new HashMap<String,String>();
+		
 		try {
 			ResultSet rs = metaData.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);
 			while (rs.next()) {
@@ -144,6 +145,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return columns;
 	}
 	
@@ -165,8 +167,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		List<List<Object>> lists = new ArrayList<List<Object>>();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int sizeOfColumns = getColumns(schemaName, tableName).size();
+        
 		try {
 				stmt = con.prepareStatement("select * from ?;");
 				stmt.setString(1, tableName);
@@ -192,9 +195,10 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		List<List<Object>> lists = new ArrayList<List<Object>>();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         List<Column> columns = getColumns(schemaName, tableName);
         int sizeOfColumns = columns.size();
+        
 		try {
 				stmt = con.prepareStatement("select * from " + tableName + " order by ? desc limit ?,?;");
 				stmt.setString(1, columns.get(0).getName());
@@ -219,11 +223,13 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	@Override
 	public boolean isSysSchema(String schemaName) {
 		String[] sysSchemas = {"information_schema", "mysql", "performance_schema"};
+		
 		for (int i=0; i < sysSchemas.length; i++) {
 			if (sysSchemas[i].equals(schemaName)) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 
@@ -234,7 +240,8 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
+        
 		try {
 				stmt = con.prepareStatement("select count(*) from " + tableName + ";");
 				ResultSet rs = stmt.executeQuery();
@@ -249,6 +256,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return totalPages;
 	}
 
@@ -257,14 +265,17 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         List<Column> columns = getColumns(schemaName, tableName);
         int rs = 0;
         String questionMarks = "";
+        
         for (int i=0; i < columns.size()-1; i++) {
         	questionMarks += "?, ";
         }
+        
         questionMarks = questionMarks + "?";
+        
 		try {
 				stmt = con.prepareStatement("insert into " + tableName + " values(" + questionMarks + ");");
 				for (int i=1; i <= columns.size(); i++) {
@@ -275,6 +286,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rs;
 	}
 
@@ -283,14 +295,17 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         List<Column> columns = getColumns(schemaName, tableName);
         int rs = 0;
         String questionMarks = "";
+        
         for (int i=0; i < columns.size()-1; i++) {
         	questionMarks += "?, ";
         }
+        
         questionMarks = questionMarks + "?";
+        
 		try {
 				for (List<T> obj : list) {
 					stmt = con.prepareStatement("insert into " + tableName + " values(" + questionMarks + ");");
@@ -303,6 +318,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rs;
 	}
 	
@@ -316,6 +332,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	public Object mapDataType(Column column, String val) {
 		if (val == null || val.length() == 0) { return null;}
 		Object obj = null;
+		
 		switch (column.getDataType()) {
 		case Types.BIGINT : obj = Long.parseLong(val); break;
 		case Types.BOOLEAN : obj = Boolean.parseBoolean(val); break;
@@ -328,6 +345,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		case Types.LONGNVARCHAR : obj = val; break;
 		default : Assert.error("This data type isn't supported now.(column -type -size: " + column + ")");
 		}
+		
 		return obj;
 	}
 
@@ -336,11 +354,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         List<Column> columns = getColumns(schemaName, tableName);
         String SQL = getUpdateSQL(columns, tableName);
         int columnsSize = columns.size();
         int rs = 0;
+        
 		try {
 				for (int i = 0 ; i < newList.size(); i++) {
 					List<T> oldObj = oldList.get(i);
@@ -358,6 +377,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rs;
 	}
 	
@@ -365,17 +385,21 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		StringBuilder SQL = new StringBuilder("update ").append(tableName).append(" set ");
 		int i = 0;
 		Column column = null;
+		
 		for (i = 0; i < columns.size()-1; i++) {
 			column = columns.get(i);
 			SQL.append(column.getName()).append(" = ?, ");
 		}
+		
 		column = columns.get(i);
 		SQL.append(column.getName()).append(" = ?");
 		SQL.append(" where ");
+		
 		for (i = 0; i < columns.size()-1; i++) {
 			column = columns.get(i);
 			SQL.append(column.getName()).append(" = ? and ");
 		}
+		
 		column = columns.get(i);
 		SQL.append(column.getName()).append(" = ?;");
 		return SQL.toString();
@@ -386,11 +410,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String tableName = table.getName();
 		String schemaName = table.getItsSchema();
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         List<Column> columns = getColumns(schemaName, tableName);
         String SQL = getDeleteSQL(columns, tableName);
         int columnsSize = columns.size();
         int rs = 0;
+        
 		try {
 				for (int i = 0 ; i < list.size(); i++) {
 					List<T> delObj = list.get(i);
@@ -404,6 +429,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return rs;
 	}
 	
@@ -411,10 +437,12 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		StringBuilder SQL = new StringBuilder("delete from ").append(tableName).append(" where ");
 		int i = 0;
 		Column column = null;
+		
 		for (i = 0; i < columns.size()-1; i++) {
 			column = columns.get(i);
 			SQL.append(column.getName()).append(" = ? and ");
 		}
+		
 		column = columns.get(i);
 		SQL.append(column.getName()).append(" = ?;");
 		return SQL.toString();
@@ -430,6 +458,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	public List<View> getViews(String catalog, String schemaPattern,
 			String tableNamePattern, String types[], boolean needColumns) {
 		List<View> views = new ArrayList<View>();
+		
 		try {
 			ResultSet rs = metaData.getTables(catalog, schemaPattern, tableNamePattern, types);
 			while (rs.next()) {
@@ -447,6 +476,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return views;
 	}
 
@@ -459,6 +489,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	
 	public List<StoredProcedure> getStoredProcedures(String catalog, String schemaPattern, String procedureNamePattern) {
 		List<StoredProcedure> procedures = new ArrayList<StoredProcedure>();
+		
 		try {
 			ResultSet rs = metaData.getProcedures(catalog, schemaPattern, procedureNamePattern);
 			while (rs.next()) {
@@ -470,6 +501,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return procedures;
 	}
 
@@ -482,6 +514,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	
 	public List<Function> getFunctions(String catalog,String schemaPattern,String functionNamePattern) {
 		List<Function> functions = new ArrayList<Function>();
+		
 		try {
 			ResultSet rs = metaData.getFunctions(catalog, schemaPattern, functionNamePattern);
 			while (rs.next()) {
@@ -493,6 +526,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return functions;
 	}
 	
@@ -509,8 +543,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         	for (int i = 0; i < oldColumns.size(); i++) {
         		Column oldColumn = oldColumns.get(i);
@@ -523,6 +558,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	
@@ -539,6 +575,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			.append("(")
 			.append(newColumn.getColumnSize())
 			.append(")");
+		
 		if (newColumn.isNN()) {
 			SQL.append(" not null");
 		}
@@ -551,6 +588,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		if (newColumn.isAI()) {
 			SQL.append(" auto_increment");
 		}
+		
 		SQL.append(";");
 		return SQL.toString();
 	}
@@ -561,8 +599,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         	for (int i = 0; i < columns.size(); i++) {
         		Column column = columns.get(i);
@@ -574,6 +613,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	
@@ -592,8 +632,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         		SQL = getInsertColumnSQL(tableName, column);
         		stmt = con.prepareStatement(SQL);
@@ -602,6 +643,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	
@@ -615,6 +657,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 			.append("(")
 			.append(column.getColumnSize())
 			.append(")");
+		
 		if (column.isNN()) {
 			SQL.append(" not null");
 		}
@@ -627,6 +670,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		if (column.isAI()) {
 			SQL.append(" auto_increment");
 		}
+		
 		SQL.append(";");
 		return SQL.toString();
 	}
@@ -638,6 +682,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	 */
 	public String mapDataTypeToStr(int dataType) {
 		String type = null;
+		
 		switch (dataType) {
 		case Types.BIGINT : type = "bigint"; break;
 		case Types.BOOLEAN : type = "tinyint"; break;
@@ -650,6 +695,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		case Types.LONGNVARCHAR : type = "longblob"; break;
 		default : Assert.error("This data type isn't supported now.(dataType: " + dataType + ")");
 		}
+		
 		return type;
 	}
 
@@ -658,8 +704,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         		SQL = getCreatTableSQL(table);
         		stmt = con.prepareStatement(SQL);
@@ -668,6 +715,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	
@@ -677,6 +725,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		SQL.append(table.getName()).append("(");
 		List<Column> columns = table.getColumns();
 		Column column = null;
+		
 		for (; i < columns.size()-1; i++) {
 			column = columns.get(i);
 			SQL.append(column.getName())
@@ -686,6 +735,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				.append(column.getColumnSize())
 				.append("),");
 		}
+		
 		column = columns.get(i);
 		SQL.append(column.getName())
 			.append(" ")	
@@ -701,8 +751,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = table.getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         		SQL = getDropTableSQL(table);
         		stmt = con.prepareStatement(SQL);
@@ -711,6 +762,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	
@@ -726,8 +778,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = tables.get(0).getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user,schemaName);
         int rs = 0;
+        
         try {
         		for (Table table : tables) {
 		        	SQL = getDropTableSQL(table);
@@ -738,6 +791,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 
@@ -746,8 +800,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		String schemaName = oldTables.get(0).getItsSchema();
 		String SQL = null;
         PreparedStatement stmt = null;
-        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        Connection con = ConnectionPool.getNewConnection(user, schemaName);
         int rs = 0;
+        
         try {
         		for (int i = 0; i < oldTables.size(); i++) {
         			Table oldTable = oldTables.get(i);
@@ -763,6 +818,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+        
 		return rs;
 	}
 	

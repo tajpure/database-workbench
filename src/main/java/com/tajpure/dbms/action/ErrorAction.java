@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
  * @author taojx
  *
  */
-public class ErrorPageAction extends HttpServlet {
+public class ErrorAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 

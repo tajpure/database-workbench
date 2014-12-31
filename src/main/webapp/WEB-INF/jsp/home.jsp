@@ -5,9 +5,9 @@
 <html>
 <head>
 <style type="text/css">
-	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.min.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
@@ -33,7 +33,7 @@
 				<input type="radio" name="nivel-1" class="mostrar-menu" id="${schema.name}">
 				<label for="${schema.name}" class="ampliar"></label>
 				<a>${schema.name}</a>
-				<a class="schema-config-btn" type="button" href="schemaInfo?schemaName=${schema.name}">Config</a>
+				<a class="schema-config-btn" type="button" href="schema?schemaName=${schema.name}">Config</a>
 				<ul class="nivel-01">
 					<li>
 						<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}-tables">
@@ -41,7 +41,7 @@
 						<a>Tables</a>
 						<ul class="nivel-02">
 						<li>
-						<form action="schemaInfo" method="post">
+						<form action="schema" method="post">
 						<input type="hidden" value="${schema.name}" name="schemaName">
 						<input type="hidden" value="1" name="curTab">
 						<input type="submit" class="table-new-btn" value="New Table"/>
@@ -49,7 +49,7 @@
 						</li>
 						<c:forEach items="${schema.tables}" var="table">
 						<li>
-							<a href="homePage?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a>
+							<a href="home?curTable.itsSchema=${schema.name}&curTable.name=${table.name}">${table.name}</a>
 						</li>
 						</c:forEach>
 						</ul>
@@ -154,7 +154,7 @@
 			<c:when test="${totalPages gt 1}">
 			<c:choose>
 				<c:when test="${page gt 1}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-1}">Previous</a></h5>
+					<h5><a href="home?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-1}">Previous</a></h5>
 				</c:when>
 				<c:otherwise><h5>Previous</h5></c:otherwise>
 			</c:choose>
@@ -162,7 +162,7 @@
 				<c:forEach var="i" begin="0" end="9">
    				<c:choose>
 				<c:when test="${i+1 <= totalPages && i != page-1}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${i+1}">${i+1}</a></h5>
+					<h5><a href="home?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${i+1}">${i+1}</a></h5>
 				</c:when>
 				<c:otherwise><h5>${i+1}</h5></c:otherwise>
 				</c:choose>
@@ -172,7 +172,7 @@
 				<c:forEach var="i" begin="0" end="9">
    				<c:choose>
 				<c:when test="${page-5+i <= totalPages && i != 5}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-5+i}">${page-5+i}</a></h5>
+					<h5><a href="home?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page-5+i}">${page-5+i}</a></h5>
 				</c:when>
 				<c:otherwise><h5>${page-5+i}</h5></c:otherwise>
 				</c:choose>
@@ -180,7 +180,7 @@
 				</c:if>
 				<c:choose>
 				<c:when test="${page lt totalPages}">
-					<h5><a href="homePage?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">Next</a></h5>
+					<h5><a href="home?curTable.itsSchema=${curTable.itsSchema}&curTable.name=${curTable.name}&page=${page+1}">Next</a></h5>
 				</c:when>
 				<c:otherwise><h5>Next</h5></c:otherwise>
 			</c:choose>
@@ -386,7 +386,6 @@
 					$(checkbox).prop('checked', true);
 					$(checkbox).val("1");
 				}
-				console.log(checkbox + ' ' + $(checkbox));
 			}
 		</script>
 	</div>

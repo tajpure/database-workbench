@@ -10,6 +10,10 @@ public class User {
 	
 	private Database database;
 	
+	private String url;
+
+	private String driver;
+	
 	public User(String username, String password, Database database) {
 		this.name = username;
 		this.password = password;
@@ -38,5 +42,21 @@ public class User {
 
 	public void setDatabase(Database database) {
 		this.database = database;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
 	}
 }

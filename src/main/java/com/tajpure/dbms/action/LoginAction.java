@@ -19,16 +19,23 @@ public class LoginAction extends HttpServlet{
 		Map<String, Object> map = ActionContext.getContext().getSession();
 		LoggerUtil.info(username+" login successful.");
 		Database db = null;
+		
 		switch(typeOfDB) {
 			case 0 : db = Database.MySQL; break;
 			case 1 : db = Database.SQLServer; break;
 			case 2 : db = Database.Oracle; break;
 			default : Assert.error("This kind of database isn't supported.");
 		}
+		
 		User user = new User(username, password, db);
+		
+		// Set url and driver for user
+		ConnectionPool.loadDatabaseProperty(user);
+		
 		if (!ConnectionPool.isUserLegal(user)) {
 			return "failure";
 		}
+		
 		map.put("user", user);
 		return "success";
 	}

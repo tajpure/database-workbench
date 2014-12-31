@@ -11,7 +11,7 @@ import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
 
-public class HomePageAction extends HttpServlet {
+public class HomeAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	

@@ -18,10 +18,6 @@ public class ConnectionPool {
  
 	private static HashSet<Connection> UsedConnection = new HashSet<Connection>();
 
-	private static String url;
-
-	private static String driver;
-
 	private static int maxConnect = 2;
 
 	static final boolean DEBUG = false;
@@ -30,19 +26,32 @@ public class ConnectionPool {
 
 	private static long CHECK_CLOSED_CONNECTION_TIME = 5000;
 
+	private static Properties props = new Properties();
+	
 	static {
-		Properties props = new Properties();
 		try {
 			props.load(ConnectionPool.class.getClassLoader()
-					.getResourceAsStream("mysql.properties"));
+					.getResourceAsStream("database.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void loadDatabaseProperty(User user) {
 		if (props != null) {
-			url = props.getProperty("url");
-			driver = props.getProperty("driver");
+			switch (user.getDatabase()) {
+			case MySQL : user.setUrl(props.getProperty("mysql_url"));
+						user.setDriver(props.getProperty("mysql_driver"));
+						break;
+			case Oracle : user.setUrl(props.getProperty("oracle_url"));
+						user.setDriver(props.getProperty("oracle_driver"));
+						break;
+			case SQLServer : user.setUrl(props.getProperty("sqlserver_url"));
+							user.setDriver(props.getProperty("sqlserver_driver"));
+							break;
+			}
 			try {
-				Class.forName(driver);
+				Class.forName(user.getDriver());
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -101,7 +110,7 @@ public class ConnectionPool {
 
 	public static Connection getNewConnection(User user, String schema) {
 		try {
-			Connection con = DriverManager.getConnection(url + schema, user.getName(),user.getPassword());
+			Connection con = DriverManager.getConnection(user.getUrl() + "/" +  schema, user.getName(),user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +122,7 @@ public class ConnectionPool {
 	public static boolean isUserLegal(User user) {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(url, user.getName(),user.getPassword());
+			con = DriverManager.getConnection(user.getUrl(), user.getName(),user.getPassword());
 		} catch (SQLException e) {
 			return false;
 		}
