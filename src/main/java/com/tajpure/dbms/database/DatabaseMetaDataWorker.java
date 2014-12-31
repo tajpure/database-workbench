@@ -87,7 +87,7 @@ public abstract class DatabaseMetaDataWorker {
 	
 	public abstract int dropTables(List<Table> tables);
 	
-	public abstract int updateTables(List<Table> tables);
+	public abstract int updateTables(List<Table> oldTables, List<Table> newTables);
 
 	public abstract Column getColumn(String schemaName, String tableName, String columnName);
 	

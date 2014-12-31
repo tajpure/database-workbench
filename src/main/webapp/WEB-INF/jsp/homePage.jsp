@@ -6,7 +6,6 @@
 <head>
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
@@ -137,7 +136,7 @@
     			<tr>
 					<c:set var="i" scope="page" value="0"/>
 					<c:forEach items="${curTable.columns}" var="column">
-      				<td><input type="text" class="table-text"  value="" name="insertObj[${i}]"/>
+      				<td><input type="text" class="table-text" name="insertObj[${i}]"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 					</c:forEach>
 					<c:if test="${fn:length(curTable.columns) > 0}">

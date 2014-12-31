@@ -16,11 +16,12 @@ public class ManageValueAction extends HttpServlet {
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 	
 	public String insert() {
-		if (insertObj.size() == 0 || insertObj.get(0) == null || insertObj.get(0).length == 0) {
+		List<String> insertObjList = StrArrListToStrList(insertObj);
+		if (insertObjList.size() == 0 || isContentNull(insertObjList)) {
 			return "failure";
 		}
 		DatabaseMetaDataWorker worker = factory.getWorker();
-		worker.insertValue(curTable, StrArrListToStrList(insertObj));
+		worker.insertValue(curTable, insertObjList);
 		worker.drop();
 		return "success";
 	}
@@ -37,6 +38,17 @@ public class ManageValueAction extends HttpServlet {
 		worker.deleteValue(curTable, getListByIndexArr(delIndexStr));
 		worker.drop();
 		return "success";
+	}
+	
+	public boolean isContentNull(List<String> strList) {
+		StringBuilder sb = new StringBuilder();
+		for (String str : strList) {
+			sb.append(str);
+		}
+		if (sb.toString().replaceAll(" ", "").length() == 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	public List<List<Object>> ListToNestingList(List<String[]> list) {

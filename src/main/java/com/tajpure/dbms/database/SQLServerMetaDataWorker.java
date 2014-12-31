@@ -161,7 +161,7 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int updateTables(List<Table> tables) {
+	public int updateTables(List<Table> oldTables, List<Table> newTables) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

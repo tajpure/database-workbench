@@ -1,3 +1,14 @@
+@CHARSET "UTF-8";
+body {margin: 0; background-color: #012B39;}
+#left {position: relative;float: left;margin: 0px;top: 20px;left: 0px; width:400px;padding:10px}
+#main {float: left;position: relative;top:0px;left:0px;width:1000px;padding-bottom: 60px;hieght:720px;}
+#footer {
+    clear: both;
+    position: relative;
+    z-index: 10;
+    height: 3em;
+    margin-top: -3em;
+}
 #header {
 	float: right;
 	font-size: 1.2em;

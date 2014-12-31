@@ -8,7 +8,6 @@
 
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/homePage.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/main.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
@@ -130,13 +129,10 @@
       				<td><input type="text" class="table-text"  value="${table.name}" name="newTables[${i}].name"/>
       				<input type="hidden" value="${curSchema.name}" name="oldTables[${i}].itsSchema"/>
       				<input type="hidden" value="${table.name}" name="oldTables[${i}].name"/>
-      				<td><input type="text" class="table-text"  value="${table.tableType}" disabled name="newTables[${i}].tableType"/>
-      				<input type="hidden" value="${table.tableType}" name="oldTables[${i}].tableType"/>
+      				<td><input type="text" class="table-text"  value="${table.tableType}" disabled/>
+      				<input type="hidden" value="${table.tableType}"/>
 					<c:set var="i" scope="page" value="${i+1}"/>
 				</tr>
-				<input type="hidden" value="{~_~}" name="newTables[${i}]"/>
-				<input type="hidden" value="{~_~}" name="oldTables[${i}]"/>
-				<c:set var="i" scope="page" value="${i+1}"/>
 				</c:forEach>
   				</tbody>
 				</table>

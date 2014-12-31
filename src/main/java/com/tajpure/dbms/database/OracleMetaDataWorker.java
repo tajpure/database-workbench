@@ -174,9 +174,9 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
-	public int updateTables(List<Table> tables) {
+	public int updateTables(List<Table> oldTables, List<Table> newTables) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

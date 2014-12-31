@@ -22,10 +22,14 @@ public class ManageTableAction extends HttpServlet {
 	private DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 	
 	public String execute() {
-		return "";
+		return "success";
 	}
 	
 	public String updateTables() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		curTable.setItsSchema(oldTables.get(0).getItsSchema());
+		worker.updateTables(oldTables, newTables);
+		worker.drop();
 		return "success";
 	}
 	

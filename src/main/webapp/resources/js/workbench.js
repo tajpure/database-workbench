@@ -43,7 +43,7 @@ function Workbench(name, switcher, row) {
 		};
 		this.initSwitch = function() {
 			$.fn.bootstrapSwitch.defaults.size = "mini";
-			$.fn.bootstrapSwitch.defaults.offText = "Delete";
+			$.fn.bootstrapSwitch.defaults.offText = "Drop";
 			$.fn.bootstrapSwitch.defaults.onText = "Save";
 			$(this.switcher).bootstrapSwitch('state', true, true);
 			$(this.switcher).on('switchChange.bootstrapSwitch', function () {
@@ -82,7 +82,7 @@ function Workbench(name, switcher, row) {
 			ValueForm.submit();
 		};
 		this.saveTable = function() {
-			TableForm.action="saveTable";
+			TableForm.action="updateTable";
 			TableForm.submit(); 
 		};
 		this.deleteTable = function() {

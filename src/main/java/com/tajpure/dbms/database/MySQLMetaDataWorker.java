@@ -314,6 +314,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	 */
 	@SuppressWarnings("deprecation")
 	public Object mapDataType(Column column, String val) {
+		if (val == null || val.length() == 0) { return null;}
 		Object obj = null;
 		switch (column.getDataType()) {
 		case Types.BIGINT : obj = Long.parseLong(val); break;
@@ -741,8 +742,35 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	}
 
 	@Override
-	public int updateTables(List<Table> tables) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateTables(List<Table> oldTables, List<Table> newTables) {
+		String schemaName = oldTables.get(0).getItsSchema();
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "/" + schemaName);
+        int rs = 0;
+        try {
+        		for (int i = 0; i < oldTables.size(); i++) {
+        			Table oldTable = oldTables.get(i);
+        			Table newTable = newTables.get(i);
+        			if (oldTable.getName().equals(newTable.getName())) {
+        				continue;
+        			}
+		        	SQL = getUpdateTablesSQL(oldTable, newTable);
+		        	stmt = con.prepareStatement(SQL);
+		        	rs = stmt.executeUpdate();
+        		}
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public String getUpdateTablesSQL(Table oldTable, Table newTable) {
+		StringBuilder SQL = new StringBuilder("rename table ");
+		SQL.append(oldTable.getName())
+			.append(" to ")
+			.append(newTable.getName());
+		return SQL.toString();
 	}
 }
