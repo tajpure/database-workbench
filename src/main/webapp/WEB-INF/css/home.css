@@ -2,7 +2,7 @@
 body {margin: 0; background-color: #012B39;}
 * {font-family: Consolas, monaco, monospace;}
 #left {position: relative;float: left;margin: 0px;top: 20px;left: 0px; width:400px;padding:10px}
-#main {float: left;position: relative;top:0px;left:0px;width:1000px;padding-bottom: 60px;hieght:720px;}
+#main {float: left;position: relative;top:40px;left:0px;width:1000px;padding-bottom: 60px;hieght:720px;}
 #footer {
     clear: both;
     position: relative;

@@ -2,11 +2,6 @@ package com.tajpure.dbms.action;
 
 import javax.servlet.http.HttpServlet;
 
-/**
- * Error page
- * @author taojx
- *
- */
 public class ErrorAction extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

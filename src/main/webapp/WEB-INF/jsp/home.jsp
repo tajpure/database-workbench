@@ -21,8 +21,9 @@
 </head>
 <body>
 	<div id="header">
-		<a class="" href="user">Account</a>
-		<a class="" href="logout">Logout</a>
+		<a href="home">Home</a>
+		<a href="user">Account</a>
+		<a href="logout">Logout</a>
 	</div>
 	<div id="left">
 		<ul class="menu-arbol">
@@ -33,7 +34,7 @@
 		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
 			<li>
-				<input type="radio" name="nivel-1" class="mostrar-menu" id="${schema.name}">
+				<input type="radio" name="nivel-2" class="mostrar-menu" id="${schema.name}">
 				<label for="${schema.name}" class="ampliar"></label>
 				<a>${schema.name}</a>
 				<a class="schema-config-btn" type="button" href="schema?schemaName=${schema.name}">Config</a>

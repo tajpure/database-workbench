@@ -23,6 +23,7 @@
 </head>
 <body>
 	<div id="header">
+		<a href="home">Home</a>
 		<a href="user">Account</a>
 		<a href="logout">Logout</a>
 	</div>
