@@ -21,20 +21,21 @@
 </head>
 <body>
 	<div id="header">
-		<a href="home">Home</a>
-		<a href="user">Account</a>
+		<a href="home">Account</a>
 		<a href="logout">Logout</a>
 	</div>
 	<div id="left">
 		<ul class="menu-arbol">
 			<li>
-			<input type="button" class="schema-new-btn" value="New Schema"/>
+			<form action="home" method="post">
+			<input type="submit" class="schema-new-btn" value="New Schema"/>
+			</form>
 			</li>
 		</ul>
 		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
 			<li>
-				<input type="radio" name="nivel-2" class="mostrar-menu" id="${schema.name}">
+				<input type="checkbox" name="nivel-2" class="mostrar-menu" id="${schema.name}">
 				<label for="${schema.name}" class="ampliar"></label>
 				<a>${schema.name}</a>
 				<a class="schema-config-btn" type="button" href="schema?schemaName=${schema.name}">Config</a>
@@ -94,6 +95,41 @@
 		</c:forEach>
 	</div>
 	<div id="main">
+			<c:if test="${empty curTable.itsSchema}">
+			<div id="table-name"><h5 id="table-schema-name">Account Info</h5></div>
+						<table>
+  						<thead>
+	  						<tr>
+		      				<th><a data-tooltip="User Name">Name</a>
+		      				<th><a>Driver</a>
+		      				<th><a>URL</a>
+ 						</thead>
+  						<tbody>
+  							<tr>
+  							<td><input type="text" class="table-text"  value="${user.name}"/>
+  							<td><input type="text" class="table-text" value="${user.driver}"/>
+							<td><input type="text" class="table-text" value="${user.url}">
+  						</tbody>
+						</table>
+			</c:if>
+			<c:if test="${empty curTable.itsSchema and empty user}">
+			<div id="table-name"><h5 id="table-schema-name">New Schema :</h5></div>
+						<form action="createSchema" method="post">
+						<table>
+  						<thead>
+	  						<tr>
+		      				<th><a data-tooltip="Schema Name">Name</a>
+		      				<th><a data-tooltip="Schema Remark">Remark</a>
+ 						</thead>
+  						<tbody>
+  							<tr>
+  							<td><input type="text" class="table-text"  name="newSchema.name"/>
+  							<td><input type="text" class="table-text" name="newSchema.remarks"/>
+							<td><input class="table-btn" value="New" type="submit">
+  						</tbody>
+						</table>
+						</form>
+			</c:if>
 			<c:choose>
 			<c:when test="${not empty curTable.itsSchema}">
 			<div id="table-name"><h5 id="table-schema-name">${curTable.itsSchema}</h5> <h5>>></h5> <h5>${curTable.name}</h5></div>

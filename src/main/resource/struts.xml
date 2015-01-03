@@ -41,6 +41,11 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
+		<action name="createSchema" class="com.tajpure.dbms.action.ManageSchemaAction" method="createScehma">
+			<result name="success" type="redirectAction">home</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
 		<action name="createTable" class="com.tajpure.dbms.action.ManageTableAction" method="create">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>

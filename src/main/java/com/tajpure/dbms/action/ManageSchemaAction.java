@@ -26,17 +26,12 @@ public class ManageSchemaAction extends HttpServlet {
 		return "success";
 	}
 	
-	public String insert() {
-		return "";
+	public String createSchema() {
+		
+		return "success";
 	}
 	
-	public String update() {
-		return "";
-	}
-	
-	public String delete() {
-		return "";
-	}
+	private Schema newSchema = new Schema();
 	
 	private int curTab = 0;
 
@@ -76,6 +71,14 @@ public class ManageSchemaAction extends HttpServlet {
 
 	public void setSchemaName(String schemaName) {
 		this.schemaName = schemaName;
+	}
+
+	public Schema getNewSchema() {
+		return newSchema;
+	}
+
+	public void setNewSchema(Schema newSchema) {
+		this.newSchema = newSchema;
 	}
 
 }

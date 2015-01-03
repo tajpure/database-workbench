@@ -14,6 +14,10 @@ public class User {
 
 	private String driver;
 	
+	public User() {
+		// nothing
+	}
+	
 	public User(String username, String password, Database database) {
 		this.name = username;
 		this.password = password;

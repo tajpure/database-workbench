@@ -28,7 +28,6 @@ public class LoginAction extends HttpServlet{
 		}
 		
 		User user = new User(username, password, db);
-		
 		// Set url and driver for user
 		ConnectionPool.loadDatabaseProperty(user);
 		
@@ -40,9 +39,9 @@ public class LoginAction extends HttpServlet{
 		return "success";
 	}
 	
-	public String username;
+	private String username;
 	
-	public String password;
+	private String password;
 	
 	private int typeOfDB = 0;
 

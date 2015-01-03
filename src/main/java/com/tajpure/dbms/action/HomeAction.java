@@ -2,14 +2,17 @@ package com.tajpure.dbms.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.tajpure.dbms.database.DatabaseMetaDataFactory;
 import com.tajpure.dbms.database.DatabaseMetaDataWorker;
 import com.tajpure.dbms.entity.Column;
 import com.tajpure.dbms.entity.Schema;
 import com.tajpure.dbms.entity.Table;
+import com.tajpure.dbms.entity.User;
 
 public class HomeAction extends HttpServlet {
 	
@@ -23,6 +26,7 @@ public class HomeAction extends HttpServlet {
 		String tableName = curTable.getName();
 		String schemaName = curTable.getItsSchema();
 		DatabaseMetaDataWorker worker = factory.getWorker();
+		Map<String, Object> map = ActionContext.getContext().getSession();
 		if (tableName != null && page != 0) {
 			curTable = worker.getTable(schemaName, tableName);
 			values = worker.getValuesByPage(curTable, page, rowsPerPage);
@@ -37,6 +41,15 @@ public class HomeAction extends HttpServlet {
 			columns = worker.getColumns(curTable.getItsSchema(), curTable.getName());
 		}
 		worker.drop();
+		
+		user = (User) map.get("user");
+		user.setPassword("");
+		
+		return "success";
+	}
+	
+	public String newSchema() {
+		
 		return "success";
 	}
 
@@ -53,6 +66,8 @@ public class HomeAction extends HttpServlet {
 	private List<List<Object>> values = null;
 
 	private List<Column> columns = new ArrayList<Column>();
+	
+	private User user = new User();
 	
 	public List<Column> getColumns() {
 		return columns;
@@ -108,5 +123,13 @@ public class HomeAction extends HttpServlet {
 
 	public void setCurTab(int curTab) {
 		this.curTab = curTab;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

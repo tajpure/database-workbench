@@ -23,20 +23,21 @@
 </head>
 <body>
 	<div id="header">
-		<a href="home">Home</a>
-		<a href="user">Account</a>
+		<a href="home">Account</a>
 		<a href="logout">Logout</a>
 	</div>
 	<div id="left">
 		<ul class="menu-arbol">
 			<li>
-			<input type="button" class="schema-new-btn" value="New Schema"/>
+			<form action="home" method="post">
+			<input type="submit" class="schema-new-btn" value="New Schema"/>
+			</form>
 			</li>
 		</ul>
 		<c:forEach items="${schemas}" var="schema">
 		<ul class="menu-arbol">
 			<li>
-				<input type="radio" name="nivel-1" class="mostrar-menu" id="${schema.name}">
+				<input type="checkbox" name="nivel-1" class="mostrar-menu" id="${schema.name}">
 				<label for="${schema.name}" class="ampliar"></label>
 				<a>${schema.name}</a>
 				<a class="schema-config-btn" type="button" href="schema?schemaName=${schema.name}">Config</a>
