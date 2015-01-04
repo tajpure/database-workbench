@@ -2,7 +2,7 @@ Database Workbench
 ====
 A database management tool over the web.
 
-Demo(http://tajpure.com:8080/login)
+[Demo](http://tajpure.com:8080/login)
 ----
 user : root
 password : root
