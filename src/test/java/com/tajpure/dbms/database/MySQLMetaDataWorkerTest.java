@@ -15,7 +15,7 @@ public class MySQLMetaDataWorkerTest {
 	@Before
 	public void init() {
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
-		User user = new User("google", "google", Database.MySQL);
+		User user = new User("root", "root", Database.MySQL);
 		user.setDriver("com.mysql.jdbc.Driver");;
 		user.setUrl("jdbc:mysql://localhost:3306");
 		worker = factory.getWorker(user);
