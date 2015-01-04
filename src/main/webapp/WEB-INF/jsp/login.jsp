@@ -12,7 +12,6 @@
 <title>Workbench</title>
 </head>
 <body>
-
 	<div id="main">
 		<div id="login_card">
 			<div id="login">Welcome to Database Workbench</div>

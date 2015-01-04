@@ -5,9 +5,9 @@
 <html>
 <head>
 <style type="text/css">
-	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.min.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>

@@ -3,7 +3,7 @@
  * author:tajpure
  */
 
-var eidtor;
+var eidtor = null;
 
 function initEditor() {
 	editor = ace.edit("editor");
@@ -71,8 +71,14 @@ function Workbench(name, switcher, row) {
 			ValueForm.submit(); 
 		};
 		this.deleteValue = function() {
-			ValueForm.action="deleteValue?" + this.getSelectedItems();
-			ValueForm.submit();
+			var message = "Are you sure to delete these values?";
+			var items = this.getSelectedItems();
+			bootbox.confirm(message, function(result) {
+				if (result == true) {
+					ValueForm.action="deleteValue?" + items;
+					ValueForm.submit();
+				}
+			});
 		};
 		this.insertColumn = function() {
 			ColumnForm.action = "insertColumn";
@@ -83,8 +89,14 @@ function Workbench(name, switcher, row) {
 			ColumnForm.submit(); 
 		};
 		this.deleteColumn = function() {
-			ColumnForm.action="deleteColumn?" + this.getSelectedItems();
-			ColumnForm.submit();
+			var message = "Are you sure to delete these columns?";
+			var items = this.getSelectedItems();
+			bootbox.confirm(message, function(result) {
+				if (result == true) {
+					ColumnForm.action="deleteColumn?" + items;
+					ColumnForm.submit();
+				}
+			});
 		};
 		this.insertTable = function() {
 			ValueForm.action = "insertValue";
@@ -95,8 +107,14 @@ function Workbench(name, switcher, row) {
 			TableForm.submit(); 
 		};
 		this.deleteTable = function() {
-			TableForm.action="deleteTable?" + this.getSelectedItems();
-			TableForm.submit();
+			var message = "Are you sure to delete these tables?";
+			var items = this.getSelectedItems();
+			bootbox.confirm(message, function(result) {
+				if (result == true) {
+					TableForm.action="deleteTable?" + items;
+					TableForm.submit();
+				}
+			});
 		};
 		this.insertValue = function() {
 			ValueForm.action = "insertValue";

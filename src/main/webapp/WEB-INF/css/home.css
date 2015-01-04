@@ -34,7 +34,6 @@ body {margin: 0; background-color: #012B39;}
 #table {
 	position: relative;
 	top: 0px;
-	overflow-x: auto;
 }
 #main a {
 	text-decoration: none;

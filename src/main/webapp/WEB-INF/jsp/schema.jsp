@@ -8,7 +8,7 @@
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.min.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
@@ -16,6 +16,7 @@
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/ace/ace.js"></script>
 <script type="text/javascript" src="resources/js/ace/theme-twilight.js"></script>
+<script type="text/javascript" src="resources/js/bootbox.min.js"></script>
 <script src="resources/js/ace/mode-sql.js" type="text/javascript" charset="utf-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
