@@ -8,7 +8,7 @@
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap.min.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
@@ -101,7 +101,7 @@
 			<div id="table-name">
 				<h5 id="table-schema-name">${curSchema.name}</h5>
 				<h5>>></h5> 
-				<h5>properties</h5>
+				<h5>config</h5>
 			</div>
 			</c:if>
 			<br>

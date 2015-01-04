@@ -7,7 +7,7 @@
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
-	<!--<%@ include file="/WEB-INF/css/bootstrap.min.css"%>-->
+	<!--<%@ include file="/WEB-INF/css/bootstrap.css"%>-->
 </style>
 <script type="text/javascript" src="resources/js/jquery.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap-switch.js"></script>
@@ -15,6 +15,7 @@
 <script type="text/javascript" src="resources/js/workbench.js"></script>
 <script type="text/javascript" src="resources/js/ace/ace.js"></script>
 <script type="text/javascript" src="resources/js/ace/theme-twilight.js"></script>
+<script type="text/javascript" src="resources/js/bootbox.min.js"></script>
 <script src="resources/js/ace/mode-sql.js" type="text/javascript" charset="utf-8"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
@@ -97,7 +98,7 @@
 	</div>
 	<div id="main">
 			<c:if test="${empty curTable.itsSchema}">
-			<div id="table-name"><h5 id="table-schema-name">system</h5> <h5>>></h5> <h5>properties</h5></div>
+			<div id="table-name"><h5 id="table-schema-name">system</h5> <h5>>></h5> <h5>config</h5></div>
 			<br>
 			<div calss="tabpanel" role="tabpanel">
   			<!-- Nav tabs -->
@@ -122,6 +123,7 @@
 					</form>
 				</div>
 			    <div role="tabpanel" class="tab-pane" id="schemas">
+			    	<form name="SchemaForm" method="post">
 					<table>
 	  				<thead>
 	   				 <tr>
@@ -134,12 +136,13 @@
 					<c:forEach items="${schemas}" var="schema">
 	    			<tr>
 	      				<td><input type="text" class="table-text"  value="${schema.name}" name="curSchema.name" disabled/>
-						<td><input class="table-btn" type="button" onclick="dropSchema()" value="Drop"/>
+						<td><input class="table-btn" type="button" onclick="dropSchema('${schema.name}')" value="Drop"/>
 						<c:set var="i" scope="page" value="${i+1}"/>
 					</tr>
 					</c:forEach>
 	  				</tbody>
 					</table>
+					</form>
 			    </div>
 			 </div>
 			</div>
@@ -445,18 +448,6 @@
 					$(checkbox).prop('checked', true);
 					$(checkbox).val("1");
 				}
-			}
-			
-			function dropSchema() {
-				var r=confirm("Are you sure to delete this database:"+"?");
-				if (r==true)
-				  {
-				  alert("You pressed OK!");
-				  }
-				else
-				  {
-				  alert("You pressed Cancel!");
-				  }
 			}
 		</script>
 	</div>

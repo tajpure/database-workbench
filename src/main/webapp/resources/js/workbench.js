@@ -255,4 +255,14 @@ function execute() {
 	$.ajax({type:"GET",url:"executeCommond?commond="+commond+"&schemaName="+schemaName,success:function(result){
 	    $("#console").html(result);
 	  }});
+};
+
+function dropSchema(schema) {
+	var message = "Are you sure to delete the database " + schema + "?";
+	bootbox.confirm(message, function(result) {
+		if (result == true) {
+			SchemaForm.action = "dropSchema?curSchema.name="+schema;
+			SchemaForm.submit();
+		}
+	});
 }
