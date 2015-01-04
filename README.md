@@ -5,8 +5,8 @@ A database management tool over the web.
 Introduction
 ----
 [try demo](http://tajpure.com:8080/login)
-* user : root
-* password : root
+*user*:root
+*password*:root
 
 How to compile this project?
 ----
