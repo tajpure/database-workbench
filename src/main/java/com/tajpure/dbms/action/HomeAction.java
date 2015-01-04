@@ -43,7 +43,6 @@ public class HomeAction extends HttpServlet {
 		worker.drop();
 		
 		user = (User) map.get("user");
-		user.setPassword("");
 		
 		return "success";
 	}

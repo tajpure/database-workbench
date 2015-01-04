@@ -1,6 +1,6 @@
 package com.tajpure.dbms.database;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,19 +9,21 @@ import org.junit.Test;
 import com.tajpure.dbms.entity.User;
 
 public class MySQLMetaDataWorkerTest {
-	
+
 	DatabaseMetaDataWorker worker = null;
 	
 	@Before
 	public void init() {
 		DatabaseMetaDataFactory factory = DatabaseMetaDataFactory.getInstance();
 		User user = new User("google", "google", Database.MySQL);
-		worker = factory.getWorker();
+		user.setDriver("com.mysql.jdbc.Driver");;
+		user.setUrl("jdbc:mysql://localhost:3306");
+		worker = factory.getWorker(user);
 	}
 	
 	@Test
 	public void testGetDriverName() {
-		assertEquals("MySQL Connector Java", worker.getDriverName());
+		assertNotNull(worker.getDriverName());
 	}
 	
 	@Test
@@ -41,12 +43,12 @@ public class MySQLMetaDataWorkerTest {
 	
 	@Test
 	public void testGetColumn() {
-		assertNotNull(worker.getColumns("hoolai_share", "user"));
+		assertNotNull(worker.getColumns("hoolai_share", "function"));
 	}
 	
 	@Test
 	public void testGetColumns() {
-		assertNotNull(worker.getColumn("hoolai_share", "user", "name"));
+		assertNotNull(worker.getColumn("hoolai_share", "function", "fid"));
 	}
 	
 	@After

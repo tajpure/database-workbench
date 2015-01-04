@@ -19,7 +19,7 @@ public class DatabaseMetaDataFactory {
 		return getWorker(user);
 	}
 	
-	private DatabaseMetaDataWorker getWorker(User user) {
+	public DatabaseMetaDataWorker getWorker(User user) {
 		Connection con = ConnectionPool.getConnection(user);
 		DatabaseMetaDataWorker worker = null;
 		switch (user.getDatabase()) {
