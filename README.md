@@ -2,14 +2,11 @@ Database Workbench
 ====
 A database management tool over the web.
 
-[Demo](http://tajpure.com:8080/login)
-----
-user : root
-password : root
-
 Introduction
 ----
-To Do
+[try demo](http://tajpure.com:8080/login)
+* user : root
+* password : root
 
 How to compile this project?
 ----
