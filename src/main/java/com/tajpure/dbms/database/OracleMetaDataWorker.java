@@ -192,6 +192,18 @@ public class OracleMetaDataWorker extends DatabaseMetaDataWorker {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int createSchema(Schema schema) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int dorpSchema(Schema schema) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
 

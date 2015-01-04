@@ -54,9 +54,9 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		try {
 			ResultSet rs = metaData.getCatalogs();
 			while (rs.next()) {
-				if (isSysSchema(rs.getString(1))) {
-					continue;
-				}
+//				if (isSysSchema(rs.getString(1))) {
+//					continue;
+//				}
 				Schema schema = new Schema();
 				schema.setName(rs.getString(1));
 				schema.setTables(getTables(schema.getName()));
@@ -71,14 +71,22 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 	@Override
 	public Table getTable(String schemaName, String tableName) {
 		Table table = null;
-		table = getTables(schemaName, "%", tableName, new String[] {"TABLE"}, true).get(0);
+		if (isSysSchema(schemaName)) {
+			table = getTables(schemaName, "%", tableName, null, true).get(0);
+		} else {
+			table = getTables(schemaName, "%", tableName, new String[] {"TABLE"}, true).get(0);
+		}
 		return table;
 	}
 
 	@Override
 	public List<Table> getTables(String schemaName) {
 		List<Table> tables = null;
-		tables = getTables(schemaName, "%", "%", new String[] {"TABLE"}, false);
+		if (isSysSchema(schemaName)) {
+			tables = getTables(schemaName, "%", "%", null, false);
+		} else {
+			tables = getTables(schemaName, "%", "%", new String[] {"TABLE"}, false);
+		}
 		return tables;
 	}
 	
@@ -888,5 +896,56 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		}
 		return count;
 	}
+
+	@Override
+	public int createSchema(Schema schema) {
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "");
+        int rs = 0;
+        
+        try {
+        		SQL = getCreateSchemaSQL(schema);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+		return rs;
+	}
 	
+	public String getCreateSchemaSQL(Schema schema) {
+		StringBuilder SQL = new StringBuilder("create database ");
+		SQL.append(schema.toString())
+			.append(";");
+		return SQL.toString();
+	}
+
+	@Override
+	public int dorpSchema(Schema schema) {
+		String SQL = null;
+        PreparedStatement stmt = null;
+        Connection con = ConnectionPool.getNewConnection(user, "");
+        int rs = 0;
+        
+        try {
+        		SQL = getDropSchemaSQL(schema);
+        		stmt = con.prepareStatement(SQL);
+        		rs = stmt.executeUpdate();
+        		con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+		return rs;
+	}
+	
+	public String getDropSchemaSQL(Schema schema) {
+		StringBuilder SQL = new StringBuilder("drop database ");
+		SQL.append(schema.getName())
+			.append(";");
+		return SQL.toString();
+	}
 }

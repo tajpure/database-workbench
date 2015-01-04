@@ -27,7 +27,17 @@ public class ManageSchemaAction extends HttpServlet {
 	}
 	
 	public String createSchema() {
-		
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		worker.createSchema(newSchema);
+		worker.drop();
+		return "success";
+	}
+	
+	public String dropSchema() {
+		DatabaseMetaDataWorker worker = factory.getWorker();
+		worker.dorpSchema(curSchema);
+		worker.drop();
+		curTab = 1;
 		return "success";
 	}
 	
@@ -45,7 +55,7 @@ public class ManageSchemaAction extends HttpServlet {
 
 	private List<Schema> schemas = null;
 	
-	private Schema curSchema = null;
+	private Schema curSchema = new Schema();
 	
 	private String schemaName;
 

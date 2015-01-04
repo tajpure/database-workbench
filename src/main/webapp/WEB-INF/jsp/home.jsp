@@ -21,7 +21,8 @@
 </head>
 <body>
 	<div id="header">
-		<a href="home">Account</a>
+		<a href="home">Home</a>
+		<a href="user">Account</a>
 		<a href="logout">Logout</a>
 	</div>
 	<div id="left">
@@ -96,39 +97,52 @@
 	</div>
 	<div id="main">
 			<c:if test="${empty curTable.itsSchema}">
-			<div id="table-name"><h5 id="table-schema-name">Account Info</h5></div>
-						<table>
-  						<thead>
-	  						<tr>
-		      				<th><a data-tooltip="User Name">Name</a>
-		      				<th><a>Driver</a>
-		      				<th><a>URL</a>
- 						</thead>
-  						<tbody>
-  							<tr>
-  							<td><input type="text" class="table-text"  value="${user.name}"/>
-  							<td><input type="text" class="table-text" value="${user.driver}"/>
-							<td><input type="text" class="table-text" value="${user.url}">
-  						</tbody>
-						</table>
-			</c:if>
-			<c:if test="${empty curTable.itsSchema and empty user}">
-			<div id="table-name"><h5 id="table-schema-name">New Schema :</h5></div>
-						<form action="createSchema" method="post">
-						<table>
-  						<thead>
-	  						<tr>
-		      				<th><a data-tooltip="Schema Name">Name</a>
-		      				<th><a data-tooltip="Schema Remark">Remark</a>
- 						</thead>
-  						<tbody>
-  							<tr>
-  							<td><input type="text" class="table-text"  name="newSchema.name"/>
-  							<td><input type="text" class="table-text" name="newSchema.remarks"/>
-							<td><input class="table-btn" value="New" type="submit">
-  						</tbody>
-						</table>
-						</form>
+			<div id="table-name"><h5 id="table-schema-name">system</h5> <h5>>></h5> <h5>properties</h5></div>
+			<br>
+			<div calss="tabpanel" role="tabpanel">
+  			<!-- Nav tabs -->
+  			<ul class="nav nav-tabs" role="tablist">
+   			<li role="presentation" class="active"><a id="tab0" href="#create" aria-controls="create" role="tab" data-toggle="tab">Create Schema</a></li>
+    		<li role="presentation"><a id="tab1" href="#schemas" aria-controls="schemas" role="tab" data-toggle="tab">Schemas</a></li>
+  			</ul>
+  			 <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="create">
+					<form action="createSchema" method="post">
+					<table>
+  					<thead>
+	  				<tr>
+		      		<th><a data-tooltip="Schema Name">Name</a>
+ 					</thead>
+  					<tbody>
+  					<tr>
+  					<td><input type="text" class="table-text"  name="newSchema.name"/>
+					<td><input class="table-btn" value="New" type="submit">
+  					</tbody>
+					</table>
+					</form>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="schemas">
+					<table>
+	  				<thead>
+	   				 <tr>
+						<c:if test="${not empty curSchema.name}">
+	      				<th>Schema
+						</c:if>
+	 				</thead>
+	  				<tbody>
+	    			<c:set var="i" scope="page" value="0"/>
+					<c:forEach items="${schemas}" var="schema">
+	    			<tr>
+	      				<td><input type="text" class="table-text"  value="${schema.name}" name="curSchema.name" disabled/>
+						<td><input class="table-btn" type="button" onclick="dropSchema()" value="Drop"/>
+						<c:set var="i" scope="page" value="${i+1}"/>
+					</tr>
+					</c:forEach>
+	  				</tbody>
+					</table>
+			    </div>
+			 </div>
+			</div>
 			</c:if>
 			<c:choose>
 			<c:when test="${not empty curTable.itsSchema}">
@@ -137,13 +151,13 @@
 			<div calss="tabpanel" role="tabpanel">
   			<!-- Nav tabs -->
   			<ul class="nav nav-tabs" role="tablist">
-   			<li role="presentation" class="active"><a id="tab0" href="#home" aria-controls="home" role="tab" data-toggle="tab">Values</a></li>
-    		<li role="presentation"><a id="tab1" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Columns</a></li>
-    		<li role="presentation"><a id="tab2" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">SQL</a></li>
+   			<li role="presentation" class="active"><a id="tab0" href="#values" aria-controls="values" role="tab" data-toggle="tab">Values</a></li>
+    		<li role="presentation"><a id="tab1" href="#columns" aria-controls="columns" role="tab" data-toggle="tab">Columns</a></li>
+    		<li role="presentation"><a id="tab2" href="#sql" aria-controls="sql" role="tab" data-toggle="tab">SQL</a></li>
   			</ul>
 			<!-- Tab panes -->
 			  <div class="tab-content">
-			    <div role="tabpanel" class="tab-pane active" id="home">
+			    <div role="tabpanel" class="tab-pane active" id="values">
 			<div id="table">
 				<form name="ValueForm" method=post>
 				<table>
@@ -228,7 +242,7 @@
 			</c:choose>
 			</div>
 			 </div>
-			    <div role="tabpanel" class="tab-pane" id="profile">
+			    <div role="tabpanel" class="tab-pane" id="columns">
 			<div id="table">
 				<form name="ColumnForm" method=post>
 				<table>
@@ -401,7 +415,7 @@
 				</form>
 			</div>
 			    </div>
-			    <div role="tabpanel" class="tab-pane" id="settings">
+			    <div role="tabpanel" class="tab-pane" id="sql">
 						<div id="editor"></div><br>
 						<div id="console-box">console:<div id="console"></div></div>
 						<input id="table-btn-execute" type="button" class="table-btn" value="execute" onclick="execute();"/>
@@ -431,6 +445,18 @@
 					$(checkbox).prop('checked', true);
 					$(checkbox).val("1");
 				}
+			}
+			
+			function dropSchema() {
+				var r=confirm("Are you sure to delete this database:"+"?");
+				if (r==true)
+				  {
+				  alert("You pressed OK!");
+				  }
+				else
+				  {
+				  alert("You pressed Cancel!");
+				  }
 			}
 		</script>
 	</div>

@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 body {margin: 0; background-color: #012B39;}
 * {font-family: Consolas, monaco, monospace;}
-#left {position: relative;float: left;margin: 0px;top: 20px;left: 0px; width:400px;padding:10px}
-#main {float: left;position: relative;top:20px;left:0px;width:1000px;padding-bottom: 60px;hieght:720px;}
+#left {position: relative;float: left;top: 20px;left: 0px; width:320px; font-size: 12px;height: 790px;overflow-y:auto;overflow-x: hidden;}
+#main {float: left;position: relative;top:0px;left:32px;width:1000px;padding-bottom: 60px;hieght:720px;}
 #footer {
     clear: both;
     position: relative;
@@ -179,7 +179,7 @@ body {margin: 0; background-color: #012B39;}
 	opacity: 1;
 }
 .schema-config-btn {
-	width: 46px;
+	width: 40px;
 	height: 20px;
 	border: none;
 	font-weight: normal;
@@ -207,7 +207,7 @@ body {margin: 0; background-color: #012B39;}
 	background-color: #1abc9c;
 }
 .table-text {
-	width: 80px;
+	width: 100px;
 	height: 20px;
 }
 .menu-arbol ul {
@@ -293,7 +293,7 @@ li {
 
 nav {
 	margin: 0 auto;
-	width: 400px;
+	width: 480px;
 }
 
 .menu-arbol,.menu-arbol a,.menu-arbol a:link {

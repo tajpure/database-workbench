@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
 <style type="text/css">
 	<!--<%@ include file="/WEB-INF/css/home.css"%>-->
 	<!--<%@ include file="/WEB-INF/css/bootstrap-switch.min.css"%>-->
@@ -23,7 +22,8 @@
 </head>
 <body>
 	<div id="header">
-		<a href="home">Account</a>
+		<a href="home">Home</a>
+		<a href="user">Account</a>
 		<a href="logout">Logout</a>
 	</div>
 	<div id="left">
@@ -108,13 +108,13 @@
 			<div role="tabpanel">
   			<!-- Nav tabs -->
   			<ul class="nav nav-tabs" role="tablist">
-   			<li role="presentation" class="active"><a id="tab0" href="#home" aria-controls="home" role="tab" data-toggle="tab">Tables</a></li>
-    		<li role="presentation"><a id="tab1" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Create Table</a></li>
-    		<li role="presentation"><a id="tab2" href="#settings" aria-controls="settings" role="tab" data-toggle="tab">SQL</a></li>
+   			<li role="presentation" class="active"><a id="tab0" href="#tables" aria-controls="tables" role="tab" data-toggle="tab">Tables</a></li>
+    		<li role="presentation"><a id="tab1" href="#create" aria-controls="create" role="tab" data-toggle="tab">Create Table</a></li>
+    		<li role="presentation"><a id="tab2" href="#sql" aria-controls="sql" role="tab" data-toggle="tab">SQL</a></li>
   			</ul>
 			<!-- Tab panes -->
 			  <div class="tab-content">
-			    <div role="tabpanel" class="tab-pane active" id="home">
+			    <div role="tabpanel" class="tab-pane active" id="tables">
 			    	<div id="table">
 				<form name="TableForm" method=post>
 				<table>
@@ -144,7 +144,7 @@
 				</form>
 			</div>
 			    </div>
-			    <div role="tabpanel" class="tab-pane" id="profile">
+			    <div role="tabpanel" class="tab-pane" id="create">
 			    	<form action="createTable" method="post">
 						<table>
   						<thead>
@@ -237,7 +237,7 @@
 						</table>
 			    	</form>
 				</div>
-			    <div role="tabpanel" class="tab-pane" id="settings">
+			    <div role="tabpanel" class="tab-pane" id="sql">
 			    	<form action="commond">
 						<div><div id="editor"></div></div><br>
 						<input id="table-btn-execute" type="button" class="table-btn" value="execute"/>

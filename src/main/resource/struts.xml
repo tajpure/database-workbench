@@ -41,7 +41,15 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="createSchema" class="com.tajpure.dbms.action.ManageSchemaAction" method="createScehma">
+		<action name="createSchema" class="com.tajpure.dbms.action.ManageSchemaAction" method="createSchema">
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="curTab">${curTab}</param>
+			</result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="dropSchema" class="com.tajpure.dbms.action.ManageSchemaAction" method="dropSchema">
 			<result name="success" type="redirectAction">home</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
@@ -145,6 +153,11 @@
 		</action>
 		<action name="executeCommond" class="com.tajpure.dbms.action.CommondAction">
 			<result></result>
+			<interceptor-ref name="sessionNull"></interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+		</action>
+		<action name="user" class="com.tajpure.dbms.action.ManageUserAction">
+			<result name="success">/WEB-INF/jsp/user.jsp</result>
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>

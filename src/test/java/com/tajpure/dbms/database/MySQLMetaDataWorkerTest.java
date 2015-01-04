@@ -33,22 +33,22 @@ public class MySQLMetaDataWorkerTest {
 
 	@Test
 	public void testGetTable() {
-		assertNotNull(worker.getTable("hoolai_share", "authorities"));
+		assertNotNull(worker.getTable("information_schema", "TABLES"));
 	}
 	
 	@Test
 	public void testGetTables() {
-		assertNotNull(worker.getTables("hoolai_share"));
+		assertNotNull(worker.getTables("information_schema"));
 	}
 	
 	@Test
 	public void testGetColumn() {
-		assertNotNull(worker.getColumns("hoolai_share", "function"));
+		assertNotNull(worker.getColumns("information_schema", "TABLES"));
 	}
 	
 	@Test
 	public void testGetColumns() {
-		assertNotNull(worker.getColumn("hoolai_share", "function", "fid"));
+		assertNotNull(worker.getColumn("information_schema", "TABLES", "TABLE_CATALOG"));
 	}
 	
 	@After

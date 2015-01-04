@@ -73,6 +73,10 @@ public abstract class DatabaseMetaDataWorker {
 		return driverName;
 	}
 	
+	public abstract int createSchema(Schema schema);
+	
+	public abstract int dorpSchema(Schema schema);
+	
 	public abstract List<Schema> getSchemas();
 	
 	public abstract Schema getSchema(String schemaName);

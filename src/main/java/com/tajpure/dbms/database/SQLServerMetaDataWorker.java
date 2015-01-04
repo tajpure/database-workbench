@@ -178,4 +178,16 @@ public class SQLServerMetaDataWorker extends DatabaseMetaDataWorker {
 		return null;
 	}
 
+	@Override
+	public int createSchema(Schema schema) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int dorpSchema(Schema schema) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
