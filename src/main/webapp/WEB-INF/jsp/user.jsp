@@ -29,7 +29,9 @@
 	<div id="left">
 	</div>
 	<div id="main">
-			${user.name}>>${user.password}
+			User name:<input type="text" class="form-control input-sm" value="${user.name}" name="newSchema.name"/><br><br>
+			Driver:<input type="text" class="form-control input-sm" value="${user.driver}" name="newSchema.name"/><br><br>
+			URL:<input type="text" class="form-control input-sm" value="${user.url}" name="newSchema.name"/><br><br>
 	</div>
 	<div id="footer">
 	</div>
