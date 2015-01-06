@@ -539,12 +539,6 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		
 		return functions;
 	}
-	
-	public int createSchema(String schemaName) {
-		int rs = 0;
-//		rs = metaData.
-		return rs;
-	}
 
 	@Override
 	public int updateColumns(Table table, List<Column> oldColumns,
