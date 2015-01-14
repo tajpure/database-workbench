@@ -18,6 +18,36 @@ body {margin: 0; background-color: #012B39;}
 #header a {
 	margin-right: 20px;
 }
+.scrollbar
+{
+	margin-left: 30px;
+	float: left;
+	height: 300px;
+	width: 65px;
+	background: #012B39;
+	overflow-y: scroll;
+	overflow-x: scroll;
+	margin-bottom: 25px;
+}
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #012B39;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #012B39;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
 #page {
 	position: relative;
 	margin-top: 40px;

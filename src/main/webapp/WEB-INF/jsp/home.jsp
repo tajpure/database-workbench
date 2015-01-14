@@ -20,7 +20,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Workbench</title>
 </head>
-<body>
+<body id="scroll-style">
 	<div id="header">
 		<a href="home">Home</a>
 		<a href="user">Account</a>
