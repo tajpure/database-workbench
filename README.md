@@ -4,7 +4,7 @@ A database management tool over the web.
 
 Introduction
 ----
-[try demo](http://tajpure.com:8080/login)
+[try demo](http://107.170.253.250:8080/login)
 
 ``user``:root
 
