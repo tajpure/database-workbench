@@ -110,7 +110,8 @@ public class ConnectionPool {
 
 	public static Connection getNewConnection(User user, String schema) {
 		try {
-			Connection con = DriverManager.getConnection(user.getUrl() + "/" +  schema, user.getName(),user.getPassword());
+			String url = user.getUrl() + "/" +  schema + "?characterEncoding=utf-8&connectTimeout=3000";
+			Connection con = DriverManager.getConnection(url, user.getName(),user.getPassword());
 			return con;
 		} catch (SQLException e) {
 			e.printStackTrace();
