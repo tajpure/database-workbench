@@ -100,7 +100,7 @@
 			<interceptor-ref name="sessionNull"></interceptor-ref>
 			<interceptor-ref name="defaultStack" />
 		</action>
-		<action name="saveColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="update">
+		<action name="updateColumn" class="com.tajpure.dbms.action.ManageColumnAction" method="update">
 			<result name="success" type="redirectAction" > 
 				<param name="actionName">home</param>
 				<param name="curTable.itsSchema">${curTable.itsSchema}</param>

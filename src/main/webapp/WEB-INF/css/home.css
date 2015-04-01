@@ -2,7 +2,7 @@
 body {margin: 0; background-color: #012B39;}
 * {font-family: Consolas, monaco, monospace;}
 #left {position: relative;float: left;top: 20px;left: 0px; width:320px; font-size: 12px;height: 790px;overflow-y:auto;overflow-x: hidden;}
-#main {float: left;position: relative;top:20px;left:20px;width:1080px;padding-bottom: 60px;hieght:720px;}
+#main {float: left;position: relative;top:0px;left:20px;width:1080px;padding-bottom: 60px;hieght:720px;}
 #footer {
     clear: both;
     position: relative;
@@ -26,7 +26,6 @@ body {margin: 0; background-color: #012B39;}
 	width: 65px;
 	background: #012B39;
 	overflow-y: scroll;
-	overflow-x: scroll;
 	margin-bottom: 25px;
 }
 ::-webkit-scrollbar-track

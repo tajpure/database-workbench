@@ -191,7 +191,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					lists.add(objs);
 				}
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -222,7 +222,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					lists.add(objs);
 				}
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -257,7 +257,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 				ResultSet rs = stmt.executeQuery();
 				rs.next();
 				totalRows = rs.getInt(1);
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 				if (totalRows % rowsPerPage == 0) {
 					totalPages = totalRows / rowsPerPage;
 				} else {
@@ -292,7 +292,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					stmt.setObject(i, mapDataType(columns.get(i-1), obj.get(i-1).toString()));
 		        }
 				rs = stmt.executeUpdate();
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -324,7 +324,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					rs = stmt.executeUpdate();
 				}
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -383,7 +383,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					rs = stmt.executeUpdate();
 				}
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -435,7 +435,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					rs = stmt.executeUpdate();
 				}
-				con.close();
+				ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -558,7 +558,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
         	}
-			con.close();
+			ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -613,7 +613,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
         	}
-			con.close();
+        	ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -643,7 +643,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		SQL = getInsertColumnSQL(tableName, column);
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
-			con.close();
+			ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -715,7 +715,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		SQL = getCreatTableSQL(table);
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -762,7 +762,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		SQL = getDropTableSQL(table);
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -791,7 +791,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		        	stmt = con.prepareStatement(SQL);
 		        	rs = stmt.executeUpdate();
         		}
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -818,7 +818,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 		        	stmt = con.prepareStatement(SQL);
 		        	rs = stmt.executeUpdate();
         		}
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -843,7 +843,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         try {
 		        stmt = con.prepareStatement(sql);
 		        rs = stmt.executeUpdate();
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -867,7 +867,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
 					}
 					lists.add(objs);
 				}
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -902,7 +902,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		SQL = getCreateSchemaSQL(schema);
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -928,7 +928,7 @@ public class MySQLMetaDataWorker extends DatabaseMetaDataWorker {
         		SQL = getDropSchemaSQL(schema);
         		stmt = con.prepareStatement(SQL);
         		rs = stmt.executeUpdate();
-        		con.close();
+        		ConnectionPool.pushConnectionBackToPool(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
