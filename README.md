@@ -2,17 +2,9 @@ Database Workbench
 ====
 A database management tool over the web.
 
-Introduction
-----
-[try demo](http://107.170.253.250:8080/login)
-
-``user``:root
-
-``password``:root
-
 How to compile this project?
 ----
-To Do
+mvn package
 
 Database Type
 ----
