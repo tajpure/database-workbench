@@ -1,4 +1,4 @@
-Database Workbench
+Dbms Client
 ====
 A database management tool over the web.
 
