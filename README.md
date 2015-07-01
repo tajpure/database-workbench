@@ -1,4 +1,4 @@
-Dbms Client
+DBMS Client
 ====
 A database management tool over the web.
 
