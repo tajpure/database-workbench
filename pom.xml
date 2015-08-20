@@ -1,8 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>DBMS-web</groupId>
-	<artifactId>DBMS-web</artifactId>
+	<artifactId>dbms-client</artifactId>
 	<version>0.0.1</version>
 	<packaging>war</packaging> 
 	<build>
@@ -11,15 +10,14 @@
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-war-plugin</artifactId>
 			    <version>2.1.1</version>
+	            <configuration>
+	            <source>1.7</source>
+	            <target>1.7</target>
+	            </configuration>
 		    </plugin>
 		</plugins>
     </build>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>3.2</version>
-		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -101,4 +99,5 @@
 			<version>1.2.11</version>
 		</dependency>
 	</dependencies>
+	<groupId>dbms-client</groupId>
 </project>

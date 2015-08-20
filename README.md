@@ -6,6 +6,12 @@ How to compile this project?
 ----
 mvn package
 
+Demo
+----
+![demo1](./demo/create_table.png)
+
+![demo2](./demo/values.png)
+
 Database Type
 ----
 + MySQL
